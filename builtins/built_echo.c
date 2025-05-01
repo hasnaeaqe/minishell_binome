@@ -6,11 +6,11 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:08:32 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/04/29 20:14:13 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/05/01 17:14:59 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "builtins.h"
 
 int	is_valid_option(char *str)
 {
