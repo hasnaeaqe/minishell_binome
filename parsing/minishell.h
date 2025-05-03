@@ -1,0 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
+/*   Updated: 2025/05/03 21:50:30 by cbayousf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <limits.h>
+#include <stdlib.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
+typedef enum e_tok_type {
+	TOK_WORD,
+	TOK_PIPE,
+	TOK_REDIR_IN,
+	TOK_REDIR_OUT,
+	TOK_REDIR_APPEND,
+	TOK_REDIR_HEREDOC,
+} t_tok_type;
+
+typedef struct s_token{
+	t_tok_type		type;
+	char			*value;
+	struct s_token	*next;
+} t_token;
+
+typedef enum e_node_type {
+    NODE_COMMAND,
+    NODE_PIPE
+} t_node_type;
+
+typedef enum e_redir_type {
+    REDIR_INPUT,     
+    REDIR_OUTPUT,   
+    REDIR_APPEND,   
+    REDIR_HEREDOC 
+} t_redir_type;
+
+typedef struct s_redir_node {
+    t_redir_type      kind;
+    char             *filename;
+    struct s_redir_node *next;
+} t_redir_node;
+
+typedef struct s_tree {
+    t_node_type     kind;
+    char         **argv; 
+    t_redir_node  *redirs;
+    int            pipes[2];
+    int            ambiguous; 
+
+    struct s_tree *left; 
+    struct s_tree *right;
+} t_tree;
+
+char	*ft_strdup(const char *s1);
+char	*ft_strndup(const char *s1,int n);
+void	*ft_malloc(size_t i);
