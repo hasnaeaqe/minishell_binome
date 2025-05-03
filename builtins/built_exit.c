@@ -6,8 +6,17 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/01 18:14:13 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/05/03 21:42:05 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../executer.h"
+
+void exi(int n)
+{
+	exit(n);
+}
+// int main(){
+//     printf("okey");
+//     ft_exi();
+// }

@@ -6,11 +6,11 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:08:32 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/01 17:14:59 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/05/03 20:15:56 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../executer.h"
 
 int	is_valid_option(char *str)
 {
@@ -63,11 +63,11 @@ void	ft_echo(char **argv)
 		write(1, "\n", 1);
 }
 
-int	main(int argc, char **argv)
-{
-	if (argc >= 1)
-	{
-		ft_echo(argv);
-	}
-	return (0);
-}
+// int	main(int argc, char **argv)
+// {
+// 	if (argc >= 1)
+// 	{
+// 		ft_echo(argv);
+// 	}
+// 	return (0);
+// }

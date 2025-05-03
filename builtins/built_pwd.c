@@ -6,23 +6,11 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:42:34 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/01 17:15:33 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/05/03 20:17:07 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-
-void	ft_putstr(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		write(1, &s[i], 1);
-		i++;
-	}
-}
+#include "../executer.h"
 
 void	ft_pwd(void)
 {
@@ -41,8 +29,8 @@ void	ft_pwd(void)
 	}
 }
 
-int	main(void)
-{
-	ft_pwd();
-	return (1);
-}
+// int	main(void)
+// {
+// 	ft_pwd();
+// 	return (1);
+// }
