@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:10:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/03 21:44:41 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:42:22 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,6 @@ void	*ft_malloc(size_t i)
 	return (k);
 }
 
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
 t_env	*create_node(char *cle, char *val)
 {
 	t_env	*env;
@@ -77,8 +67,6 @@ char	*ext_key(char *env)
 	if (env[i] != '=')
 		return (NULL);
 	key = ft_malloc(sizeof(char) * (i + 1));
-	if (!key)
-		return (NULL);
 	i = 0;
 	while (env[i] && env[i] != '=')
 	{
@@ -101,8 +89,6 @@ char	*ext_val(char *env)
 	if (env[i] != '=')
 		return (NULL);
 	value = ft_malloc(sizeof(char) * ((ft_strlen(env) - i) + 1));
-	if (!value)
-		return (NULL);
 	i++;
 	k = 0;
 	while (env[i])
