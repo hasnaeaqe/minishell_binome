@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:46:03 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/06 17:21:42 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:32:33 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,23 @@
 // 	return NULL;
 // }
 
+void ft_free_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	if(!tab[i])
+		return ;
+	while(tab[i])
+		free(tab[i++]);
+	free(tab);
+}
 char *find_cmd_path(char *cmd, char **env)
 {
 	(void) env;
 	char *tmp;
 	char *full_path;
 	int i;
-	int j;
 
 	// char *path = get_path_from_env(env);
 	// if (path == NULL)
@@ -48,66 +58,61 @@ char *find_cmd_path(char *cmd, char **env)
 		tmp = ft_strjoin(dirs[i], "/");
 		full_path = ft_strjoin(tmp, cmd);
 		free(tmp);
-
 		if (access(full_path, X_OK) == 0)
 		{
-			j = 0;
-			while(dirs[j])
-			{
-				free(dirs[j]);
-				j++;
-			}
+			ft_free_tab(dirs);
 			return (full_path);
 		}
 		free(full_path);
 		i++;
 	}
-	j = 0;
-	while(dirs[j])
+	full_path = ft_strjoin("./", cmd);
+	if (access(full_path, X_OK) == 0)
 	{
-		free(dirs[j]);
-		j++;
+		ft_free_tab(dirs);
+		return (full_path);
 	}
+	ft_free_tab(dirs);
 	return NULL;
 }
 
-
-int main(int ac, char **av, char **env)
+void execute_cmd(char **argv, char **env)
 {
-	if (ac != 2)
-		return(1);
-	pid_t pid = fork();
-	if (pid < 0)
+	pid_t pid;
+	char *path;
+
+	pid = fork();
+	if(pid < 0)
 	{
 		perror("fork");
-		return 1;
+		return ;
 	}
 	else if (pid == 0)
 	{
-		printf("je suis l enfant,j execute %s\n", av[1]);
-		char *cmd_path = find_cmd_path(av[1], env);
-		if (!cmd_path)
+		path = find_cmd_path(argv[1], env);
+		if(!path)
 		{
-			perror("Commande introuvable");
+			perror("Commande introvable!");
 			exit(1);
 		}
-
-		// Crée le tableau d’arguments : av[1] et NULL
-		char *args[] = {av[1],av[2] NULL};
-
-		// Lance la commande
-		if (execve(cmd_path, args, env) == -1)
+		if (execve(path, argv + 1, env) == -1)
 		{
-			perror("execve");
-			free(cmd_path); // on libère si execve échoue
+			perror("execv");
+			free(path);
 			exit(1);
 		}
 	}
 	else
 	{
 		wait(NULL);
-		printf("Je suis le parent. L'enfant a terminé.\n");
 	}
-	 return 0;
 }
 
+// int main(int ac, char **av, char **env)
+// {
+// 	if (ac < 2)
+// 		return(1);
+// 	execute_cmd(av, env);
+// 	sleep(10); // temps pour analyser avec leaks
+// 	return 0;
+// }

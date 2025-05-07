@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:23:42 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/06 17:06:48 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:29:04 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <fcntl.h>
 
 typedef struct s_env
 {
@@ -39,5 +40,5 @@ int		ft_atoi( char *str);
 int		ft_strcmp(char *s1, char *s2);
 char	**ft_split(char const  *s, char c);
 char	*ft_strjoin(char  *s1, char  *s2);
-
+char *find_cmd_path(char *cmd, char **env);
 #endif
