@@ -101,18 +101,18 @@ char	*ext_val(char *env)
 	value[k] = '\0';
 	return (value);
 }
-// int check_key(char *str)
-// {
-//     int i;
-//     i = 0;
-//     while(str[i])
-//     {
-//         if(str[i] == '=')
-//             return (1);
-//         i++;
-//     }
-//     return (0);
-// }
+int check_key(char *str)
+{
+    int i;
+    i = 0;
+    while(str[i])
+    {
+        if(str[i] == '=')
+            return (1);
+        i++;
+    }
+    return (0);
+}
 void	ft_printenv(t_env *head)
 {
 	t_env	*tmp;

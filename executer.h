@@ -47,4 +47,5 @@ char	*find_cmd_path(char *cmd, char **env);
 void	execute_2cmd(char **argv, char **env);
 char	*ext_val(char *env);
 char	*ext_key(char *env);
+int		check_key(char *str);
 #endif

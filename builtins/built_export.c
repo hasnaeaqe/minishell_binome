@@ -78,10 +78,18 @@ int main(int argc, char **argv)
     int i = 1;
     while(argv[i])
     {
-        char *key = ext_key(argv[i]);
-        char *val = ext_val(argv[i]);
-        t_env *new = create_node(key, val);
-        ft_lstadd_back(&head, new);
+        if(check_key(argv[i]) == 1)
+        {
+            char *key = ext_key(argv[i]);
+            char *val = ext_val(argv[i]);
+            t_env *new = create_node(key, val);
+            ft_lstadd_back(&head, new);
+        }
+        else
+        {
+            t_env *nov = create_node(argv[i], "");
+            ft_lstadd_back(&head, nov);
+        }
         i++;
     }
     ft_printenv(head);
