@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:32:06 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/05/03 20:21:59 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:37:33 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,14 @@ void tokenisation(char *str,t_token **token)
     char *word_quote;
     char quote;
     int i;
-    i = 0;
     
-   
+    i = 0;
     while(str[i])
     {
         while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
             i++;
+        if (!str[i])
+            return;
         if(str[i]=='|')
         {
             add_token(token,TOK_PIPE,"|");
@@ -125,50 +126,41 @@ void tokenisation(char *str,t_token **token)
                 i++;
             }
         }
-        else if (str[i]== '\'' || str[i]=='"')
-        {
-            quote=str[i];
-            start = i++;
-            while(str[i])
-            {
-                if(str[i]!=quote)
-                    i++;
-                else{
-                    while(str[i] && str[i] != ' ' && str[i] != '|' && str[i] != '<' && str[i]!='>')
-                        i++;
-                    break;
-                }
-            }
-            if (i > start)
-            {
-                word_quote=ft_strndup(&str[start],i-start);
-                add_token(token,TOK_WORD,word_quote);
-            }
-            if (str[i])
-                i++;
-        }
         else
         {
             start = i;
-            while(str[i] && str[i] != ' ' && str[i] != '|' && str[i] != '<' && str[i]!='>')
-                i++;
-            if (i> start)
+            if (str[i]== '\'' || str[i]=='"')
             {
-                word_quote=ft_strndup(&str[start],i-start);
-                add_token(token,TOK_WORD,word_quote);
+                quote=str[i];
+                while(str[i] && str[i] != quote)
+                    i++;
             }
-        }
+            while (str[i] && str[i] != ' ' && str[i] != '|' && str[i] != '<' && str[i]!='>')
+            {
+                if (str[i]== '\'' || str[i]=='"')
+                {
+                    quote=str[i++];
+                    while(str[i] && str[i] != quote)
+                        i++;
+                    i++;
+                }
+                else
+                    i++;
+            }
+            word_quote=ft_strndup(&str[start],i-start);
+            add_token(token,TOK_WORD,word_quote);
+        }    
     }
 }
 // void f()
 // {
-//     system("leaks a.out");
+//     system("leaks minishell");
 // }
 int main(void)
 {
     char *line;
     t_token *token;
-    //atexit(f);
+    // atexit(f);
     while (1)
     {
         line = readline("minishell$ ");
@@ -176,15 +168,10 @@ int main(void)
             break;
         if (*line)
             add_history(line);
-        token=NULL;
+        token = NULL;
         tokenisation(line,&token);
         print_tokens(token);
-        if(check_syntax_errors(token)!=0)
-        {
-            free_tokens(token);
-            free(line);
-            return (1);
-        }
+        check_syntax_errors(token);
         free_tokens(token);
         free(line);
     }
