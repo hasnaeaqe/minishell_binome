@@ -12,17 +12,11 @@
 
 #include "executer.h"
 
-int main(int argc, char **argv, char **env)
+void execute_2cmd(char **argv, char **env)
 {
     int pipefd[2];
     pid_t pid1;
     pid_t pid2;
-
-    if (argc < 3)
-    {
-        printf("pas suffisant !");
-        return 1;
-    }
     char *path1 = find_cmd_path(argv[1], env);
     char *path2 = find_cmd_path(argv[2], env);
 
@@ -33,7 +27,7 @@ int main(int argc, char **argv, char **env)
     }
     pipe(pipefd);
     pid1 = fork();
-    if (pid1 == 0)
+    if (pid1 == 0)\
     {
         char *cmd1[] = {argv[1], NULL};
         dup2(pipefd[1], 1);
@@ -64,5 +58,15 @@ int main(int argc, char **argv, char **env)
     close(pipefd[0]);
     waitpid(pid1, NULL, 0);
     waitpid(pid2, NULL, 0);
-    return (0);
 }
+// int main(int argc, char **argv, char **env)
+// {
+
+//     if (argc < 3)
+//     {
+//         printf("pas suffisant !");
+//         return 1;
+//     }
+//     execute_2cmd(argv, env);
+//     return (0);
+// }

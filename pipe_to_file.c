@@ -6,19 +6,15 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 17:56:39 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/07 20:29:49 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:04:10 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
-int main(int argc, char **argv, char **env)
+
+void pipe_to_file(char **argv, char **env)
 {
-    if(argc < 2)
-    {
-        printf("usage: /cmd/file/");
-        return 1;
-    }
     char *path1;
     path1 = find_cmd_path(argv[1], env);
     if(!path1)
@@ -32,7 +28,7 @@ int main(int argc, char **argv, char **env)
     if (fd < 0)
     {
         perror("open");
-        exit(EXIT_FAILURE);
+        exit(1);
     }
     pid1 = fork();
     if(pid1 == 0)
@@ -52,3 +48,13 @@ int main(int argc, char **argv, char **env)
         waitpid(pid1, NULL, 0);
     }
 }
+// int main(int argc, char **argv, char **env)
+// {
+//     if(argc < 2)
+//     {
+//         printf("usage: /cmd/file/");
+//         return 1;
+//     }
+//     pipe_to_file(argv, env);
+//     return (0);
+// }

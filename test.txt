@@ -1,9 +1,9 @@
 Makefile
-a.out
 builtins
 commandes
 execute
 execute_2cmd.c
+execute_2cmd.o
 executer.h
 ft_split.c
 ft_split.o

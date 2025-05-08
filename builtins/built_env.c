@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 17:10:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/06 15:42:22 by haqajjef         ###   ########.fr       */
+/*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
+/*   Updated: 2025/05/08 18:24:13 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../executer.h"
 
@@ -100,7 +101,18 @@ char	*ext_val(char *env)
 	value[k] = '\0';
 	return (value);
 }
-
+// int check_key(char *str)
+// {
+//     int i;
+//     i = 0;
+//     while(str[i])
+//     {
+//         if(str[i] == '=')
+//             return (1);
+//         i++;
+//     }
+//     return (0);
+// }
 void	ft_printenv(t_env *head)
 {
 	t_env	*tmp;
@@ -108,33 +120,42 @@ void	ft_printenv(t_env *head)
 	tmp = head;
 	while (tmp)
 	{
-		printf("%s=%s\n", tmp->key, tmp->value);
+		if(tmp->value)
+			printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
 }
 
+
+t_env *ft_env(char **env)
+{
+	t_env	*ev;
+	t_env	*new_node;
+	t_env	*head;
+	int		i;
+
+	ev = NULL;
+	head = NULL;
+	i = 0;
+	new_node = create_node(ext_key(env[i]), ext_val(env[i]));
+	head = new_node;
+	ev = head;
+	while (env[i])
+	{
+		new_node = create_node(ext_key(env[i]), ext_val(env[i]));
+		ev->next = new_node;
+		ev = new_node;
+		i++;
+	}
+	return (head);
+}
 // int	main(int argc, char **argv, char **env)
 // {
-// 	t_env	*ev;
-// 	t_env	*new_node;
 // 	t_env	*head;
-// 	int		i;
 
 // 	(void)argc;
 // 	(void)argv;
-// 	ev = NULL;
-// 	head = NULL;
-// 	i = 0;
-// 	new_node = create_node(ext_key(env[i]), ext_val(env[i]));
-// 	head = new_node;
-// 	ev = head;
-// 	while (env[i])
-// 	{
-// 		new_node = create_node(ext_key(env[i]), ext_val(env[i]));
-// 		ev->next = new_node;
-// 		ev = new_node;
-// 		i++;
-// 	}
+// 	head = ft_env(env);
 // 	ft_printenv(head);
 // 	return (0);
 // }
