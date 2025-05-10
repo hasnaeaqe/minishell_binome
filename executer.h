@@ -22,7 +22,7 @@
 typedef struct s_env
 {
 	char			*key;
-	char			*value;
+	char			*value;			
 	struct s_env	*next;
 }	t_env;
 
@@ -31,7 +31,7 @@ void	ft_echo(char **argv);
 t_env	*ft_env(char **env);
 void	ft_pwd(void);
 void	built_exit(char **args);
-void ft_export(char **argv, t_env **env);
+void	ft_export(int argc, char **argv, char **env);
 void	ft_unset(t_env **head, char **key_to_unset);
 t_env	*create_node(char *cle, char *val);
 int		ft_strlen(char *s);
@@ -48,4 +48,6 @@ void	execute_2cmd(char **argv, char **env);
 char	*ext_val(char *env);
 char	*ext_key(char *env);
 int		check_key(char *str);
+int		ft_isalpha(int c);
+char	*ft_strdup( char *s1);
 #endif

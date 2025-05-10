@@ -63,13 +63,13 @@ char	*ext_key(char *env)
 	char	*key;
 
 	i = 0;
-	while (env[i] && env[i] != '=')
+	while (env[i] && env[i] != '=' && env[i] != '+')
 		i++;
-	if (env[i] != '=')
+	if (env[i] != '=' || env[i] != '+')
 		return (NULL);
 	key = ft_malloc(sizeof(char) * (i + 1));
 	i = 0;
-	while (env[i] && env[i] != '=')
+	while (env[i] && env[i] != '=' && env[i] != '+')
 	{
 		key[i] = env[i];
 		i++;
