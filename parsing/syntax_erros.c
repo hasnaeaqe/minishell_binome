@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 20:22:59 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/05/08 17:55:58 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/05/10 17:44:47 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	is_redi_operator(t_tok_type type)
 {
-	return (type == TOK_REDIR_IN
-		|| type == TOK_REDIR_OUT
+	return (type == TOK_REDIR_INPUT
+		|| type == TOK_REDIR_OUTPUT
 		|| type == TOK_REDIR_APPEND
 		|| type == TOK_REDIR_HEREDOC);
 }

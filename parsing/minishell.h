@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/05/08 17:58:01 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:15:02 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ typedef enum e_tok_type
 {
 	TOK_WORD,
 	TOK_PIPE,
-	TOK_REDIR_IN,
-	TOK_REDIR_OUT,
+	TOK_REDIR_INPUT,
+	TOK_REDIR_OUTPUT,
 	TOK_REDIR_APPEND,
 	TOK_REDIR_HEREDOC,
 }	t_tok_type;
@@ -62,8 +62,8 @@ typedef struct s_tree
 	t_node_type		kind;
 	char			**argv;
 	t_redir_node	*redirs;
-	int				pipes[2];
-	int				ambiguous;
+	// int				pipes[2];
+	// int				ambiguous;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }	t_tree;
@@ -79,3 +79,5 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 //syntaxe error
 int	check_syntax_errors(t_token *token);
+t_tree *remplir_tree(t_token **token);
+void print_tree(t_tree *tree, int depth);

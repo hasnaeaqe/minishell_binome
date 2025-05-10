@@ -6,20 +6,21 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:32:06 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/05/08 14:37:33 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:31:50 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 char *type_token(t_tok_type type)
 {
     if (type == TOK_WORD)
         return "WORD";
     else if (type == TOK_PIPE)
         return "PIPE";
-    else if (type == TOK_REDIR_IN)
+    else if (type == TOK_REDIR_INPUT)
         return "REDIR_IN";
-    else if (type == TOK_REDIR_OUT)
+    else if (type == TOK_REDIR_OUTPUT)
         return "REDIR_OUT";
     else if (type == TOK_REDIR_APPEND)
         return "REDIR_APPEND";
@@ -38,6 +39,7 @@ void print_tokens(t_token *token)
         tmp=tmp->next;
     }
 }
+
 void free_tokens(t_token *token)
 {
     t_token *tmp;
@@ -109,7 +111,7 @@ void tokenisation(char *str,t_token **token)
             }
             else
             {
-                add_token(token,TOK_REDIR_IN,"<");
+                add_token(token,TOK_REDIR_INPUT,"<");
                 i++;
             }
         }
@@ -122,7 +124,7 @@ void tokenisation(char *str,t_token **token)
             }
             else
             {
-                add_token(token,TOK_REDIR_OUT,">");
+                add_token(token,TOK_REDIR_OUTPUT,">");
                 i++;
             }
         }
@@ -152,15 +154,16 @@ void tokenisation(char *str,t_token **token)
         }    
     }
 }
-// void f()
-// {
-//     system("leaks minishell");
-// }
+void f()
+{
+    system("leaks minishell");
+}
 int main(void)
 {
     char *line;
     t_token *token;
-    // atexit(f);
+    t_tree *tree;
+    atexit(f);
     while (1)
     {
         line = readline("minishell$ ");
@@ -172,6 +175,8 @@ int main(void)
         tokenisation(line,&token);
         print_tokens(token);
         check_syntax_errors(token);
+        tree=remplir_tree(&token);
+        print_tree(tree,0);
         free_tokens(token);
         free(line);
     }

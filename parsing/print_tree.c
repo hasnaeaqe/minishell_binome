@@ -1,0 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_tree.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/10 20:11:41 by cbayousf          #+#    #+#             */
+/*   Updated: 2025/05/10 20:12:06 by cbayousf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+#include <stdio.h>
+
+// Fonction utile pour afficher l'arbre avec indentation
+void print_tree(t_tree *tree, int depth)
+{
+    if (!tree)
+        return;
+
+    // Indentation selon la profondeur
+    for (int i = 0; i < depth; i++)
+        printf("  ");
+
+    // Affichage du type du nœud
+    if (tree->kind == NODE_COMMAND)
+    {
+        printf("NODE_COMMAND\n");
+
+        // Afficher les arguments (argv)
+        for (int i = 0; tree->argv && tree->argv[i]; i++)
+        {
+            for (int j = 0; j < depth + 1; j++)
+                printf("  ");
+            printf("ARGV[%d] = %s\n", i, tree->argv[i]);
+        }
+
+        // Afficher les redirections
+        t_redir_node *redir = tree->redirs;
+        while (redir)
+        {
+            const char *type_str = "";
+            switch (redir->kind)
+            {
+                case REDIR_INPUT:     type_str = "REDIR_INPUT"; break;
+                case REDIR_OUTPUT:    type_str = "REDIR_OUTPUT"; break;
+                case REDIR_APPEND:    type_str = "REDIR_APPEND"; break;
+                case REDIR_HEREDOC:   type_str = "REDIR_HEREDOC"; break;
+                default:              type_str = "UNKNOWN_REDIR"; break;
+            }
+
+            for (int j = 0; j < depth + 1; j++)
+                printf("  ");
+            printf("REDIR %s -> %s\n", type_str, redir->filename);
+            redir = redir->next;
+        }
+    }
+    else if (tree->kind == NODE_PIPE)
+    {
+        printf("NODE_PIPE\n");
+    }
+
+    // Appels récursifs sur les sous-arbres
+    if (tree->left)
+    {
+        for (int i = 0; i < depth; i++)
+            printf("  ");
+        printf("LEFT:\n");
+        print_tree(tree->left, depth + 1);
+    }
+
+    if (tree->right)
+    {
+        for (int i = 0; i < depth; i++)
+            printf("  ");
+        printf("RIGHT:\n");
+        print_tree(tree->right, depth + 1);
+    }
+}
