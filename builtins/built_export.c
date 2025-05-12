@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:41 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/08 18:31:31 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/05/12 21:46:30 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,15 @@ int parse_args(char *str)
 	i = 0;
 	while(str[i] && str[i] != '=' && str[i] != '+')
 	{
-		if(!ft_isalpha(str[i]) )
+		if((!ft_isalpha(str[i]) && str[i] != '_') || ft_isdigit(str[i]))
 			return (-1);
 		i++;
 	}
-	if(!str[i])
-		return (-1);
 	if (str[i] == '+' && str[i + 1] == '=')
 		return (1);
 	return (0);
 }
+
 // int is_key_in_env(t_env *env, char *key_to_search)
 // {
 // 	t_env *tmp;
@@ -118,13 +117,17 @@ void ft_add_export(char **argv, t_env **env)
 	while(argv[i])
 	{
 		mode = parse_args(argv[i]);
-		printf("mode : %d\n", mode);
+		if(mode == -1)
+		{
+			printf("export: not an identifier:%s\n", argv[i]);
+			exit(1);
+		}
 		char *key = ext_key(argv[i]);
 		char *val = ext_val(argv[i]);
 		if(key != NULL)
 			add_to_env_or_update(env, key, val, mode);
 		else
-			add_to_env_or_update(env, argv[i], NULL, mode);
+			add_to_env_or_update(env, argv[i], "", mode);
 		i++;
 	}
 }
@@ -189,18 +192,16 @@ t_env **env_to_array(t_env *env, int size)
 	t_env **array;
 	t_env *tmp;
 	int i;
-	array = malloc(sizeof(t_env *) * size);
-	if(!array)
-		return(NULL);
+	array = ft_malloc(sizeof(t_env *) * (size + 1));
 	tmp = env;
 	i= 0;
 	while(i< size && tmp)
 	{
 		array[i] = tmp;
-		// printf("ok\n");
 		tmp = tmp->next;
 		i++;
 	}
+	array[i] = NULL;
 	return (array);
 }
 
@@ -246,22 +247,24 @@ void ft_export(int argc, char **argv, char **env)
 {
 	t_env **array;
 	t_env *list;
+	int size;
 
 	list = ft_env(env);
-	array = env_to_array(list, ft_lstsize(list));
+	size = ft_lstsize(list);
+	array = env_to_array(list, size);
 	sort_list(array);
 	if(argc == 1)
 	{
 		ft_printexport(*array);
 	}
-	ft_add_export(argv, array);
+	ft_add_export(argv, &list);
+	array = env_to_array(list, size);
 	sort_list(array);
-	printf("---------export------------\n");
 	ft_printexport(*array);
 }
-int main(int argc, char **argv, char **env)
-{
-	// t_env *list;
+// int main(int argc, char **argv, char **env)
+// {
+// 	// t_env *list;
 	// list = ft_env(env);
 	// t_env **array = env_to_array(list, ft_lstsize(list));
 	// sort_list(array);
@@ -294,6 +297,12 @@ int main(int argc, char **argv, char **env)
 	// sort_list(array);
 	// printf("---------export------------\n");
 	// ft_printexport(*array);
-	ft_export(argc, argv, env);
-	return 0;
-}
+// 	ft_export(argc, argv, env);
+// 	return 0;
+// }
+
+// int main(int argc, char **argv, char **env)
+// {
+// 	ft_export(argc, argv, env);
+// 	return 0;
+// }

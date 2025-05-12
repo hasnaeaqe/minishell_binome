@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/06 15:28:33 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/05/12 21:29:50 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,27 @@ int	is_numeric(char *str)
 void	built_exit(char **args)
 {
 	printf("exit\n");
+	if (!args)
+        exit(0);
 	if (args[1])
 	{
 		if (!is_numeric(args[1]))
 		{
-			fprintf(stderr, "exit: %s: numeric argument required\n", args[1]);
+			printf("exit: %s: numeric argument required\n", args[1]);
 			exit(255);
 		}
 		if (args[2])
 		{
-			fprintf(stderr, "exit: too many arguments\n");
+			printf("exit: too many arguments\n");
 			return ;
 		}
-		exit(ft_atoi(args[1]));
+		int	arg = ft_atoi(args[1]);
+		// if (arg < 0 || arg > 255)
+        // {
+        //     printf("exit: %d: invalid exit status\n", arg);
+        //     exit(255);
+        // }
+		exit((unsigned char)arg);
 	}
 	exit (0);
 }

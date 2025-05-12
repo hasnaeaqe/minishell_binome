@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executer.h"
+#include "../executer.h"
 
 void execute_2cmd(char **argv, char **env)
 {
@@ -27,12 +27,12 @@ void execute_2cmd(char **argv, char **env)
     }
     pipe(pipefd);
     pid1 = fork();
-    if (pid1 == 0)\
+    if (pid1 == 0)
     {
         char *cmd1[] = {argv[1], NULL};
         dup2(pipefd[1], 1);
         close(pipefd[1]);
-        close(pipefd[0]);
+        close(pipefd[0]); 
         if (execve(path1, cmd1, env) == -1)
 		{
 			perror("execv");

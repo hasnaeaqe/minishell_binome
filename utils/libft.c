@@ -6,11 +6,11 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:21:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/06 17:24:16 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/05/12 21:28:14 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executer.h"
+#include "../executer.h"
 
 int	ft_isdigit(int c)
 {
@@ -19,15 +19,15 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-static void	check_atoi(int signe, long long c)
-{
-	if ((signe == 1 && c > INT_MAX) || (signe == -1 && (-c) < INT_MIN))
-	{
-		perror("error");
-	}
-}
+// static void	check_atoi(int signe, long long c)
+// {
+// 	if ((signe == 1 && c > INT_MAX) || (signe == -1 && (-c) < INT_MIN))
+// 	{
+// 		printf("error");
+// 	}
+// }
 
-int	ft_atoi( char *str)
+long	ft_atoi( char *str)
 {
 	int			i;
 	long long	c;
@@ -47,11 +47,13 @@ int	ft_atoi( char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		c = c * 10 + (str[i] - '0');
-		check_atoi(signe, c);
+		if ((signe == 1 && c > INT_MAX) || (signe == -1 && (-c) < INT_MIN))
+			return ((long)(c * signe));
 		i++;
 	}
-	return ((int)(signe * c));
+	return ((long)(signe * c));
 }
+
 int	ft_strlen(char *s)
 {
 	int	i;
@@ -110,4 +112,30 @@ int	ft_isalpha(int c)
 		return (1);
 	}
 	return (0);
+}
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if ((char)c == '\0')
+		return ((char *)&s[i]);
+	return (NULL);
+}
+void	ft_strncpy(char *dest, char *src, int n)
+{
+	int i;
+	i = 0;
+	while(i < n && src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
 }
