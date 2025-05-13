@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:23:42 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/12 21:28:24 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:17:34 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ int		ft_isalpha(int c);
 char	*ft_strdup( char *s1);
 char	*ft_strchr(const char *s, int c);
 void	ft_strncpy(char *dest, char *src, int n);
+void	execute(char **argv, char **env);
 #endif
