@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:05 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/11 10:33:47 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/11 15:36:28 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	ft_count(char const *s, char c)
 	return (count);
 }
 
-static char	*ft_strndup(const char *s1, int n)
+static char	*ft_ndup(const char *s1, int n)
 {
 	char	*str;
 	int		i;
@@ -83,7 +83,7 @@ static char	**cr_word(char const *s, char c, char **result)
 		d = i;
 		while (s[i] != c && s[i] != '\0')
 			i++;
-		result[k] = ft_strndup(s + d, i - d);
+		result[k] = ft_ndup(s + d, i - d);
 		if (result[k] == NULL)
 		{
 			ft_free(result, k);
@@ -110,4 +110,27 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	result = cr_word(s, c, result);
 	return (result);
+}
+
+char	*ft_strjoin(char  *s1, char  *s2)
+{
+	char	*newstr;
+	char	*head;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	newstr = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) +1 * sizeof(char));
+	if (!newstr)
+		return (NULL);
+	head = newstr;
+	while (*s1)
+		*newstr++ = *s1++;
+	while (*s2)
+		*newstr++ = *s2++;
+	*newstr = '\0';
+	return (head);
 }

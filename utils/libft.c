@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:21:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/12 21:28:14 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:39:27 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ long	ft_atoi( char *str)
 	return ((long)(signe * c));
 }
 
-int	ft_strlen(char *s)
+size_t ft_strlen(const char *s)
 {
 	int	i;
 
@@ -63,7 +63,7 @@ int	ft_strlen(char *s)
 		i++;
 	return (i);
 }
-char	*ft_strdup( char *s1)
+char	*ft_strdup( const char *s1)
 {
 	int		lens1;
 	int		i;

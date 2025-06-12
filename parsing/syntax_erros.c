@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_erros.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 20:22:59 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/05/12 21:41:57 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:36:20 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ int	check_syntax_errors(t_token *token)
 				return (1);
 			}
 		}
-		if (ft_strchr(tmp->value, '\'') % 2 != 0)
+		if (ft_stchr(tmp->value, '\'') % 2 != 0)
 		{
 			ft_putstr_fd("minishell: syntax error near unexpected token `''\n", 2);
 			return (1);
 		}
-		if (ft_strchr(tmp->value,'"') % 2 != 0)
+		if (ft_stchr(tmp->value,'"') % 2 != 0)
 		{ 
 			ft_putstr_fd("minishell: syntax error near unexpected token `\"'\n", 2);
 			return (1);

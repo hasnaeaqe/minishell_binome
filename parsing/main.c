@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:32:06 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/05/13 20:26:52 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/11 15:31:30 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,39 +163,91 @@ void	tokenisation(char *str, t_token **token)
 	}
 }
 
-void f(void)
+
+
+
+void ft_free_tab(char **tab)
 {
-	system("leaks minishell");
+	int i;
+
+	i = 0;
+	if(!tab[i])
+		return ;
+	while(tab[i])
+		free(tab[i++]);
+	free(tab);
 }
-
-int	main(void)
+char *find_cmd_path(char *cmd, char **env)
 {
-	char	*line;
-	t_token	*token;
-	t_tree	*tree;
+	(void) env;
+	char *tmp;
+	char *full_path;
+	int i;
 
-	atexit(f);
-	while (1)
+	// char *path = get_path_from_env(env);
+	// if (path == NULL)
+	// 	return (NULL);
+	char *paths = getenv("PATH");
+	char **dirs = ft_split(paths, ':');
+	if(!dirs)
+		return (NULL);
+	i = 0;
+	while(dirs[i])
 	{
-		line = readline("minishell$ ");
-		if (!line)
-			break ;
-		if (*line)
-			add_history(line);
-		token = NULL;
-		tokenisation(line, &token);
-		print_tokens(token);
-		if (check_syntax_errors(token))
+		tmp = ft_strjoin(dirs[i], "/");
+		full_path = ft_strjoin(tmp, cmd);
+		free(tmp);
+		if (access(full_path, X_OK) == 0)
 		{
-			free_tokens(token);
-			free(line);
-			continue ;
+			ft_free_tab(dirs);
+			return (full_path);
 		}
-		//expand_tokens(&token);
-		tree = parse_tree(&token);
-		print_tree(tree, 0);
-		free_tokens(token);
-		free(line);
+		free(full_path);
+		i++;
 	}
-	return (0);
+	full_path = ft_strjoin("./", cmd);
+	if (access(full_path, X_OK) == 0)
+	{
+		ft_free_tab(dirs);
+		return (full_path);
+	}
+	ft_free_tab(dirs);
+	return NULL;
 }
+
+// void f(void)
+// {
+// 	system("leaks minishell");
+// }
+
+// int	main(void)
+// {
+// 	char	*line;
+// 	t_token	*token;
+// 	t_tree	*tree;
+
+// 	atexit(f);
+// 	while (1)
+// 	{
+// 		line = readline("minishell$ ");
+// 		if (!line)
+// 			break ;
+// 		if (*line)
+// 			add_history(line);
+// 		token = NULL;
+// 		tokenisation(line, &token);
+// 		print_tokens(token);
+// 		if (check_syntax_errors(token))
+// 		{
+// 			free_tokens(token);
+// 			free(line);
+// 			continue ;
+// 		}
+// 		//expand_tokens(&token);
+// 		tree = parse_tree(&token);
+// 		print_tree(tree, 0);
+// 		free_tokens(token);
+// 		free(line);
+// 	}
+// 	return (0);
+// }

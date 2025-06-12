@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/05/12 21:20:25 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/11 19:57:56 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+#include <string.h>
 typedef enum e_tok_type
 {
 	TOK_WORD,
@@ -75,7 +76,7 @@ char	*ft_strdup(const char *s1);
 char	*ft_strndup(const char *s1, int n);
 void	*ft_malloc(size_t i);
 void	ft_putstr_fd(char *s, int fd);
-int		ft_strchr(const char *s, int c);
+int		ft_stchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -83,4 +84,15 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		check_syntax_errors(t_token *token);
 t_tree	*parse_tree(t_token **token);
 void	print_tree(t_tree *tree, int depth);
+void	tokenisation(char *str, t_token **token);
+void	print_tokens(t_token *token);
+void	free_tokens(t_token *token);
+
+char	**ft_split(char const *s, char c);
+char	*ft_strjoin(char  *s1, char  *s2);
+char	*find_cmd_path(char *cmd, char **env);
+
+
+void free_tree(t_tree *tree);
+
 #endif

@@ -6,14 +6,14 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/06 14:38:48 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:38:55 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../executer.h"
 #include <string.h>
 
-int ft_strcmp(char *s1, char *s2)
+int		ft_strcmp(const char *s1, const char *s2)
 {
 	int i;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:40:38 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/05/12 21:15:38 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:33:16 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (s[i] - l[i]);
 }
 
-int	ft_strchr(const char *s, int c)
+int	ft_stchr(const char *s, int c)
 {
 	int	i;
 	int count;
