@@ -1,2 +1,0 @@
--rw-r--r--   1 haqajjef  2024_khouribga      0 Jun 11 20:11 file.txt
--rw-r--r--   1 haqajjef  2024_khouribga      9 Jun 11 20:11 out.txt

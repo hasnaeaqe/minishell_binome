@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:32:06 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/11 15:31:30 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/12 20:01:19 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,9 +184,6 @@ char *find_cmd_path(char *cmd, char **env)
 	char *full_path;
 	int i;
 
-	// char *path = get_path_from_env(env);
-	// if (path == NULL)
-	// 	return (NULL);
 	char *paths = getenv("PATH");
 	char **dirs = ft_split(paths, ':');
 	if(!dirs)
@@ -220,13 +217,14 @@ char *find_cmd_path(char *cmd, char **env)
 // 	system("leaks minishell");
 // }
 
-// int	main(void)
+// int	main(int argc, char **argv, char **env)
 // {
 // 	char	*line;
 // 	t_token	*token;
 // 	t_tree	*tree;
-
-// 	atexit(f);
+// 	(void)argc;
+// 	(void)argv;
+// 	//atexit(f);
 // 	while (1)
 // 	{
 // 		line = readline("minishell$ ");
@@ -236,7 +234,7 @@ char *find_cmd_path(char *cmd, char **env)
 // 			add_history(line);
 // 		token = NULL;
 // 		tokenisation(line, &token);
-// 		print_tokens(token);
+// 		//print_tokens(token);
 // 		if (check_syntax_errors(token))
 // 		{
 // 			free_tokens(token);
@@ -245,7 +243,8 @@ char *find_cmd_path(char *cmd, char **env)
 // 		}
 // 		//expand_tokens(&token);
 // 		tree = parse_tree(&token);
-// 		print_tree(tree, 0);
+// 		//print_tree(tree, 0);
+// 		exec_tree(tree, env);
 // 		free_tokens(token);
 // 		free(line);
 // 	}

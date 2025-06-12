@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 16:59:31 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/12 12:21:11 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/12 12:31:42 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void exec_cmd(int argc, char **argv, char **env){
     
     i = 1;
     int pipefd[2];
-    while(argv[i])
+    while(i < argc)
     {
         pipe(pipefd);
         pid = fork();
@@ -34,7 +34,7 @@ void exec_cmd(int argc, char **argv, char **env){
             path = find_cmd_path(argv[i], env);
             if (!path)
             {
-                // printf("error command not found");
+                printf("error command not found");
                 exit(1);
             }
             char *cmd[] = {argv[i], NULL};

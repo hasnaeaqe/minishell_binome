@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/11 19:57:56 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/12 18:59:43 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,13 @@ typedef struct s_tree
 	struct s_tree	*right;
 }	t_tree;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;			
+	struct s_env	*next;
+}	t_env;
+
 //libft
 char	*ft_strdup(const char *s1);
 char	*ft_strndup(const char *s1, int n);
@@ -92,7 +99,7 @@ char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char  *s1, char  *s2);
 char	*find_cmd_path(char *cmd, char **env);
 
-
+void exec_tree(t_tree *tree, char **env);
 void free_tree(t_tree *tree);
 
 #endif

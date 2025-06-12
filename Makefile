@@ -9,7 +9,7 @@ RM = rm -f
 # 	#    utils/ft_malloc.c main.c execute_cmd.c 
 
 PARSE = parsing/garbage_collector.c parsing/main.c  parsing/parce_tree.c parsing/syntax_erros.c parsing/test.c parsing/print_tree.c  parsing/libft.c \
- execute_tree.c parsing/ft_split.c  execute_cmds.c
+  parsing/ft_split.c  execute_cmd.c
 
 # OBJS = $(SRCS:.c=.o)
 OB = $(PARSE:.c=.o)
