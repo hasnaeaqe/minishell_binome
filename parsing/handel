@@ -1,0 +1,15 @@
+<> 
+""e"'c'ho 'b'"o"nj"o"'u'r"
+
+bash-3.2$ !! (réexécute la dernière commande)
+!
+bash: syntax error near unexpected token `newline`
+
+echo a{d,c,b}e
+ade ace abe
+
+$? : qui se étend à le état de sortie du dernier pipeline exécuté
+$$ : qui se étend au PID du shell actuel
+$! : qui s'étend au PID de la commande d'arrière-plan la plus récente.
+$_
+$-

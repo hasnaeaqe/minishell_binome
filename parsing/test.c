@@ -79,7 +79,6 @@
 //             break;
 //         if (*line)
 //             add_history(line);
-        
 //         free(line);
 //         if (ft_strstr(line,"<<"))
 //             handel_heredoc("EOF");

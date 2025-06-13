@@ -6,18 +6,20 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/05/10 20:15:02 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/13 21:39:35 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <limits.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <limits.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef enum e_tok_type
 {
@@ -68,6 +70,13 @@ typedef struct s_tree
 	struct s_tree	*right;
 }	t_tree;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;			
+	struct s_env	*next;
+}	t_env;
+
 //libft
 char	*ft_strdup(const char *s1);
 char	*ft_strndup(const char *s1, int n);
@@ -77,7 +86,24 @@ int		ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
+char	*ft_strjoin(char  *s1, char  *s2);
+void	ft_strncpy(char *dest, char *src, int n);
+char	*ft_strchr1(const char *s, int c);
+char	*ft_strdup1( const char *s1);
 //syntaxe error
-int	check_syntax_errors(t_token *token);
-t_tree *remplir_tree(t_token **token);
-void print_tree(t_tree *tree, int depth);
+int		check_syntax_errors(t_token *token);
+t_tree	*parse_tree(t_token **token);
+void	print_tree(t_tree *tree, int depth);
+void	expand_tokens(t_token **token, char **env);
+//
+t_env	*create_node(char *cle, char *val);
+char	*ext_key(char *str);
+char	*ext_val(char *env);
+t_env	*ft_env(char **env);
+void	ft_printenv(t_env *head);
+//expand
+char	*expand_functions(char *str, char **env);
+char	*ft_my_strlcat(char *dst, const char *src, size_t dstsize);
+#endif
