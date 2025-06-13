@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/11 11:38:55 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/13 21:47:52 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	unset_one(t_env **head, char *key_to_unset)
 	free(tmp->value);
 	free(tmp);
 }
-void ft_unset(t_env **head, char **key_to_unset)
+void built_unset(t_env **head, char **key_to_unset)
 {
 	int i = 0;
 	while(key_to_unset[i])

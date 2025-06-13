@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/12 21:16:20 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/13 15:38:38 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ t_env *ft_env(char **env)
 	}
 	return (head);
 }
-// int	main(int argc, char **argv, char **env)
-// {
-// 	t_env	*head;
+int	main(int argc, char **argv, char **env)
+{
+	t_env	*head;
 
-// 	(void)argc;
-// 	(void)argv;
-// 	head = ft_env(env);
-// 	ft_printenv(head);
-// 	return (0);
-// }
+	(void)argc;
+	(void)argv;
+	head = ft_env(env);
+	ft_printenv(head);
+	return (0);
+}

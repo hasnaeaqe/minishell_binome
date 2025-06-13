@@ -6,13 +6,13 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/06 10:12:14 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/13 21:44:29 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../executer.h"
 
-void	ft_cd(char **argv)
+void	built_cd(char **argv)
 {
 	int		r;
 	char	*path;

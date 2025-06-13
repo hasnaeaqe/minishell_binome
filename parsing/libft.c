@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:40:38 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/11 11:33:16 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/13 15:46:05 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1,const char *s2)
 {
 	size_t			i;
 	unsigned char	*s;

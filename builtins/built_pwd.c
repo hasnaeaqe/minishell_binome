@@ -6,13 +6,13 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:42:34 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/03 20:17:07 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/13 21:46:38 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../executer.h"
 
-void	ft_pwd(void)
+void	built_pwd(void)
 {
 	char	buff[1024];
 	char	*cwd;

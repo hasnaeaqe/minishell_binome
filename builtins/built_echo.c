@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:08:32 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/11 10:37:33 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/13 21:45:16 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	is_valid_option(char *str)
 	return (1);
 }
 
-void	ft_echo(char **argv)
+void	built_echo(char **argv)
 {
 	int	i;
 	int	new_line;
