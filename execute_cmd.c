@@ -6,15 +6,55 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/13 20:38:39 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/17 18:30:31 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing/minishell.h"
 
-void handle_redirs(t_redir_node *redir)
- {
+
+
+void handele_heredoc(t_tree *tree)
+{
+    t_redir_node *redir;
+    char *line;
+    char *delimited;
     int fd;
+    char *lines;
+
+    redir = tree->redirs;
+    delimited = redir->filename;
+    while(redir)
+    {
+        if (redir->kind == REDIR_HEREDOC)
+        {
+        
+            while(1)
+            {
+                line = readline(">");
+                if (!line || ft_strcmp(line, delimited))
+                {
+                    free (line);
+                    break;
+                }
+                line = ft_strjoin(line, "\n");
+                lines = ft_strjoin(lines, line);
+                unlink("tmp/tmpfile");
+                fd = open("tmp/tmpfile", O_CREAT| O_RDWR , 0644);
+                ft_putstr_fd(line, fd);
+                unlink("tmp/tmpfile");
+            }
+        }
+        close(fd);
+        redir = redir->next;
+    }
+}
+void handle_redirs(t_tree *tree)
+ {
+    t_redir_node *redir;
+    int fd;
+    
+    redir = tree->redirs;
     while (redir)
     {
         if (redir->kind == REDIR_INPUT)
@@ -39,7 +79,7 @@ void handle_redirs(t_redir_node *redir)
         }
         else if (redir->kind == REDIR_APPEND)
         {
-            fd = open (redir->filename, O_CREAT| O_RDWR |O_APPEND, 0644);
+            fd = open(redir->filename, O_CREAT| O_RDWR |O_APPEND, 0644);
             if(fd < 0 || dup2(fd, 1) == -1)
             {
                 perror ("append redirection ");
@@ -47,27 +87,32 @@ void handle_redirs(t_redir_node *redir)
             }
             close (fd);
         }
-        // else if (redir->kind == REDIR_HEREDOC)
-        // {
-            
-        // }
+         else if (redir->kind == REDIR_HEREDOC)
+        {
+            handele_heredoc(tree);
+        }
+
         redir = redir->next;
     }
 }
 
-void execute_cmd(t_tree *tree, char **env) {
+int execute_cmd(t_tree *tree, char **env) {
+    
     pid_t pid;
+    int status;
 
+    status = 0;
     char *path = find_cmd_path(tree->argv[0], env);
     if (!path) {
         ft_putstr_fd("minishell: ", 2);
         ft_putstr_fd(tree->argv[0], 2);
         ft_putstr_fd(": command not found\n", 2);
+        return (127);
     }
     pid = fork();
     if (pid == 0)
     {
-        handle_redirs(tree->redirs);
+        handle_redirs(tree);
         if (execve(path, tree->argv, env) == -1)
         {
             free(path);
@@ -75,18 +120,21 @@ void execute_cmd(t_tree *tree, char **env) {
     }
     else
     {
-        waitpid(pid, NULL, 0);
+        waitpid(pid, &status, 0);
     }
     free(path);
+    return (WEXITSTATUS(status));
 }
 
 
-void execute_pipe(t_tree *tree, char **env)
+int execute_pipe(t_tree *tree, char **env)
 {
     int pipefd[2];
     pid_t pid_left;
     pid_t pid_right;
+    int status;
 
+    status = 0;
     if (pipe(pipefd) == -1)
     {
         perror("pipe");
@@ -103,7 +151,7 @@ void execute_pipe(t_tree *tree, char **env)
         dup2(pipefd[1], 1);
         close(pipefd[0]); 
         close(pipefd[1]);
-        exec_tree(tree->left, env);
+        exec_tree(tree->left, env);// should return int (status )
         exit(127);
 	}
     pid_right =  fork();
@@ -123,22 +171,21 @@ void execute_pipe(t_tree *tree, char **env)
     close(pipefd[1]);
     close(pipefd[0]);
     
-    waitpid(pid_left, NULL, 0);
-    waitpid(pid_right, NULL, 0);
+    // waitpid(pid_left, NULL, 0);
+    waitpid(pid_right, &status, 0);
+    // (wait(NULL)); // while wait didn't return -1 call it again 
+    return (WEXITSTATUS(status));
 }
 
-void exec_tree(t_tree *tree, char **env)
+int exec_tree(t_tree *tree, char **env)
 {
     if (!tree)
-        return ;
+        return (0);
     if (tree->kind == NODE_COMMAND)
-    {
-        execute_cmd(tree, env);
-    }
+        return(execute_cmd(tree, env)); 
     else if (tree->kind == NODE_PIPE)
-    {
-        execute_pipe(tree, env);
-    }
+        return (execute_pipe(tree, env));
+    return (1);
 }
 
 

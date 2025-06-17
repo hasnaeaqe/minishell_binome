@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/13 21:44:29 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/17 11:46:08 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@ void	built_cd(char **argv)
 		perror("operation echoue!");
 	}
 }
-
 // int	main(int argc, char**argv)
 // {
 // 	if (argc > 1)
 // 	{
 // 		ft_cd(argv);
 // 	}
-// 	printf("new cwd : %s\n", getcwd(NULL, 0));
+// 	printf("new cwd : %s\n", getcwd(NULL, 0)); 
 // }
