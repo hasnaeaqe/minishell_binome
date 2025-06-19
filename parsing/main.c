@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:32:06 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/12 20:01:19 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/19 20:36:05 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,9 +162,6 @@ void	tokenisation(char *str, t_token **token)
 		}
 	}
 }
-
-
-
 
 void ft_free_tab(char **tab)
 {
