@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:23:42 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/13 21:47:04 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/19 10:42:27 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ typedef struct s_env
 }	t_env;
 
 void	built_cd(char **argv);
-void	built_echo(char **argv);
-t_env	*built_env(char **env);
+void	ft_echo(char **argv);
+t_env	*ft_env(char **env);
 void	built_pwd(void);
 void	built_exit(char **args);
-void	built_export(int argc, char **argv, char **env);
-void	built_unset(t_env **head, char **key_to_unset);
+void	ft_export(int argc, char **argv, char **env);
+void	ft_unset(t_env **head, char **key_to_unset);
 t_env	*create_node(char *cle, char *val);
 size_t ft_strlen(const char *s);
 void	*ft_malloc(size_t i);

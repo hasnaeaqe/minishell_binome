@@ -6,25 +6,27 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:48:18 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/13 21:48:12 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/19 10:51:41 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executer.h"
+#include "../parsing/minishell.h"
 
-int check_builts(char *cmd)
+int check_builts(t_tree *tree)
 {
-    if (!cmd)
+    char *cmd;
+
+    if (!tree)
         return (-1);
+    cmd = tree->argv;
     if (ft_strcmp(cmd, "cd"))
         built_cd(cmd);
     else if (ft_strcmp(cmd, "echo"))
-        built_echo(cmd);
+        ft_echo(cmd);
     else if (ft_strcmp(cmd, "pwd"))
         built_pwd();
-    else if (ft_strcmp(cmd, "unset"))
-        built_echo(cmd);
-    else if (ft_strcmp(cmd, "echo"))
-        built_echo(cmd);
-    
+    // else if (ft_strcmp(cmd, "unset"))
+    //     ft_unset(cmd);
+    // else if (ft_strcmp(cmd, "echo"))
+    //     ft_echo(cmd);
 }

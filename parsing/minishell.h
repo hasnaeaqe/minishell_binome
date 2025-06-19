@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/17 15:27:41 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:59:09 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef enum e_redir_type
 typedef struct s_redir_node
 {
 	t_redir_type		kind;
+	int					fd;
+	int				ishd;
 	char				*filename;
 	struct s_redir_node	*next;
 }	t_redir_node;
@@ -98,7 +100,15 @@ void	free_tokens(t_token *token);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char  *s1, char  *s2);
 char	*find_cmd_path(char *cmd, char **env);
-
+t_env	*create_node(char *cle, char *val);
+void	built_cd(char **argv);
+void	ft_echo(char **argv);
+// t_env	*ft_env(char **env);
+void	built_pwd(void);
+// void	built_exit(char **args);
+// void	ft_export(int argc, char **argv, char **env);
+// void	ft_unset(t_env **head, char **key_to_unset);
+void	ft_putstr(char *s);
 int exec_tree(t_tree *tree, char **env);
 void free_tree(t_tree *tree);
 

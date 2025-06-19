@@ -1,5 +1,5 @@
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 RM = rm -f
 
 # SRCS = builtins/built_cd.c builtins/built_echo.c builtins/built_pwd.c builtins/built_env.c \
@@ -9,7 +9,8 @@ RM = rm -f
 # 	#    utils/ft_malloc.c main.c execute_cmd.c 
 
 PARSE = parsing/garbage_collector.c parsing/main.c  parsing/parce_tree.c parsing/syntax_erros.c parsing/test.c parsing/print_tree.c  parsing/libft.c \
-  parsing/ft_split.c  execute_cmd.c
+  parsing/ft_split.c  execute_cmd.c  builtins/built_echo.c
+#   builtins/built_cd.c builtins/built_echo.c builtins/built_pwd.c 
 
 # OBJS = $(SRCS:.c=.o)
 OB = $(PARSE:.c=.o)

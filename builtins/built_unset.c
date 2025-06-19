@@ -6,12 +6,11 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/13 21:47:52 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/19 10:44:33 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../executer.h"
-#include <string.h>
+#include "../parsing/minishell.h"
 
 int		ft_strcmp(const char *s1, const char *s2)
 {
@@ -56,7 +55,7 @@ void	unset_one(t_env **head, char *key_to_unset)
 	free(tmp->value);
 	free(tmp);
 }
-void built_unset(t_env **head, char **key_to_unset)
+void ft_unset(t_env **head, char **key_to_unset)
 {
 	int i = 0;
 	while(key_to_unset[i])
@@ -93,21 +92,21 @@ void built_unset(t_env **head, char **key_to_unset)
 //     return 0;
 // }
 
-// int main()
-// {
-//     t_env *head = create_node(strdup("USER"), strdup("haqajjef"));
-//     head->next = create_node(strdup("PATH"), strdup("/usr/bin"));
-//     head->next->next = create_node(strdup("SHELL"), strdup("/bin/zsh"));
-//     head->next->next->next = create_node(strdup("EDITOR"), strdup("vim"));
+int main()
+{
+    t_env *head = create_node(strdup("USER"), strdup("haqajjef"));
+    head->next = create_node(strdup("PATH"), strdup("/usr/bin"));
+    head->next->next = create_node(strdup("SHELL"), strdup("/bin/zsh"));
+    head->next->next->next = create_node(strdup("EDITOR"), strdup("vim"));
 
-//     printf("Avant unset :\n");
-//     ft_printenv(head);
+    printf("Avant unset :\n");
+    ft_printenv(head);
 
-//     printf("\nAprès unset USER et EDITOR :\n");
-//     char *to_unset[] = {"USER", "EDITOR", NULL};
-//     ft_unset(&head, to_unset);
+    printf("\nAprès unset USER et EDITOR :\n");
+    char *to_unset[] = {"USER", "EDITOR", NULL};
+    ft_unset(&head, to_unset);
 
-//     ft_printenv(head);
+    ft_printenv(head);
 
-//     return 0;
-// }
+    return 0;
+}

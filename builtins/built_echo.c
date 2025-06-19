@@ -6,22 +6,25 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:08:32 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/13 21:45:16 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/19 19:10:15 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../executer.h"
+#include "../parsing/minishell.h"
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s && s[i] != '\0')
+		i++;
+	return (i);
+}
 
 void	ft_putstr(char *s)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		write(1, &s[i], 1);
-		i++;
-	}
+	write(1, s, ft_strlen(s) +1);
 }
 
 int	is_valid_option(char *str)
@@ -40,7 +43,7 @@ int	is_valid_option(char *str)
 	return (1);
 }
 
-void	built_echo(char **argv)
+void	ft_echo(char **argv)
 {
 	int	i;
 	int	new_line;
@@ -63,11 +66,8 @@ void	built_echo(char **argv)
 		write(1, "\n", 1);
 }
 
-// int	main(int argc, char **argv)
-// {
-// 	if (argc >= 1)
-// 	{
-// 		ft_echo(argv);
-// 	}
-// 	return (0);
-// }
+int	main(int argc, char **argv)
+{
+	ft_echo(argv);
+	return (0);
+}

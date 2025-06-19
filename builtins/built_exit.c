@@ -6,11 +6,11 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/12 21:29:50 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/19 10:44:15 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../executer.h"
+#include "../parsing/minishell.h"
 
 int	is_numeric(char *str)
 {

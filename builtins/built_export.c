@@ -6,11 +6,11 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:41 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/13 15:38:29 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/19 10:44:23 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../executer.h"
+#include "../parsing/minishell.h"
 
 int parse_args(char *str)
 {
