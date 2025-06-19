@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/19 19:07:18 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/19 20:29:22 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ int	ft_cd(char **argv, t_env *env)
 	int		r;
 	char	*path;// const ? because we could change the original value without intending to
 	char buf[1024];
-	if (argv[1] == NULL || ft_strcmp(argv[1], "~") == 0 )
+	if (argv[1] == NULL)
 	{
 		printf("hello\n");
 		path = get_value(env, "HOME");
@@ -280,15 +280,15 @@ int	ft_cd(char **argv, t_env *env)
 	return (0);
 }
 
-int	main(int argc, char**argv ,char **envp)
-{
-	t_env *env = ft_env(envp);
-	// ft_printenv(env);
-	// printf("----%s\n", get_value(env, "HOME"));
+// int	main(int argc, char**argv ,char **envp)
+// {
+// 	t_env *env = ft_env(envp);
+// 	// ft_printenv(env);
+// 	// printf("----%s\n", get_value(env, "HOME"));
 
-	// while(1)
-	// {
-		ft_cd(argv, env);
-		printf("cwd %s\n",getcwd(NULL, 0));
-	// }	
-}
+// 	// while(1)
+// 	// {
+// 		ft_cd(argv, env);
+// 		printf("cwd %s\n",getcwd(NULL, 0));
+// 	// }	
+// }
