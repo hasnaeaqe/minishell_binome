@@ -6,57 +6,35 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/20 12:20:29 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/21 15:48:49 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing/minishell.h"
 
-int check_builts(t_tree *tree,t_env **env)
+int check_builts(t_tree *tree, )
 {
-	printf("ana hona\n");
     char **cmd;
 
-    if (!tree || !tree->argv || !tree->argv[0])
+    if (!tree)
         return (1);
     cmd = tree->argv;
-    if (ft_strcmp(cmd[0], "cd") == 0)
-        return (ft_cd(cmd, *env));
-    if (ft_strcmp(cmd[0], "echo")== 0)
-	{
+    if (ft_strcmp(*cmd, "cd") == 0)
+        return (ft_cd(cmd, ));
+    if (ft_strcmp(*cmd, "echo")== 0)
         ft_echo(cmd);
-		return (0);
-	}
-    else if (ft_strcmp(cmd[0], "pwd")== 0)
-	{
+    else if (ft_strcmp(*cmd, "pwd")== 0)
         built_pwd();
-		return (0);
-	}
-	else if (ft_strcmp(cmd[0], "export") == 0)
-        ft_export(tree->argv, *env);
-    else if (ft_strcmp(cmd[0], "unset") == 0)
-        ft_unset(env, tree->argv + 1);
-
-    else if (ft_strcmp(cmd[0], "env")== 0)
-	{
-        // t_env * env = ft_env(cmd);
-		ft_printenv(*env);
-		return (0);	
-	}
-	else if (ft_strcmp(cmd[0], "exit") == 0)
-        exit(0);
+    else if (ft_strcmp(cmd, "unset")== 0)
+        ft_unset(cmd);
+    else if (ft_strcmp(cmd, "echo")== 0)
+        ft_echo(cmd);
 	return (0);
 }
 int is_builtins(char *cmd)
 {
-	if (!cmd)
-		return (0);
-	if (ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "echo") == 0
-		|| ft_strcmp(cmd, "pwd") == 0
-	 	|| ft_strcmp(cmd, "env") == 0
-        || ft_strcmp(cmd, "export") == 0
-        || ft_strcmp(cmd, "unset") == 0
-        || ft_strcmp(cmd, "exit") == 0)
+	if (!cmd || ft_strcmp(cmd, "cd") != 0 || ft_strcmp(cmd, "echo") != 0
+	|| ft_strcmp(cmd, "pwd") != 0)
 		return (1);
 	return (0);
 }
@@ -158,47 +136,16 @@ int    handle_redirs(t_tree *tree)
 	}
 	return (0);
 }
-char *ft_strjoin_3(char *s1, char *s2, char *s3)
-{
-    char *tmp;
-    char *res;
 
-    tmp = ft_strjoin(s1, s2);
-    res = ft_strjoin(tmp, s3);
-    free(tmp);
-    return res;
-}
-
-char **to_array(t_env *env, int size)
-{
-    char **array;
-    t_env *tmp;
-    int i;
-
-    array = ft_malloc(sizeof(char *) * (size + 1));
-    tmp = env;
-    i = 0;
-    while (i < size && tmp)
-    {
-        array[i] = ft_strjoin_3(tmp->key, "=", tmp->value);
-        tmp = tmp->next;
-        i++;
-    }
-    array[i] = NULL;
-    return (array);
-}
-
-int execute_cmd(t_tree *tree, t_env *env) {
+int execute_cmd(t_tree *tree, char **env) {
 	
 	pid_t pid;
 	int status;
-	char **array;
 
 	status = 0;
-	array = to_array(env, ft_lstsize(env));
-	if (tree && is_builtins(*tree->argv) == 1)
+	if (!tree && is_builtins(*tree->argv) == 0)
 	{
-		return (check_builts(tree, &env));
+		return (check_builts(tree));
 	}
 	char *path = find_cmd_path(tree->argv[0], env);
 	if (!path) {
@@ -211,7 +158,7 @@ int execute_cmd(t_tree *tree, t_env *env) {
 	if (pid == 0)
 	{
 		handle_redirs(tree);
-		if (execve(path, tree->argv, array) == -1)
+		if (execve(path, tree->argv, env) == -1)
 		{
 			perror("execve failed :");
 			exit(1);
@@ -226,7 +173,7 @@ int execute_cmd(t_tree *tree, t_env *env) {
 }
 
 
-int execute_pipe(t_tree *tree, t_env *env)
+int execute_pipe(t_tree *tree, char **env)
 {
 	int pipefd[2];
 	pid_t pid_left;
@@ -276,7 +223,7 @@ int execute_pipe(t_tree *tree, t_env *env)
 	return (WEXITSTATUS(status));
 }
 
-int exec_tree(t_tree *tree, t_env *env)
+int exec_tree(t_tree *tree, char **env)
 {
 	if (!tree)
 		return (0);
@@ -288,16 +235,14 @@ int exec_tree(t_tree *tree, t_env *env)
 }
 
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_token	*token;
 	t_tree	*tree;
-	t_env *env;
 	(void)argc;
 	(void)argv;
-	env = ft_env(envp);
-	// ft_printenv(env);
+	//atexit(f);
 	while (1)
 	{
 		line = readline("minishell$ ");

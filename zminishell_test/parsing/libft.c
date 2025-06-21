@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:40:38 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/19 16:11:19 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/21 15:59:40 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,19 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1)
 {
 	char	*str;
 	int		i;
 
 	i = 0;
+	if (!s1)
+		return (NULL);
 	while (s1[i] != '\0')
 		i++;
 	str = (char *)ft_malloc((i + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
 	i = 0;
 	while (s1[i] != '\0')
 	{

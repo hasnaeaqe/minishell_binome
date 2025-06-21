@@ -1,5 +1,5 @@
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 RM = rm -f
 
 # SRCS = builtins/built_cd.c builtins/built_echo.c builtins/built_pwd.c builtins/built_env.c \

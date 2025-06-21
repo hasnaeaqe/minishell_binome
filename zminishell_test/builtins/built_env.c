@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/20 12:26:07 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:04:35 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,3 +151,22 @@ t_env *env_vide()
 // 	ft_printenv(head);
 // 	return (0);
 // }
+// void remove_value(char *old)
+// {
+	
+// }
+void set_old_to_null(t_env *env)
+{
+	if (!env)
+		return ;
+	t_env *tmp;
+	tmp = env;
+	while(tmp)
+	{
+		if (ft_strcmp(tmp->key, "OLDPWD") == 0)
+		{
+			tmp->value = NULL;
+		}
+		tmp = tmp->next;
+	}
+}
