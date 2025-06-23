@@ -6,11 +6,45 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/19 10:44:15 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/22 10:22:29 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parsing/minishell.h"
+
+// static int	check(int s)
+// {
+// 	if (s == -1)
+// 		return (0);
+// 	return (-1);
+// }
+
+// int	ft_atoi(const char *str)
+// {
+// 	int		s;
+// 	long	r;
+// 	long	tmp;
+
+// 	r = 0;
+// 	s = 1;
+// 	while (*str == ' ' || (*str >= 9 && *str <= 13))
+// 		str++;
+// 	if (*str == '+' || *str == '-')
+// 	{
+// 		if (*str == '-')
+// 			s = -1;
+// 		str++;
+// 	}
+// 	while (*str >= '0' && *str <= '9')
+// 	{
+// 		tmp = r;
+// 		r = r * 10 + (*str - '0');
+// 		if (r / 10 != tmp)
+// 			return (check(s));
+// 		str++;
+// 	}
+// 	return ((int)(s * r));
+// }
 
 int	is_numeric(char *str)
 {

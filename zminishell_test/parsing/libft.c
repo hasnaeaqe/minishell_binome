@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:40:38 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/21 15:59:40 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:07:32 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,28 @@ char	*ft_strdup(char *s1)
 	return (str);
 }
 
-char	*ft_strndup(const char *s1,int n)
+char	*ft_strndup(char *s1, int n)
 {
 	char	*str;
 	int		i;
 
 	i = 0;
-	while (s1[i] != '\0' && i < n)
+	if (!s1)
+		return (NULL);
+	while (s1[i] && i < n)
 		i++;
+	// printf("%d  %d\n", i, n);
 	str = (char *)ft_malloc((i + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
 	i = 0;
-	while (s1[i] != '\0' && i < n)
+	while (s1[i] && i < n)
 	{
 		str[i] = s1[i];
 		i++;
 	}
 	str[i] = '\0';
+	// printf( "dup --> %s\n", str);
 	return (str);
 }
 

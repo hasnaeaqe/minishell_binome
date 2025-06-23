@@ -1,26 +1,2 @@
-"HASNAE yghjgi2ewyiu4fguyetr89ty4ry4"
-Makefile
-builtins
-check_cmd.c
-execute_cmd.c
-execute_cmd.o
-l
-libft.c
-libft.o
-parse
-parsing
-path.c
-path.o
-"HASNAE yghjgi2ewyiu4fguyetr89ty4ry4"
-Makefile
-builtins
-check_cmd.c
-execute_cmd.c
-execute_cmd.o
-l
-libft.c
-libft.o
-parse
-parsing
-path.c
-path.o
+minishell$ ../parse
+==19383==Sanitizer CHECK failed: /AppleInternal/BuildRoot/Library/Caches/com.apple.xbs/Sources/clang_compiler_rt/clang-1200.0.32.29/compiler-rt/lib/asan/../sanitizer_common/sanitizer_malloc_mac.inc:143 ((!asan_init_is_running)) != (0) (0, 0)

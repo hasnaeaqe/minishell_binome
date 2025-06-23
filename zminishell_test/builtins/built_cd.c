@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/21 18:35:40 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:07:51 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char *get_value(t_env *env, char *key)
 {
 	t_env *head = env;
-	while(head && head->next)
+	while(head)
 	{
 		if(ft_strcmp(head->key, key) == 0)
 		{
@@ -28,23 +28,23 @@ char *get_value(t_env *env, char *key)
 void update_value(t_env *env, char *key, char *value)
 {
 	t_env *new;
+	t_env *tmp = env;
 
-	while(env)
+	while(tmp)
 	{
-		if(ft_strcmp(env->key, key) == 0)
+		if(ft_strcmp(tmp->key, key) == 0)
 		{
-			// free(env->value);
-			// env->value = NULL;
-			env->value = ft_strdup(value);
+			tmp->value = ft_strdup(value);
 			return ;
 		}
-		env = env->next;
+		tmp = tmp->next;
 	}
 	new = create_node(key, value);
 	if(!new)
 		return ;
-	new->next = env;
-	env = new;;
+	while (env && env->next)
+		env = env->next;
+	env->next = new;
 }
 
 void update_old_pwd(t_env *env, char *old)
@@ -66,17 +66,32 @@ void ft_write_error(char *str)
 {
 	write(2, str, ft_strlen(str));
 }
+char *remove_last_slash(char *path)
+{
+	size_t len;
+	char *rest;
+
+	len = ft_strlen(path);
+	len --;
+	int i = len;
+	while (i > 0 && path[i] == '\'')
+		i --;
+	while (i > 0 && path[i] != '\'')
+		i --;
+	rest = ft_strndup(path, len);
+	return (rest);
+}
 void put_errno(char *dir)
 {
 	if (errno == 13)
 	{
-		ft_write_error("minishell: cd:");
+		ft_write_error("minishell: cd: ");
 		ft_write_error(dir);
 		ft_write_error(": Permission denied\n");
 	}
 	else if (errno == 2)
 	{
-		ft_write_error("minishell: cd:");
+		ft_write_error("minishell: cd: ");
 		ft_write_error(dir);
 		ft_write_error(": No such file or directory\n");
 	}
@@ -91,7 +106,7 @@ int get_home(char **argv, t_env *env)
 	{
 		home = get_value(env, "HOME");
 		if(!home)
-			return(ft_putstr_fd("minishell: cd: HOME not set", 2), 1);
+			return(ft_putstr_fd("minishell: cd: HOME not set\n", 2), 1);
 		if (chdir(home) != 0)
 		{
 			ft_putstr_fd("minishell: cd: ",2);
@@ -118,6 +133,7 @@ int point(t_env *env, char **argv)
 	// free(pwd); //segfault
 	return (1);
 }
+
 int check_pwd(t_env *env, char *old_pwd)
 {
 	char *pwd;
@@ -126,18 +142,16 @@ int check_pwd(t_env *env, char *old_pwd)
 	if (!env)
 		return (1);
 	pwd = getcwd(NULL, 0);
-	printf("%s\n", pwd);
 	if (!pwd)
 	{
 		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", 2);
 		pwd = get_value(env, "PWD");
-		printf("%s\n", pwd);
 		pwd = ft_strjoin(pwd, "/..");
-		printf("%s\n", pwd);
+		if (!pwd)
+			return (1);
 		tmp = env;
 		while(tmp)
 		{
-			// printf("oui dkhlt azen \n");
 			if (ft_strcmp(tmp->key, "PWD") == 0)
 				update_value(env,"PWD" ,pwd);
 			tmp = tmp->next;
@@ -148,10 +162,27 @@ int check_pwd(t_env *env, char *old_pwd)
 	update_old_pwd(env, old_pwd);
 	return (0);
 }
+int check_double_point(char *path, char *pwd)
+{
+	char *new_pwd;
+
+	if (ft_strcmp(path, "..") == 0)
+		{
+			new_pwd = remove_last_slash(pwd);
+			if(chdir(new_pwd) != 0)
+				return (put_errno(path), 1);
+		}	
+	else
+	{
+		put_errno(path);
+		return (1);
+	}
+}
 int	ft_cd(char **argv, t_env *env)
 {
 	char	*path;       // const ? because we could change the original value without intending to 
 	char *pwd;
+
 	pwd = get_value(env, "PWD");
 	if(!get_home(argv, env))
 		return (check_pwd(env, pwd));
@@ -162,13 +193,23 @@ int	ft_cd(char **argv, t_env *env)
 	path = argv[1];
 	if (chdir(path) != 0)
 	{
-		// ft_putstr_fd("minishell: cd: ",2);
-		// ft_putstr_fd(path,2);
-		// ft_putstr_fd(": No such file or directory\n",2);
-		// return (127);
-		put_errno(path);
+		// if (ft_strcmp(path, "..") == 0)
+		// {
+		// 	char *new_pwd = remove_last_slash(pwd);
+		// 	if(chdir(new_pwd) != 0)
+		// 		return (put_errno(path), 1);
+		// }	
+		// else
+		// {
+		// 	put_errno(path);
+		// 	return (1);
+		// }
+		check_double_point(path, pwd);
+	} 
+	else
+	{
+		update_value(env, "PWD", path);
+		return (check_pwd(env, pwd));
 	}
-	return (check_pwd(env, pwd));//return (check_pwd(env));
+	return (check_pwd(env, pwd));
 }
-
- 

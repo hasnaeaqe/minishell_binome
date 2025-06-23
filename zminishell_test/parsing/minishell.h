@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/21 18:02:24 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:00:16 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_env
 
 //libft
 char	*ft_strdup(char *s1);
-char	*ft_strndup(const char *s1, int n);
+char	*ft_strndup(char *s1, int n);
 void	*ft_malloc(size_t i);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_stchr(const char *s, int c);
@@ -125,6 +125,8 @@ int	built_pwd(t_env *env, int write);
 void	built_exit(char **args);
 void	ft_export(char **argv, t_env *env);
 void	ft_unset(t_env **head, char **key_to_unset);
+
+long	ft_atoi( char *str);
 
 char *get_value(t_env *env, char *key);
 void set_old_to_null(t_env *env);
