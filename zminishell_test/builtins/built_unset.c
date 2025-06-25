@@ -6,13 +6,29 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/20 12:21:39 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/25 19:54:37 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parsing/minishell.h"
 
 // oparse like export
+int is_valid(char *str)
+{
+	int i;
+	if (!str)
+		return (1);
+	if((!ft_isalpha(str[0]) && str[0] != '_') || ft_isdigit(str[0]))
+		return (1);
+	i = 1;
+	while(str[i])
+	{
+		if(!ft_isalpha(str[i]) || str[i] != '_' || !ft_isdigit(str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 void	unset_one(t_env **head, char *key_to_unset)
 {
@@ -49,54 +65,15 @@ void ft_unset(t_env **head, char **key_to_unset)
 	int i = 0;
 	while(key_to_unset[i])
 	{
-		unset_one(head, key_to_unset[i]);
-		
+		if (is_valid(key_to_unset[i]) == 0)
+			unset_one(head, key_to_unset[i]);
+		else
+		{
+			ft_putstr_fd("minishell: unset: ", 2);
+			ft_putstr_fd(key_to_unset[i], 2);
+			ft_putstr_fd(" : not a valid identifier\n", 2);
+			return ;
+		}
 		i++;
 	}
 }
-// int main()
-// {
-//     t_env *head = create_node("user", "haqajjef");
-//     head->next = create_node("PATH", "mnt/homes/haqajjef/.docker");
-//     head->next->next = create_node("SHELL", "/bin/zsh");
-
-// char *str = "user";
-//     ft_printenv(head);
-//     ft_unset(&head, &str);
-//     ft_printenv(head);
-// }
-
-// int main()
-// {
-//     t_env *head = create_node(strdup("USER"), strdup("haqajjef"));
-//     head->next = create_node(strdup("PATH"), strdup("/usr/bin"));
-//     head->next->next = create_node(strdup("SHELL"), strdup("/bin/zsh"));
-
-//     char *to_delete = "USER";
-
-//     ft_printenv(head);
-//     printf("---- Après unset ----\n");
-//     ft_unset(&head, &to_delete);
-//     ft_printenv(head);
-
-//     return 0;
-// }
-
-// int main()
-// {
-//     t_env *head = create_node(strdup("USER"), strdup("haqajjef"));
-//     head->next = create_node(strdup("PATH"), strdup("/usr/bin"));
-//     head->next->next = create_node(strdup("SHELL"), strdup("/bin/zsh"));
-//     head->next->next->next = create_node(strdup("EDITOR"), strdup("vim"));
-
-//     printf("Avant unset :\n");
-//     ft_printenv(head);
-
-//     printf("\nAprès unset USER et EDITOR :\n");
-//     char *to_unset[] = {"USER", "EDITOR", NULL};
-//     ft_unset(&head, to_unset);
-
-//     ft_printenv(head);
-
-//     return 0;
-// }

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/22 10:22:29 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:18:07 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,15 @@
 // 	}
 // 	return ((int)(s * r));
 // }
+int exit_status(int status, int flag)
+{
+    static int static_status;
+
+    if (flag)
+        return (static_status);
+    static_status = status;
+    return (static_status);
+}
 
 int	is_numeric(char *str)
 {

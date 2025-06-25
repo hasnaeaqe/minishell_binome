@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 12:08:19 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/25 11:15:10 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/25 13:16:30 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,16 @@ char *find_expand(char *str)
     dest[j] = '\0';
     return (dest);
 }
-char *extract_value(char *dest, char **env)
+char *extract_value(char *dest, t_env *env)
 {
-    t_env *en;
-    
+
     if (ft_strcmp(dest,"?")==0)
         return (dest);
-    en = ft_env(env);
-    while (en)
+    while (env)
     {
-        if (ft_strcmp(en->key, dest) == 0)
-            return (en->value);
-        en = en->next;
+        if (ft_strcmp(env->key, dest) == 0)
+            return (env->value);
+        env = env->next;
     }
     return ("");
 }
@@ -84,7 +82,7 @@ char *rwina(char *value,char *dest,char *expand_value, int len)
     total_str[j] = '\0';
     return (total_str);
 }
-char *expand(char *src,char *str, char **env)
+char *expand(char *src,char *str, t_env *env)
 {
     char *dest;
     char *expand_value;
@@ -107,7 +105,7 @@ int petit_test(char *str,int *k)
     (*k)--;
     return (i);
 }
-void	expand_tokens(t_token **token, char **env)
+void	expand_tokens(t_token **token, t_env *env)
 {
     t_token *tmp;
     t_token *prev;

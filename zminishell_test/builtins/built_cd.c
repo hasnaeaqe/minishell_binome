@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/25 11:12:36 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:17:39 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 char *get_value(t_env *env, char *key)
 {
-	t_env *head = env;
+	t_env *head;
+	head = env;
 	while(head)
 	{
 		if(ft_strcmp(head->key, key) == 0)
@@ -68,7 +69,7 @@ void ft_write_error(char *str)
 }
 char *remove_last_slash(char *path)
 {
-	puts("slash");
+	// puts("slash");
 	size_t len;
 	char *rest;
 
@@ -163,23 +164,24 @@ int check_pwd(t_env *env, char *old_pwd)
 	update_old_pwd(env, old_pwd);
 	return (0);
 }
-int check_double_point(char *path, char *pwd)
+int check_double_point(char *path, char *pwd, t_env *env)
 {
 	char *new_pwd;
-	puts("awdee elaash");
+	// puts("awdee elaash");
 
 	if (ft_strcmp(path, "..") == 0)
 		{
 			new_pwd = remove_last_slash(pwd);
+			// printf ("%s -->\n", new_pwd);
 			if(chdir(new_pwd) != 0)
 				return (put_errno(path), 1);
 		}	
 	else
 	{
 		put_errno(path);
-		return (1);
+		return (check_pwd(env, pwd));
 	}
-	return (0);
+	return (check_pwd(env, pwd));
 }
 int	ft_cd(char **argv, t_env *env)
 {
@@ -196,23 +198,13 @@ int	ft_cd(char **argv, t_env *env)
 	path = argv[1];
 	if (chdir(path) != 0)
 	{
-		// check_double_point(path, pwd);
-		if (ft_strcmp(path, "..") == 0)
-		{
-			char *new_pwd = remove_last_slash(pwd);
-			if(chdir(new_pwd) != 0)
-				return (put_errno(path), check_pwd(env, pwd));
-		}	
-		else
-		{
-			put_errno(path);
-			return (check_pwd(env, pwd));
-		}
-	}
-	else
-	{
-		update_value(env, "PWD", path);
-		return (check_pwd(env, pwd));
+		check_double_point(path, pwd, env);
+		// else
+		// {
+		// 	put_errno(path);
+		// 	return (check_pwd(env, pwd));
+		// }
 	}
 	return (check_pwd(env, pwd));
 }
+ 

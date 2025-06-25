@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/25 10:54:44 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:18:16 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,14 @@ typedef enum e_redir_type
 	REDIR_APPEND,
 	REDIR_HEREDOC
 }	t_redir_type;
+ 
 
+ 
 typedef struct s_redir_node
 {
 	t_redir_type		kind;
 	int					fd;
-	int				ishd;
+	int					ishd;
 	char				*filename;
 	struct s_redir_node	*next;
 }	t_redir_node;
@@ -110,28 +112,27 @@ void	print_tree(t_tree *tree, int depth);
 void	tokenisation(char *str, t_token **token);
 void	print_tokens(t_token *token);
 void	free_tokens(t_token *token);
-void	expand_tokens(t_token **token, char **env);
+void	expand_tokens(t_token **token, t_env *env);
 void remove_quotes(t_token **token);
 //exection
-char *find_cmd_path(char *cmd, t_env *env);
+char	*find_cmd_path(char *cmd, t_env *env);
 t_env	*create_node(char *cle, char *val);
-char *ext_key(char *str);
+char	*ext_key(char *str);
 char	*ext_val(char *env);
 void	ft_printenv(t_env *head);
 
-t_env	*env_vide();
+t_env	**env_to_array(t_env *env, int size);
+int parse_args(char *str);
+int exit_status(int status, int flag);
+
 int		ft_cd(char **argv, t_env *env);
-void	ft_echo(char **argv);
+int		ft_echo(char **argv);
 t_env	*ft_env(char **env);
-t_env **env_to_array(t_env *env, int size);
-
-
-
-int	built_pwd(t_env *env, int write);
+t_env	*env_vide();
+int		built_pwd(t_env *env, int write);
 void	built_exit(char **args);
 void	ft_export(char **argv, t_env *env);
 void	ft_unset(t_env **head, char **key_to_unset);
-
 
 char *get_value(t_env *env, char *key);
 void set_old_to_null(t_env *env);

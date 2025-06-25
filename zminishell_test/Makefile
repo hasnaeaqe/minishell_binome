@@ -1,5 +1,5 @@
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 RM = rm -f
 
 
@@ -11,7 +11,7 @@ PARSE = parsing/garbage_collector.c parsing/main.c  parsing/parce_tree.c parsing
 OB = $(PARSE:.c=.o)
 
 
-NOM = parse
+NOM = minishell
 
 all: $(NOM) 
 

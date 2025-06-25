@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:41 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/20 12:18:37 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:39:20 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int parse_args(char *str)
 {
 	int i;
 	i = 0;
-	// if (!str)
-	// 	return (1);
+	if (!str)
+		return (-1);
 	while(str[i] && str[i] != '=' && str[i] != '+')
 	{
 		if((!ft_isalpha(str[i]) && str[i] != '_') || ft_isdigit(str[i]))
@@ -53,6 +53,25 @@ t_env *find_node(t_env *env, char *key)
     return NULL;
 }
 
+// void add(int mode, t_env *existe, char *value_to_add)
+// {
+// 	char *old_value;
+// 	if(existe)
+// 	{
+// 			if (mode == 0)
+// 			{
+// 				free(existe->value);
+// 				existe->value = ft_strdup(value_to_add);
+// 			}
+// 			else if(mode == 1)
+// 			{
+// 				old_value = existe->value;
+// 				existe->value = ft_strjoin(old_value, value_to_add);
+// 				free(old_value);
+// 			}
+// 		return ;
+// 	}
+// }
 void add_to_env_or_update(t_env **env, char *key_to_add, char *value_to_add, int mode)
 {
 	t_env *tmp;
@@ -77,6 +96,7 @@ void add_to_env_or_update(t_env **env, char *key_to_add, char *value_to_add, int
 			}
 		return ;
 	}
+	// add(mode,existe, value_to_add);
 	new_node = create_node(key_to_add, value_to_add);
 	if(!tmp)
 	{
@@ -84,36 +104,16 @@ void add_to_env_or_update(t_env **env, char *key_to_add, char *value_to_add, int
 		return;
 	}
 	while(tmp -> next)
-	{
 		tmp = tmp->next;
-	}
 	tmp->next = new_node;
 }
-
-// void add_to_env(t_env **env, char *key_to_add, char *value_to_add)
-// {
-// 	t_env *tmp;
-// 	t_env *new_node;
-
-// 	new_node = create_node(key_to_add, value_to_add);
-// 	tmp = *env;
-// 	if(!tmp)
-// 	{
-// 		*env = new_node;
-// 		return;
-// 	}
-// 	while(tmp -> next)
-// 	{
-// 		tmp = tmp->next;
-// 	}
-// 	tmp->next = new_node;
-// }
-
 
 void ft_add_export(char **argv, t_env **env)
 {
 	int i;
 	int mode;
+	char *key;
+	char *val;
 
 	i = 1;
 	while(argv[i])
@@ -122,41 +122,20 @@ void ft_add_export(char **argv, t_env **env)
 		if(mode == -1)
 		{
 			printf("export: not an identifier:%s\n", argv[i]);
-			exit(1);
+			// exit(1);
+			// return ;
 		}
-		char *key = ext_key(argv[i]);
-		char *val = ext_val(argv[i]);
-		if(key != NULL)
+		key = ext_key(argv[i]);
+		val = ext_val(argv[i]);
+		if(key != NULL && val)
 			add_to_env_or_update(env, key, val, mode);
+		// else
+		// 	add_to_env_or_update(env, argv[i], NULL, mode); 
 		else
 			add_to_env_or_update(env, argv[i], "", mode);
 		i++;
 	}
 }
-
-
-// void    ft_lstadd_back(t_env **lst, t_env *new)
-// {
-// 	t_env    *tmp;
-
-// 	if (lst == NULL || new == NULL)
-// 		return ;
-// 	if (*lst == NULL)
-// 	{
-// 		*lst = new;
-// 		new->next = NULL;
-// 		return ;
-// 	}
-// 	else
-// 	{
-// 		tmp = *lst;
-// 		while (tmp -> next)
-// 		{
-// 			tmp = tmp-> next;
-// 		}
-// 		tmp -> next = new;
-// 	}
-// }
 
 void	ft_printexport(t_env *head)
 {
@@ -194,6 +173,7 @@ t_env **env_to_array(t_env *env, int size)
 	t_env **array;
 	t_env *tmp;
 	int i;
+
 	array = ft_malloc(sizeof(t_env *) * (size + 1));
 	tmp = env;
 	i= 0;
@@ -262,47 +242,3 @@ void ft_export(char **argv, t_env *env)
 	sort_list(array);
 	// ft_printexport(*array);
 }
-// int main(int argc, char **argv, char **env)
-// {
-// 	// t_env *list;
-	// list = ft_env(env);
-	// t_env **array = env_to_array(list, ft_lstsize(list));
-	// sort_list(array);
-	// if(argc == 1)
-	// {
-	// 	ft_printexport(*array);
-	// }
-	// // t_env *head =  NULL;
-	// // int i = 1;
-	// // while(argv[i])
-	// // {
-	// // 	if(check_key(argv[i]) == 1)
-	// // 	{
-	// // 		char *key = ext_key(argv[i]);
-	// // 		char *val = ext_val(argv[i]);
-	// // 		t_env *new = create_node(key, val);
-	// // 		ft_lstadd_back(&head, new);
-	// // 	}
-	// // 	else
-	// // 	{
-	// // 		t_env *nov = create_node(argv[i], NULL);
-	// // 		ft_lstadd_back(&head, nov);
-	// // 	}
-	// // 	i++;
-	// // }
-	// // ft_printenv(head);
-
-	// // printf("\nAprès export :\n");
-	// ft_add_export(argv, array);
-	// sort_list(array);
-	// printf("---------export------------\n");
-	// ft_printexport(*array);
-// 	ft_export(argc, argv, env);
-// 	return 0;
-// }
-
-// int main(int argc, char **argv, char **env)
-// {
-// 	ft_export(argc, argv, env);
-// 	return 0;
-// }

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 10:22:40 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/20 12:26:24 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:50:30 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char *find_cmd_path(char *cmd, t_env *env)
 	char *full_path;
 	int i;
 
-	char *paths = getenv("PATH");
+	char *paths =get_value(env, "PATH");
 	char **dirs = ft_split(paths, ':');
 	if(!dirs)
 		return (NULL);

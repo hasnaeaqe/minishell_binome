@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/25 10:55:23 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:10:33 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void handle_heredoc(t_tree *tree)
 			int fdread = open("/tmp/tmpfile", O_RDONLY, 0644);
 			unlink("/tmp/tmpfile");
 			redir->fd = fdread;
-			while(1)
+			while(1) 
 			{
 				line = readline(">");
 				if (!line || ft_strcmp(line, delimiter) == 0) 
@@ -210,11 +210,12 @@ int execute_cmd(t_tree *tree, t_env *env) {
 	if (pid == 0)
 	{
 		handle_redirs(tree);
-		if (execve(path, tree->argv, array) == -1)
+		//chec
+		if (tree->argv && tree->argv[0] && execve(path, tree->argv, array) == -1)
 		{
-			perror("execve failed :");
-			exit(1);
+			perror("execve failed"); // 
 		}
+		exit(0);
 	}
 	else
 	{
@@ -278,7 +279,7 @@ int execute_pipe(t_tree *tree, t_env *env)
 int exec_tree(t_tree *tree, t_env *env)
 {
 	if (!tree)
-		return (0);
+		return (1);
 	if (tree->kind == NODE_COMMAND)
 		return(execute_cmd(tree, env)); 
 	else if (tree->kind == NODE_PIPE)
@@ -315,7 +316,7 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 			continue ;
 		}
-		expand_tokens(&token, envp);
+		expand_tokens(&token, env);
 		remove_quotes(&token);
 		tree = parse_tree(&token);
 		// print_tree(tree, 0);
