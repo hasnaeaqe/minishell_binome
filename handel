@@ -1,5 +1,0 @@
-<> 
-""e"'c'ho 'b'"o"nj"o"'u'r"
-bash-3.2$ !! (réexécute la dernière commande)
-!
-bash: syntax error near unexpected token `newline'

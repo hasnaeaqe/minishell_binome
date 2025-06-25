@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 12:08:19 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/13 20:12:39 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:27:28 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,43 @@
 
 char *find_expand(char *str)
 {
-    int i = 0;
+    int i = 1;
     int j = 0;
     char *dest;
-    while (str[i])
+    
+    if (!str || str[0] != '$' )
+        return (ft_strdup(""));
+    if (str[1]=='?')
+        return (ft_strdup("?"));
+    if (ft_isdigit(str[i]))
     {
-        if (ft_isalpha(str[i]) || ft_isdigit(str[i]) || str[i]=='_')
-            i++;
-        else
-            break;
+        dest = ft_malloc(2 * sizeof(char));
+        dest[j++]=str[i];
+        dest[j]='\0';
+        return (dest);
     }
+    while (str[i] && (ft_isalpha(str[i]) || ft_isdigit(str[i]) || str[i]=='_'))
+        i++;
     dest = ft_malloc((i + 1) * sizeof(char));
-    while (j < i)
+    if (j==i-1)
+       dest[j++]=str[i]; 
+    else
     {
-        dest[j] = str[j];
-        j++;
+        while (j < i - 1)
+        {
+            dest[j] = str[j+1]; 
+            j++;
+        }
     }
-    dest[j]='\0';
+    dest[j] = '\0';
     return (dest);
 }
 char *extract_value(char *dest, char **env)
 {
     t_env *en;
     
+    if (ft_strcmp(dest,"?")==0)
+        return (dest);
     en = ft_env(env);
     while (en)
     {
@@ -44,66 +58,69 @@ char *extract_value(char *dest, char **env)
             return (en->value);
         en = en->next;
     }
-    return (NULL);
+    return ("");
 }
-char *rwina(char *value, char *expand_value, char *dest,int len)
+char *rwina(char *value,char *dest,char *expand_value, int len)
 {
     char *total_str;
+    int k;
     int i = 0;
     int j = 0;
+    int dest_len = ft_strlen(dest);
 
-    total_str = ft_malloc(len * sizeof(int));
+    total_str = ft_malloc((len + 1) * sizeof(char)); //ila tra chi mochkil rah hna fin bdelt
     while (value[i])
     {
-        if (value[i]=='$')
+        if (value[i]=='$' && ft_strncmp(&value[i+1],dest,dest_len)==0)
         {
-            while (*expand_value)
-                total_str[j++] = *expand_value++;
-            i+=ft_strlen(dest) + 1;
+            k = 0;
+            while (expand_value[k])
+                total_str[j++] = expand_value[k++];
+            i+=dest_len+1;
         }
         else
-        {
-            total_str[j]=value[i];
-            i++;
-            j++;  
-        }
+            total_str[j++]=value[i++]; 
     }
     total_str[j] = '\0';
     return (total_str);
 }
-void expand(t_token **token,char *str, char **env)
+char *expand(char *src,char *str, char **env)
 {
     char *dest;
     char *expand_value;
-    t_token *tmp;
     int len;
-    char *value;
-    char *total_str;
 
-    tmp = *token;
-    value = (*token)->value;
     dest = find_expand(str);
     expand_value = extract_value(dest, env);
-    //printf("%s\n",expand_value);
-    len = ft_strlen((*token)->value) - ft_strlen(dest) + ft_strlen(expand_value);
-    free((*token)->value);
-    *token = ft_malloc(len * sizeof(t_token));
-    total_str = rwina(value, expand_value, dest,len);
-    (*token)->value = total_str;
-    (*token)->next=tmp->next;
+    len = ft_strlen(src) - ft_strlen(dest) + ft_strlen(expand_value);
+    // printf("value : %s,str : %s  dest: %s , exapnd : %s , TOTAL : %s\n",src,str,dest,expand_value,rwina(src,dest,expand_value, len));
+    return (rwina(src,dest,expand_value, len));
+}
+int petit_test(char *str,int *k)
+{
+    int i=0;
+    while (str[i] && str[i]=='$')
+    {
+        i++;
+        (*k)++;
+    }
+    (*k)--;
+    return (i);
 }
 void	expand_tokens(t_token **token, char **env)
 {
     t_token *tmp;
+    t_token *prev;
     char *str;
     int i;
     
     tmp = *token;
+    prev = *token; 
     while(tmp)
     {
-        if (tmp->type == TOK_WORD)
+        if (tmp->type == TOK_WORD && prev->type != TOK_REDIR_HEREDOC)
         {
-            str = tmp->value;
+            str = ft_strdup(tmp->value);
             i = 0;
             while (str[i])
             {
@@ -112,33 +129,30 @@ void	expand_tokens(t_token **token, char **env)
                     i++;
                     while(str[i] && str[i]!='\'')
                         i++;
-                    if (str[i]=='\'')
-                        i++;
                 }
                 else if (str[i] =='"')
                 {
                     i++;
                     while (str[i] && str[i]!= '"')
                     {
-                        if (str[i]=='$')
+                        if (str[i]=='$' && str[i+1])
                         {
-                            expand(&tmp,&str[++i], env);
+                            str=expand(str,&str[i], env);
+                            break; 
                         }
-                        i++;
+                        else
+                            i++;
                     }
-                    if (str[i]=='"')
-                        i++;
                 }
+                else if (str[i]=='$' && str[i+1])
+                    str=expand(str,&str[i], env);   
                 else
-                {
-                    if (str[i]=='$')
-                        expand(&tmp,&str[++i], env);
                     i++;
-                }
             }
-            
+            tmp->value = str;
         }
-        printf("%s\n",tmp->value);
+        // printf("%s\n",tmp->value);
+        prev=tmp;
         tmp = tmp->next;
     }
 }

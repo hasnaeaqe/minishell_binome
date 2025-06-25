@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 10:44:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/05/13 21:38:58 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:11:17 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,11 @@ t_tree	*parse_pipe(t_token **token)
 t_tree	*parse_tree(t_token **token)
 {
 	if (finde_pipe(*token))
+	{
 		return (parse_pipe(token));
+	}
 	else
+	{
 		return (parse_commande(token));
+	}
 }

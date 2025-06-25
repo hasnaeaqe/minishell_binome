@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/13 21:39:35 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:01:20 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ char	*ft_strjoin(char  *s1, char  *s2);
 void	ft_strncpy(char *dest, char *src, int n);
 char	*ft_strchr1(const char *s, int c);
 char	*ft_strdup1( const char *s1);
+int		ft_strnstr(const char *haystack, const char *needle, size_t len);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 //syntaxe error
 int		check_syntax_errors(t_token *token);
 t_tree	*parse_tree(t_token **token);
@@ -106,4 +108,5 @@ void	ft_printenv(t_env *head);
 //expand
 char	*expand_functions(char *str, char **env);
 char	*ft_my_strlcat(char *dst, const char *src, size_t dstsize);
+void remove_quotes(t_token **token);
 #endif

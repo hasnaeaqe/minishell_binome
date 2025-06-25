@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:40:38 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/13 21:37:09 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:01:06 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,19 +95,15 @@ void	ft_putstr_fd(char *s, int fd)
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t			i;
-	unsigned char	*s;
-	unsigned char	*l;
-
-	s = (unsigned char *)s1;
-	l = (unsigned char *)s2;
+	
 	i = 0;
-	while (s[i] == l[i])
+	while (s1[i] == s2[i])
 	{
-		if (s[i] == '\0' || l[i] == '\0')
+		if (s1[i] == '\0' || s2[i] == '\0')
 			return (0);
 		i++;
 	}
-	return (s[i] - l[i]);
+	return (s1[i] - s2[i]);
 }
 
 int	ft_strchr(const char *s, int c)
@@ -161,6 +157,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (s[i] - l[i]);
 	return (0);
 }
+
+
 int	ft_isalpha(int c)
 {
 	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
@@ -206,22 +204,88 @@ void	ft_strncpy(char *dest, char *src, int n)
 	}
 	dest[i] = '\0';
 }
-char	*ft_my_strlcat(char *dst, const char *src, size_t dstsize)
-{
-	size_t		k;
-	size_t		max_copy;
-	size_t		len_dst;
+// char	*ft_my_strlcat(char *dst, const char *src, int size)
+// {
+// 	size_t		i=0;
+// 	size_t len_dst;
+// 	size_t len;
+	
+// 	if (!src)
+// 		return dst;
+// 	if (!dst)
+// 		return (ft_strndup(src, size));
+// 	len_dst = ft_strlen(dst);
+// 	len = len_dst + size;
+// 	dst=ft_realloc(dst, len_dst,  len_dst + size + 1);
+// 	while (src[i] && )
+// 	{
+// 		dst[len_dst + i] = src[i];
+// 		i++;
+// 	}
+// 	dst[len_dst + i] = '\0';
+// 	return (dst);
+// }
 
-	len_dst = ft_strlen(dst);
-	if (dstsize == 0 || len_dst >= dstsize)
-		return (dst);
-	max_copy = dstsize - len_dst - 1;
-	k = 0;
-	while (k < max_copy && src[k] != '\0')
+int ft_strnstr(const char *haystack, const char *needle, size_t len)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	if (needle[i] == '\0')
+		return (0);
+	while (i < len && haystack[i] != '\0')
 	{
-		dst[len_dst + k] = src[k];
-		k++;
+		j = 0;
+		while (needle[j] != '\0' && haystack[i + j] == needle[j]
+			&& (i + j) < len)
+			j++;
+		if (needle[j] == '\0')
+			return (1);
+		i++;
 	}
-	dst[len_dst + k] = '\0';
+	return (0);
+}
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t					i;
+	const unsigned char		*source;
+	unsigned char			*dest;
+
+	i = 0;
+	if (!dst && !src)
+		return (NULL);
+	if (dst == src)
+		return (dst);
+	source = (const unsigned char *)src;
+	dest = (unsigned char *)dst;
+	while (i < n)
+	{
+		dest[i] = source[i];
+		i++;
+	}
 	return (dst);
+}
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*str;
+	size_t	i;
+
+	i = 0;
+	if (s == NULL)
+		return (NULL);
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
+	if (len > ft_strlen(s + start))
+		len = ft_strlen(s + start);
+	str = (char *)malloc((len + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	while (i < len)
+	{
+		str[i] = s[start + i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

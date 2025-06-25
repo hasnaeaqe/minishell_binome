@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:32:06 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/13 21:42:31 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:28:50 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,43 +163,42 @@ void	tokenisation(char *str, t_token **token)
 	}
 }
 
-void f(void)
-{
-	system("leaks minishell");
-}
+// void f(void)
+// {
+// 	system("leaks minishell");
+// }
 
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_token	*token;
-	// t_tree	*tree;
-	char *str;
+	t_tree	*tree;
 
 	(void)argc;
 	(void)argv;
-	atexit(f);
+	//atexit(f);
 	while (1)
 	{
-		line = readline("minishell$ ");
+		line = readline("My minishell$ ");
 		if (!line)
 			break ;
 		if (*line)
 			add_history(line);
 		token = NULL;
-		str = expand_functions(line,env);
-		// tokenisation(line, &token);
-		// print_tokens(token);
-		// if (check_syntax_errors(token))
-		// {
-		// 	free_tokens(token);
-		// 	free(line);
-		// 	continue ;
-		// }
-		// expand_tokens(&token, env);
-		// tree = parse_tree(&token);
+		tokenisation(line, &token);
+		if (check_syntax_errors(token))
+		{
+			free_tokens(token);
+			free(line);
+			continue ;
+		}
+		expand_tokens(&token, env);
+		remove_quotes(&token);
+		print_tokens(token);
+		tree = parse_tree(&token);
 		// print_tree(tree, 0);
-		// free_tokens(token);
-		// free(line);
+		free_tokens(token);
+		free(line);
 	}
 	return (0);
 }
