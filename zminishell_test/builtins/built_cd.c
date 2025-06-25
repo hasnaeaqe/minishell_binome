@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/22 18:07:51 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/25 11:12:36 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void ft_write_error(char *str)
 }
 char *remove_last_slash(char *path)
 {
+	puts("slash");
 	size_t len;
 	char *rest;
 
@@ -165,6 +166,7 @@ int check_pwd(t_env *env, char *old_pwd)
 int check_double_point(char *path, char *pwd)
 {
 	char *new_pwd;
+	puts("awdee elaash");
 
 	if (ft_strcmp(path, "..") == 0)
 		{
@@ -177,6 +179,7 @@ int check_double_point(char *path, char *pwd)
 		put_errno(path);
 		return (1);
 	}
+	return (0);
 }
 int	ft_cd(char **argv, t_env *env)
 {
@@ -193,19 +196,19 @@ int	ft_cd(char **argv, t_env *env)
 	path = argv[1];
 	if (chdir(path) != 0)
 	{
-		// if (ft_strcmp(path, "..") == 0)
-		// {
-		// 	char *new_pwd = remove_last_slash(pwd);
-		// 	if(chdir(new_pwd) != 0)
-		// 		return (put_errno(path), 1);
-		// }	
-		// else
-		// {
-		// 	put_errno(path);
-		// 	return (1);
-		// }
-		check_double_point(path, pwd);
-	} 
+		// check_double_point(path, pwd);
+		if (ft_strcmp(path, "..") == 0)
+		{
+			char *new_pwd = remove_last_slash(pwd);
+			if(chdir(new_pwd) != 0)
+				return (put_errno(path), check_pwd(env, pwd));
+		}	
+		else
+		{
+			put_errno(path);
+			return (check_pwd(env, pwd));
+		}
+	}
 	else
 	{
 		update_value(env, "PWD", path);

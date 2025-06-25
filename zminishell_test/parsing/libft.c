@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:40:38 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/22 17:07:32 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/25 10:50:35 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,4 +138,47 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	if (i < n)
 		return (s[i] - l[i]);
 	return (0);
+}
+int ft_strnstr(const char *haystack, const char *needle, size_t len)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	if (needle[i] == '\0')
+		return (0);
+	while (i < len && haystack[i] != '\0')
+	{
+		j = 0;
+		while (needle[j] != '\0' && haystack[i + j] == needle[j]
+			&& (i + j) < len)
+			j++;
+		if (needle[j] == '\0')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*str;
+	size_t	i;
+
+	i = 0;
+	if (s == NULL)
+		return (NULL);
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
+	if (len > ft_strlen(s + start))
+		len = ft_strlen(s + start);
+	str = (char *)malloc((len + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	while (i < len)
+	{
+		str[i] = s[start + i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/22 17:00:16 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/25 10:54:44 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,28 @@ int		ft_stchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-//syntaxe error
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
+char	*ft_strjoin(char  *s1, char  *s2);
+char	**ft_split(char const *s, char c);
+char	*ft_strchr(const char *s, int c);
+void	ft_strncpy(char *dest, char *src, int n);
+long	ft_atoi( char *str);
+int		ft_strnstr(const char *haystack, const char *needle, size_t len);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+void	ft_str(char *s);
+void    ft_lstadd_back(t_env **lst, t_env *new);
+int	ft_lstsize(t_env *lst);
+//parsing
 int		check_syntax_errors(t_token *token);
 t_tree	*parse_tree(t_token **token);
 void	print_tree(t_tree *tree, int depth);
 void	tokenisation(char *str, t_token **token);
 void	print_tokens(t_token *token);
 void	free_tokens(t_token *token);
-
-char	**ft_split(char const *s, char c);
-char	*ft_strjoin(char  *s1, char  *s2);
+void	expand_tokens(t_token **token, char **env);
+void remove_quotes(t_token **token);
+//exection
 char *find_cmd_path(char *cmd, t_env *env);
 t_env	*create_node(char *cle, char *val);
 char *ext_key(char *str);
@@ -108,29 +120,21 @@ char	*ext_val(char *env);
 void	ft_printenv(t_env *head);
 
 t_env	*env_vide();
-void    ft_lstadd_back(t_env **lst, t_env *new);
 int		ft_cd(char **argv, t_env *env);
 void	ft_echo(char **argv);
 t_env	*ft_env(char **env);
-int	ft_lstsize(t_env *lst);
 t_env **env_to_array(t_env *env, int size);
 
 
-char	*ft_strchr(const char *s, int c);
-void	ft_strncpy(char *dest, char *src, int n);
-int		ft_isalpha(int c);
-int	ft_isdigit(int c);
 
 int	built_pwd(t_env *env, int write);
 void	built_exit(char **args);
 void	ft_export(char **argv, t_env *env);
 void	ft_unset(t_env **head, char **key_to_unset);
 
-long	ft_atoi( char *str);
 
 char *get_value(t_env *env, char *key);
 void set_old_to_null(t_env *env);
-void	ft_str(char *s);
 int exec_tree(t_tree *tree, t_env *env);
 
 #endif

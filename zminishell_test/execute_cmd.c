@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/22 10:14:26 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/25 10:55:23 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,7 +315,8 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 			continue ;
 		}
-		//expand_tokens(&token);
+		expand_tokens(&token, envp);
+		remove_quotes(&token);
 		tree = parse_tree(&token);
 		// print_tree(tree, 0);
 		handle_heredoc(tree);

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:32:06 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/20 10:22:28 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/25 10:34:37 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,12 +138,12 @@ void	tokenisation(char *str, t_token **token)
 		else
 		{
 			start = i;
-			if (str[i] == '\'' || str[i] == '"')
-			{
-				quote = str[i];
-				while (str[i] && str[i] != quote)
-					i++;
-			}
+			// if (str[i] == '\'' || str[i] == '"')
+			// {
+			// 	quote = str[i];
+			// 	while (str[i] && str[i] != quote)
+			// 		i++;
+			// }
 			while (str[i] && str[i] != ' ' && str[i] != '|'
 				&& str[i] != '<' && str[i] != '>')
 			{
