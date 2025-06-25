@@ -1,40 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_cd.c                                         :+:      :+:    :+:   */
+/*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/05/06 10:12:14 by haqajjef         ###   ########.fr       */
+/*   Created: 2025/05/11 10:31:15 by haqajjef          #+#    #+#             */
+/*   Updated: 2025/05/11 10:31:33 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../executer.h"
 
-void	ft_cd(char **argv)
+static void	ft_free(void *p, int k)
 {
-	int		r;
-	char	*path;
+	static void		*lst[INT_MAX];
+	static size_t	i;
 
-	if (!argv[1])
+	if (k)
 	{
-		perror("path manquant!");
-		return ;
+		while (lst[i])
+			free(lst[i--]);
 	}
-	path = argv[1];
-	r = chdir(path);
-	if (r == -1)
-	{
-		perror("operation echoue!");
-	}
+	else
+		lst[i++] = p;
 }
 
-// int	main(int argc, char**argv)
-// {
-// 	if (argc > 1)
-// 	{
-// 		ft_cd(argv);
-// 	}
-// 	printf("new cwd : %s\n", getcwd(NULL, 0));
-// }
+void	ft_exit(int n)
+{
+	ft_free(NULL, 1);
+	exit(n);
+}
+
+void	*ft_malloc(size_t i)
+{
+	void	*k;
+
+	k = malloc(i);
+	if (!k)
+		ft_exit(1);
+	ft_free(k, 0);
+	return (k);
+}

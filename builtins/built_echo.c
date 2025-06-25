@@ -6,11 +6,23 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:08:32 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/04/29 20:14:13 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/05/11 10:37:33 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "../executer.h"
+
+void	ft_putstr(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		write(1, &s[i], 1);
+		i++;
+	}
+}
 
 int	is_valid_option(char *str)
 {
@@ -26,18 +38,6 @@ int	is_valid_option(char *str)
 		i++;
 	}
 	return (1);
-}
-
-void	ft_putstr(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		write(1, &s[i], 1);
-		i++;
-	}
 }
 
 void	ft_echo(char **argv)
@@ -63,11 +63,11 @@ void	ft_echo(char **argv)
 		write(1, "\n", 1);
 }
 
-int	main(int argc, char **argv)
-{
-	if (argc >= 1)
-	{
-		ft_echo(argv);
-	}
-	return (0);
-}
+// int	main(int argc, char **argv)
+// {
+// 	if (argc >= 1)
+// 	{
+// 		ft_echo(argv);
+// 	}
+// 	return (0);
+// }

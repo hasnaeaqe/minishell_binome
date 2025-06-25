@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "__tuple": "c",
+        "array": "c",
+        "executer.h": "c",
+        "minishell.h": "c"
+    }
+}
