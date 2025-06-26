@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/25 16:10:33 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:25:24 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,6 +322,7 @@ int	main(int argc, char **argv, char **envp)
 		// print_tree(tree, 0);
 		handle_heredoc(tree);
 		exec_tree(tree, env);
+		// puts("kk");
 		free_tokens(token);
 		free(line);
 	}
