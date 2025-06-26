@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:41 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 17:27:05 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 18:38:45 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void sort_list(t_env **env)
 	}
 }
 
-void ft_export(char **argv, t_env **env)
+int ft_export(char **argv, t_env **env)
 {
 	t_env **array;
 	int size;
@@ -199,6 +199,7 @@ void ft_export(char **argv, t_env **env)
 	sort_list(array);
 	if(argv && !argv[1])
 		ft_printexport(*array);
+	return (0);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 17:27:46 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 18:41:38 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	unset_one(t_env **head, char *key_to_unset)
 	free(tmp->value);
 	free(tmp);
 }
-void ft_unset(t_env **head, char **key_to_unset)
+int ft_unset(t_env **head, char **key_to_unset)
 {
 	int i = 0;
 	while(key_to_unset[i])
@@ -72,8 +72,9 @@ void ft_unset(t_env **head, char **key_to_unset)
 			ft_putstr_fd("minishell: unset: ", 2);
 			ft_putstr_fd(key_to_unset[i], 2);
 			ft_putstr_fd(" : not a valid identifier\n", 2);
-			return ;
+			return (1) ;
 		}
 		i++;
 	}
+	return (0);
 }

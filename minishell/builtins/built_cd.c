@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 16:03:50 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 18:37:36 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,20 @@ void update_value(t_env *env, char *key, char *value)
 	env->next = new;
 }
 
-void update_old_pwd(t_env *env, char *old)
-{
-	t_env *tmp;
-	tmp = env;
-	while(tmp)
-	{
-		if (ft_strcmp(tmp->key, "OLDPWD") == 0)
-		{
-			update_value(env,"OLDPWD" ,old);
-			return ;
-		}
-		tmp = tmp->next;	 
-	}
-}
+// void update_old_pwd(t_env *env, char *old)
+// {
+// 	t_env *tmp;
+// 	tmp = env;
+// 	while(tmp)
+// 	{
+// 		if (ft_strcmp(tmp->key, "OLDPWD") == 0)
+// 		{
+// 			update_value(env,"OLDPWD" ,old);
+// 			return ;
+// 		}
+// 		tmp = tmp->next;	 
+// 	}
+// }
 
 void ft_write_error(char *str)
 {
@@ -69,7 +69,6 @@ void ft_write_error(char *str)
 }
 char *remove_last_slash(char *path)
 {
-	// puts("slash");
 	size_t len;
 	char *rest;
 
@@ -158,10 +157,10 @@ int check_pwd(t_env *env, char *old_pwd)
 				update_value(env,"PWD" ,pwd);
 			tmp = tmp->next;
 		}
-		update_old_pwd(env, old_pwd);
+		update_value(env, "OLDPWD", old_pwd);
 		return (1);
 	}
-	update_old_pwd(env, old_pwd);
+	update_value(env, "OLDPWD", old_pwd);
 	return (0);
 }
 int check_double_point(char *path, char *pwd, t_env *env)
