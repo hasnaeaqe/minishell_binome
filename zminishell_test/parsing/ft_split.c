@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:05 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/20 10:10:07 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:37:06 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_count(char const *s, char c)
+ int	ft_count(char const *s, char c)
 {
 	int	i;
 	int	count;

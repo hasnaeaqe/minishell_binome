@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 20:11:41 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/05/12 21:36:59 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:35:23 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_tree(t_tree *tree, int depth)
 
 			for (int j = 0; j < depth + 1; j++)
 				printf("  ");
-			printf("REDIR %s -> %s\n", type_str, redir->filename);
+			printf("REDIR %s -> %s flag :%d \n", type_str, redir->filename, redir->flag);
 			redir = redir->next;
 		}
 	}

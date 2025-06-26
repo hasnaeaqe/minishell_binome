@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/25 16:10:33 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:37:26 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,6 +294,7 @@ int	main(int argc, char **argv, char **envp)
 	t_token	*token;
 	t_tree	*tree;
 	t_env *env;
+	int flag;
 	(void)argc;
 	(void)argv;
 	env = ft_env(envp);
@@ -317,8 +318,14 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		expand_tokens(&token, env);
-		remove_quotes(&token);
-		tree = parse_tree(&token);
+		if (handel_ambiguous(&token))
+		{
+			free_tokens(token);
+			free(line);
+			continue ;
+		}
+		flag=remove_quotes(&token);
+		tree = parse_tree(&token,flag);
 		// print_tree(tree, 0);
 		handle_heredoc(tree);
 		exec_tree(tree, env);

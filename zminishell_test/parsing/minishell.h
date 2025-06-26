@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/25 20:18:16 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:36:53 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_redir_node
 	t_redir_type		kind;
 	int					fd;
 	int					ishd;
+	int					flag;
 	char				*filename;
 	struct s_redir_node	*next;
 }	t_redir_node;
@@ -105,15 +106,18 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	ft_str(char *s);
 void    ft_lstadd_back(t_env **lst, t_env *new);
 int	ft_lstsize(t_env *lst);
+int		ft_count(char const *s, char c);
 //parsing
 int		check_syntax_errors(t_token *token);
-t_tree	*parse_tree(t_token **token);
+t_tree	*parse_tree(t_token **token,int flag);
 void	print_tree(t_tree *tree, int depth);
 void	tokenisation(char *str, t_token **token);
 void	print_tokens(t_token *token);
 void	free_tokens(t_token *token);
 void	expand_tokens(t_token **token, t_env *env);
-void remove_quotes(t_token **token);
+int		 remove_quotes(t_token **token);
+char	*expand_heredoc(char *line, t_env *env);
+int		handel_ambiguous(t_token **token);
 //exection
 char	*find_cmd_path(char *cmd, t_env *env);
 t_env	*create_node(char *cle, char *val);

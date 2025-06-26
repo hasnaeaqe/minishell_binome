@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 12:08:19 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/25 13:16:30 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:26:12 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,4 +157,36 @@ void	expand_tokens(t_token **token, t_env *env)
         prev=tmp;
         tmp = tmp->next;
     }
+}
+char *expand_heredoc(char *line, t_env *env)
+{
+    int i = 0;
+
+    while (line[i])
+    {
+        if (line[i]=='$' && line[i+1])
+            line=expand(line,&line[i], env);
+        else
+            i++;
+    }
+    return (line);
+}
+int handel_ambiguous(t_token **token)
+{
+    t_token *tmp;
+
+    tmp = *token;
+    while (tmp)
+    {
+        if (tmp->type==TOK_REDIR_APPEND || tmp->type==TOK_REDIR_INPUT || tmp->type==TOK_REDIR_OUTPUT)
+        {
+            if (ft_count(tmp->next->value, ' ') != 1)
+            {
+                ft_putstr_fd("minishell: ambiguous redirect \n", 2);
+                return (1);
+            }
+        }
+        tmp=tmp->next;
+    }
+    return (0);
 }
