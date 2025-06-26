@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parce_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 10:44:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/05/13 19:53:43 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:33:27 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,24 @@ int	finde_pipe(t_token *token)
 	return (0);
 }
 
-t_redir_node	*new_redir(t_redir_type kind, char *filename)
+t_redir_node	*new_redir(t_redir_type kind, char *filename ,int flag)
 {
 	t_redir_node	*new;
 
 	new = ft_malloc(sizeof(t_redir_node));
 	new->kind = kind;
 	new->filename = ft_strdup(filename);
+	new->flag = flag;
 	new->next = NULL;
 	return (new);
 }
 
-void	redir_node(t_redir_node **redir, t_redir_type kind, char *filename)
+void	redir_node(t_redir_node **redir, t_redir_type kind, char *filename,int flag)
 {
 	t_redir_node	*new;
 	t_redir_node	*tmp;
 
-	new = new_redir(kind, filename);
+	new = new_redir(kind, filename, flag);
 	if (!redir || !new)
 		return ;
 	if (!(*redir))
@@ -69,7 +70,7 @@ t_tree	*new_tree(t_node_type kind, char **argv, t_redir_node *redirs)
 	return (new);
 }
 
-t_tree	*parse_commande(t_token **token)
+t_tree	*parse_commande(t_token **token, int flag)
 {
 	t_node_type		kind;
 	t_redir_node	*redir;
@@ -101,13 +102,13 @@ t_tree	*parse_commande(t_token **token)
 		else
 		{
 			if (tmp->next && tmp->type == TOK_REDIR_APPEND)
-				redir_node(&redir, REDIR_APPEND, tmp->next->value);
+				redir_node(&redir, REDIR_APPEND, tmp->next->value,flag);
 			else if (tmp->next && tmp->type == TOK_REDIR_HEREDOC)
-				redir_node(&redir, REDIR_HEREDOC, tmp->next->value);
+				redir_node(&redir, REDIR_HEREDOC, tmp->next->value,flag);
 			else if (tmp->next && tmp->type == TOK_REDIR_INPUT)
-				redir_node(&redir, REDIR_INPUT, tmp->next->value);
+				redir_node(&redir, REDIR_INPUT, tmp->next->value,flag);
 			else if (tmp->next && tmp->type == TOK_REDIR_OUTPUT)
-				redir_node(&redir, REDIR_OUTPUT, tmp->next->value);
+				redir_node(&redir, REDIR_OUTPUT, tmp->next->value,flag);
 			*token = tmp->next;
 		}
 		*token = (*token)->next;
@@ -127,25 +128,25 @@ t_tree	*create_tree(t_tree *left, t_tree *right)
 	return (new);
 }
 
-t_tree	*parse_pipe(t_token **token)
+t_tree	*parse_pipe(t_token **token, int flag)
 {
 	t_tree	*left;
 	t_tree	*right;
 
-	left = parse_commande(token);
+	left = parse_commande(token,flag);
 	if (*token && (*token)->type == TOK_PIPE)
 	{
 		*token = (*token)->next;
-		right = parse_pipe(token);
+		right = parse_pipe(token,flag);
 		return (create_tree(left, right));
 	}
 	return (left);
 }
 
-t_tree	*parse_tree(t_token **token)
+t_tree	*parse_tree(t_token **token,int flag)
 {
 	if (finde_pipe(*token))
-		return (parse_pipe(token));
+		return (parse_pipe(token, flag));
 	else
-		return (parse_commande(token));
+		return (parse_commande(token,flag));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 15:02:12 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/25 10:41:14 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:29:57 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,23 @@ char *rm_qts(char *src, int len)
     dest[j]='\0';
     return (dest);
 }
-void remove_quotes(t_token **token)
+int  remove_quotes(t_token **token)
 {
     t_token *tmp;
     char *src;
     char quote;
     int len;
     int i;
+    int flag=0;
     tmp = *token;
     
     while (tmp)
     {
+        if (tmp->type==TOK_REDIR_HEREDOC)
+        {
+            if (ft_strchr(tmp->next->value,'\'') || ft_strchr(tmp->next->value,'"'))
+                flag=1;  
+        }
         if (tmp->type==TOK_WORD)
         {
             src = ft_strdup(tmp->value);
@@ -74,4 +80,5 @@ void remove_quotes(t_token **token)
         }
         tmp = tmp->next;
     }
+    return (flag);
 }
