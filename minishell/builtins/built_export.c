@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:41 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 16:21:14 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:49:08 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ int parse_args(char *str)
 	i = 0;
 	if (!str)
 		return (-1);
+	if((!ft_isalpha(str[i]) && str[i] != '_') || ft_isdigit(str[i]))
+			return (-1);
 	while(str[i] && str[i] != '=' && str[i] != '+')
 	{
-		if((!ft_isalpha(str[i]) && str[i] != '_') || ft_isdigit(str[i]))
+		if(!ft_isalpha(str[i]) && str[i] != '_' && !ft_isdigit(str[i]))
 			return (-1);
 		i++;
+		
 	}
 	if (str[i] == '+' && str[i + 1] == '=')
 		return (1);
@@ -109,7 +112,7 @@ void ft_add_export(char **argv, t_env **env)
 		mode = parse_args(argv[i]);
 		if(mode == -1)
 		{
-			printf("export: not an identifier:%s\n", argv[i]);
+			printf("export: not an identifier: %s\n", argv[i]);
 			// exit(1);
 			// return ;
 		}
@@ -117,10 +120,20 @@ void ft_add_export(char **argv, t_env **env)
 		val = ext_val(argv[i]);
 		if(key && val)
 			add_to_env_or_update(env, key, val, mode);
-		// else
-		// 	add_to_env_or_update(env, argv[i], NULL, mode); 
-		else
-			add_to_env_or_update(env, argv[i], "", mode);
+		// if val null et key not in env ajouter le 
+		if (!val && !find_node(*env, key))
+		{
+			t_env *new_node = create_node(key, NULL);
+			t_env *tmp = *env;
+			if(!tmp)
+			{
+				*env = new_node;
+				return;
+			}
+			while(tmp -> next)
+				tmp = tmp->next;
+			tmp->next = new_node;
+		}
 		i++;
 	}
 }
@@ -222,14 +235,11 @@ void ft_export(char **argv, t_env *env)
 	array = env_to_array(env, size);
 	sort_list(array);
 	if(argv && !argv[1])
-	{
 		ft_printexport(*array);
-	}
 	ft_add_export(argv, &env);
 	array = env_to_array(env, size);
 	sort_list(array);
-
-
+}
 
 
 
@@ -276,4 +286,3 @@ void ft_export(char **argv, t_env *env)
 
 
 	
-}
