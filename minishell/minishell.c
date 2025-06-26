@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 16:14:46 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:25:48 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = ft_env(envp);
-	set_old_to_null(env);
+	set_old_to_null(&env);
 	// ft_printenv(env);
 	while (1)
 	{

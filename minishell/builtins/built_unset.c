@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 16:05:10 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:27:46 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int is_valid(char *str)
 	i = 1;
 	while(str[i])
 	{
-		if(!ft_isalpha(str[i]) || str[i] != '_' || !ft_isdigit(str[i]))
+		if(!ft_isalpha(str[i]) &&  str[i] != '_' && !ft_isdigit(str[i]))
 			return (1);
 		i++;
 	}

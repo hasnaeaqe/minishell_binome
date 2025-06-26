@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/26 16:14:33 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:26:46 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +135,11 @@ t_env	*ft_env(char **env);
 t_env	*env_vide();
 int		built_pwd(t_env *env, int write);
 void	built_exit(char **args);
-void	ft_export(char **argv, t_env *env);
+void	ft_export(char **argv, t_env **env);
 void	ft_unset(t_env **head, char **key_to_unset);
 
 char *get_value(t_env *env, char *key);
-void set_old_to_null(t_env *env);
+void set_old_to_null(t_env **env);
 int exec_tree(t_tree *tree, t_env *env);
 void handle_heredoc(t_tree *tree, t_env *env);
 #endif

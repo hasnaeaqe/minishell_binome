@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:41 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 16:49:08 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:27:05 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,6 @@ t_env *find_node(t_env *env, char *key)
     return NULL;
 }
 
-// void add(int mode, t_env *existe, char *value_to_add)
-// {
-// 	char *old_value;
-// 	if(existe)
-// 	{
-// 			if (mode == 0)
-// 			{
-// 				free(existe->value);
-// 				existe->value = ft_strdup(value_to_add);
-// 			}
-// 			else if(mode == 1)
-// 			{
-// 				old_value = existe->value;
-// 				existe->value = ft_strjoin(old_value, value_to_add);
-// 				free(old_value);
-// 			}
-// 		return ;
-// 	}
-// }
 void add_to_env_or_update(t_env **env, char *key_to_add, char *value_to_add, int mode)
 {
 	t_env *tmp;
@@ -74,29 +55,21 @@ void add_to_env_or_update(t_env **env, char *key_to_add, char *value_to_add, int
 	existe = find_node(*env, key_to_add);
 	if(existe)
 	{
-			if (mode == 0)
-			{
-				free(existe->value);
-				existe->value = ft_strdup(value_to_add);
-			}
-			else if(mode == 1)
+			if(mode == 1)
 			{
 				old_value = existe->value;
 				existe->value = ft_strjoin(old_value, value_to_add);
 				free(old_value);
 			}
+			else if (mode == 0)
+			{
+				free(existe->value);
+				existe->value = ft_strdup(value_to_add);
+			}
 		return ;
 	}
-	// add(mode,existe, value_to_add);
 	new_node = create_node(key_to_add, value_to_add);
-	if(!tmp)
-	{
-		*env = new_node;
-		return;
-	}
-	while(tmp -> next)
-		tmp = tmp->next;
-	tmp->next = new_node;
+	ft_lstadd_back(env, new_node);
 }
 
 void ft_add_export(char **argv, t_env **env)
@@ -105,34 +78,22 @@ void ft_add_export(char **argv, t_env **env)
 	int mode;
 	char *key;
 	char *val;
+	t_env *new_node;
 
 	i = 1;
 	while(argv[i])
 	{
 		mode = parse_args(argv[i]);
 		if(mode == -1)
-		{
 			printf("export: not an identifier: %s\n", argv[i]);
-			// exit(1);
-			// return ;
-		}
 		key = ext_key(argv[i]);
 		val = ext_val(argv[i]);
 		if(key && val)
 			add_to_env_or_update(env, key, val, mode);
-		// if val null et key not in env ajouter le 
 		if (!val && !find_node(*env, key))
 		{
-			t_env *new_node = create_node(key, NULL);
-			t_env *tmp = *env;
-			if(!tmp)
-			{
-				*env = new_node;
-				return;
-			}
-			while(tmp -> next)
-				tmp = tmp->next;
-			tmp->next = new_node;
+			new_node = create_node(key, NULL);
+			ft_lstadd_back(env, new_node);
 		}
 		i++;
 	}
@@ -226,19 +187,18 @@ void sort_list(t_env **env)
 	}
 }
 
-void ft_export(char **argv, t_env *env)
+void ft_export(char **argv, t_env **env)
 {
 	t_env **array;
 	int size;
 
-	size = ft_lstsize(env);
-	array = env_to_array(env, size);
+	size = ft_lstsize(*env);
+	if (argv && *argv)
+		ft_add_export(argv, env);
+	array = env_to_array(*env, size);
 	sort_list(array);
 	if(argv && !argv[1])
 		ft_printexport(*array);
-	ft_add_export(argv, &env);
-	array = env_to_array(env, size);
-	sort_list(array);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 16:14:25 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:26:57 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int check_builts(t_tree *tree,t_env **env)
 {
-	printf("ana hona\n");
+	// printf("ana hona\n");
     char **cmd;
 
     if (!tree || !tree->argv || !tree->argv[0])
@@ -32,7 +32,7 @@ int check_builts(t_tree *tree,t_env **env)
         return (built_pwd(*env, 1));
 	}
 	else if (ft_strcmp(cmd[0], "export") == 0)
-        ft_export(tree->argv, *env);
+        ft_export(tree->argv, env);
     else if (ft_strcmp(cmd[0], "unset") == 0)
         ft_unset(env, tree->argv + 1);
 
