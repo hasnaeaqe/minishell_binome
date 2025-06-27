@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 18:40:35 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/27 11:33:12 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,9 +168,10 @@ int    handle_redirs(t_tree *tree)
 			if (fd < 0 || dup2(fd, 0) == -1)
 			{
 				// perror("input redirection");
-				ft_putstr_fd("minishell: ", 2);
-				ft_putstr_fd(redir->filename, 2);
-				ft_putstr_fd(": No such file or directory\n", 2);
+				put_errno(redir->filename);
+				// ft_putstr_fd("minishell: ", 2);
+				// ft_putstr_fd(redir->filename, 2);
+				// ft_putstr_fd(": No such file or directory\n", 2);
 				exit(1);
 			}
 			close (fd);
@@ -243,19 +244,27 @@ int execute_cmd(t_tree *tree, t_env *env) {
 	}
 	char *path = find_cmd_path(tree->argv[0], env);
 	if (!path) {
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(tree->argv[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
-		return (127);
+		// if (errno != 13 && errno != 20 && errno != 2)
+		// {
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(tree->argv[0], 2);
+			ft_putstr_fd(": command not found\n", 2);
+			return (127);
+		// }
+		// else
+		// {
+		// 	put_errno(tree->argv[0]);		
+		// }
 	}
+	// put_errno(tree->argv[0]);
 	pid = fork();
 	if (pid == 0)
 	{
 		handle_redirs(tree);
-		//chec
+		//chec  
 		if (tree->argv && tree->argv[0] && execve(path, tree->argv, array) == -1)
 		{
-			perror("execve failed"); // 
+			// perror("execve failed"); // 
 		}
 		exit(0);
 	}

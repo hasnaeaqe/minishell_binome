@@ -1,12 +1,12 @@
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 RM = rm -f
 
 
 PARSE = parsing/garbage_collector.c parsing/main.c  parsing/parce_tree.c parsing/syntax_erros.c parsing/test.c parsing/print_tree.c  parsing/my_libft.c \
-  parsing/ft_split.c  execusion/execute_cmd.c   execusion/path.c builtins/built_exit.c execusion/libft.c\
+  parsing/ft_split.c  execusion/execute_cmd.c   execusion/path.c builtins/built_exit.c execusion/libft.c   builtins/for_cd.c  builtins/for_export.c\
   builtins/built_cd.c builtins/built_echo.c builtins/built_pwd.c builtins/built_env.c   builtins/built_export.c builtins/built_unset.c \
-	parsing/expand.c parsing/quotes.c minishell.c\
+	parsing/expand.c parsing/quotes.c minishell.c execusion/put_err.c\
 
 OB = $(PARSE:.c=.o)
 
