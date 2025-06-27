@@ -1,0 +1,10 @@
+Makefile
+builtins
+execusion
+k
+l
+minishell
+minishell.c
+minishell.h
+minishell.o
+parsing

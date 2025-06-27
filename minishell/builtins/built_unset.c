@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 18:41:38 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/27 18:30:01 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	unset_one(t_env **head, char *key_to_unset)
 	t_env	*tmp;
 	t_env	*prev;
 
+	if (head && !*head)
+		return ;
 	tmp = *head;
 	prev = NULL;
 	if (!tmp)
@@ -44,7 +46,8 @@ void	unset_one(t_env **head, char *key_to_unset)
 		*head = tmp->next;
 		free(tmp->key);
 		free(tmp->value);
-		//tmp->key = NULL; tmp->value = NULL;
+		tmp->key = NULL;
+		tmp->value = NULL;
 		free(tmp);
 		return ;
 	}
@@ -59,10 +62,13 @@ void	unset_one(t_env **head, char *key_to_unset)
 	free(tmp->key);
 	free(tmp->value);
 	free(tmp);
+	// when unsetting the first argument the env is not valid;
 }
+
 int ft_unset(t_env **head, char **key_to_unset)
 {
 	int i = 0;
+	int status = 0;
 	while(key_to_unset[i])
 	{
 		if (is_valid(key_to_unset[i]) == 0)
@@ -72,9 +78,9 @@ int ft_unset(t_env **head, char **key_to_unset)
 			ft_putstr_fd("minishell: unset: ", 2);
 			ft_putstr_fd(key_to_unset[i], 2);
 			ft_putstr_fd(" : not a valid identifier\n", 2);
-			return (1) ;
+			status = 1;
 		}
 		i++;
 	}
-	return (0);
+	return (status);
 }
