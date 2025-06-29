@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 15:02:12 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/26 16:03:30 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/28 11:31:31 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@ char *rm_qts(char *src, int len)
     }
     dest[j]='\0';
     return (dest);
+}
+
+char *trasform_garbeg(char *str)
+{
+    int i = 0;
+    while (str[i])
+    {
+        if (!ft_isascii(str[i]))
+            str[i]=str[i]*(-1);
+        i++;
+    }
+    return (str);
 }
 int  remove_quotes(t_token **token)
 {
@@ -76,7 +88,7 @@ int  remove_quotes(t_token **token)
                     i++;
                 }
             }
-            tmp->value=rm_qts(src,len);
+            tmp->value=trasform_garbeg(rm_qts(src,len));
         }
         tmp = tmp->next;
     }

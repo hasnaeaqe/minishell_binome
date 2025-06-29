@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 16:14:46 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/28 16:47:36 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	t_token	*token;
 	t_tree	*tree;
 	t_env *env;
+
 	int flag;
 	(void)argc;
 	(void)argv;
@@ -34,7 +35,6 @@ int	main(int argc, char **argv, char **envp)
 			add_history(line);
 		token = NULL;
 		tokenisation(line, &token);
-		//print_tokens(token);
 		if (check_syntax_errors(token))
 		{
 			free_tokens(token);
@@ -42,18 +42,18 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		expand_tokens(&token, env);
-		if (handel_ambiguous(&token))
-		{
-			free_tokens(token);
-			free(line);
-			continue ;
-		}
+		// if (handel_ambiguous(&token))
+		// {
+		// 	free_tokens(token);
+		// 	free(line);
+		// 	continue ;
+		// }
 		flag=remove_quotes(&token);
+		// print_tokens(token);
 		tree = parse_tree(&token,flag);
 		// print_tree(tree, 0);
 		handle_heredoc(tree, env);
 		exec_tree(tree, env);
-		// puts("kk");
 		free_tokens(token);
 		free(line);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 12:08:19 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/26 16:02:35 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/28 16:41:13 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char *find_expand(char *str)
         i++;
     dest = ft_malloc((i + 1) * sizeof(char));
     if (j==i-1)
-       dest[j++]=str[i]; 
+       dest[j++]=str[i];
     else
     {
         while (j < i - 1)
@@ -45,11 +45,12 @@ char *find_expand(char *str)
     dest[j] = '\0';
     return (dest);
 }
+
 char *extract_value(char *dest, t_env *env)
 {
 
     if (ft_strcmp(dest,"?")==0)
-        return (dest);
+        return (ft_itoa(exit_status(0, 1)));
     while (env)
     {
         if (ft_strcmp(env->key, dest) == 0)
@@ -77,10 +78,21 @@ char *rwina(char *value,char *dest,char *expand_value, int len)
             i+=dest_len+1;
         }
         else
-            total_str[j++]=value[i++]; 
+            total_str[j++]=value[i++];
     }
     total_str[j] = '\0';
     return (total_str);
+}
+char *transform_to_gar(char *str)
+{
+    int i = 0;
+    while (str[i])
+    {
+        if (str[i]=='\'' || str[i]=='"')
+            str[i]=str[i]*(-1);
+        i++;
+    }
+    return (str);
 }
 char *expand(char *src,char *str, t_env *env)
 {
@@ -89,21 +101,72 @@ char *expand(char *src,char *str, t_env *env)
     int len;
 
     dest = find_expand(str);
-    expand_value = extract_value(dest, env);
+    expand_value = transform_to_gar(extract_value(dest, env));
+    
     len = ft_strlen(src) - ft_strlen(dest) + ft_strlen(expand_value);
-    // printf("value : %s,str : %s  dest: %s , exapnd : %s , TOTAL : %s\n",src,str,dest,expand_value,rwina(src,dest,expand_value, len));
+    // printf("len :%d\n",len);
+    // printf("value : %s,str : %s  dest: %s , exapnd : %s \n",src,str,dest,expand_value);
     return (rwina(src,dest,expand_value, len));
 }
-int petit_test(char *str,int *k)
+char *add_quotes(char *str)
 {
-    int i=0;
-    while (str[i] && str[i]=='$')
+    char *dest;
+    int i = 0;
+
+    puts("hh");
+    puts(str);
+    dest = ft_malloc((ft_strlen(str)+3)*sizeof(char));
+    while(*str && (*str!='=' || *str!='+'))
+       dest[i++]=*str++;
+    puts("1");
+    if (*str=='+')
+        dest[i++]=*str++;
+    puts("2");
+    if (*str=='=')
+        dest[i++]=*str++;
+    puts("3");
+    dest[i++]='"';
+    while (*str)
+        dest[i++]=*str++;
+    puts("4");
+    dest[i++]='"';
+    dest[i]='\0';
+    puts(dest);
+    return (dest);
+}
+void check_export(t_token *token)
+{
+    t_token *tmp;
+    char *str;
+    int i ;
+    int check;
+
+    tmp=token;
+    while (tmp)
     {
-        i++;
-        (*k)++;
+        if (tmp->type==TOK_WORD)
+        {
+            check=0;
+            if (ft_strcmp(tmp->value,"export")==0 && tmp->next)
+            {
+                str=ft_strdup(tmp->next->value);
+                i = 0;
+                while (str[i] && (str[i]!='=' || str[i]!='+'))
+                {
+                    if (str[i]=='$' )
+                    {
+                        check = 1;
+                        break;
+                    }
+                    i++;
+                }
+                if (check == 0)
+                    tmp->next->value=add_quotes(str);
+                tmp=tmp->next;
+            }
+            tmp = tmp->next;
+        }
     }
-    (*k)--;
-    return (i);
 }
 void	expand_tokens(t_token **token, t_env *env)
 {
@@ -113,7 +176,8 @@ void	expand_tokens(t_token **token, t_env *env)
     int i;
     
     tmp = *token;
-    prev = *token; 
+    prev = *token;
+    // check_export(tmp);
     while(tmp)
     {
         if (tmp->type == TOK_WORD && prev->type != TOK_REDIR_HEREDOC)
@@ -145,12 +209,13 @@ void	expand_tokens(t_token **token, t_env *env)
                 }
                 else if (str[i]=='$' && str[i+1])
                 {
-                    str=expand(str,&str[i], env);   
+                    str=expand(str,&str[i], env);
                     i = 0;
                 }
                 else
                     i++;
             }
+            free(tmp->value);//ila tra chi mochkil rah hna
             tmp->value = str;
         }
         // printf("%s\n",tmp->value);
@@ -174,16 +239,41 @@ char *expand_heredoc(char *line, t_env *env)
 int handel_ambiguous(t_token **token)
 {
     t_token *tmp;
-
+    char *str;
+    char quote;
+    int i = 0;
     tmp = *token;
     while (tmp)
     {
         if (tmp->type==TOK_REDIR_APPEND || tmp->type==TOK_REDIR_INPUT || tmp->type==TOK_REDIR_OUTPUT)
         {
-            if (ft_count(tmp->next->value, ' ') != 1)
+            i = 0;
+            str = tmp->next->value;
+            if (str[0]=='\0')
             {
                 ft_putstr_fd("minishell: ambiguous redirect \n", 2);
+                exit_status(1, 0);
                 return (1);
+            }
+            while (str[i])
+            {
+                
+                if (str[i]=='"' || str[i]=='\'')
+                {
+                    quote=str[i++];
+                    while(str[i] && str[i]!=quote)
+                        i++;
+                    if (str[i]==quote)
+                        i++;
+                }
+                else if (str[i]==' ')
+                {
+                    ft_putstr_fd("minishell: ambiguous redirect \n", 2);
+                    exit_status(1, 0);
+                    return (1);
+                }
+                else
+                    i++;
             }
         }
         tmp=tmp->next;

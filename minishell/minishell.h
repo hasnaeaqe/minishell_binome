@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/26 16:14:33 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/28 11:25:00 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void	ft_str(char *s);
 void    ft_lstadd_back(t_env **lst, t_env *new);
 int	ft_lstsize(t_env *lst);
 int		ft_count(char const *s, char c);
+char	*ft_itoa(int n);
+int	ft_isascii(int c);
 //parsing
 int		check_syntax_errors(t_token *token);
 t_tree	*parse_tree(t_token **token,int flag);
@@ -118,6 +120,7 @@ void	expand_tokens(t_token **token, t_env *env);
 int		 remove_quotes(t_token **token);
 char	*expand_heredoc(char *line, t_env *env);
 int		handel_ambiguous(t_token **token);
+int exit_status(int status, int flag);
 //exection
 char	*find_cmd_path(char *cmd, t_env *env);
 t_env	*create_node(char *cle, char *val);
