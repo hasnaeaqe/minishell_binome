@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/27 18:29:27 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/29 10:10:54 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@
 // }
 
 
-// int exit_status(int status, int flag)
-// {
-//     static int static_status;
+int exit_status(int status, int flag)
+{
+    static int static_status;
 
-//     if (flag)
-//         return (static_status);
-//     static_status = status;
-//     return (static_status);
-// }
+    if (flag)
+        return (static_status);
+    static_status = status;
+    return (static_status);
+}
 
 int	is_numeric(char *str)
 {

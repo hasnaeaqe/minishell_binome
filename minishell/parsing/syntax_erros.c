@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_erros.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 20:22:59 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/26 16:03:34 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/27 10:33:52 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	check_syntax_errors(t_token *token)
 				else
 					ft_putstr_fd("newline", 2);
 				ft_putstr_fd("'\n", 2);
+				exit_status(258, 0);
 				return (1);
 			}
 		}
@@ -51,6 +52,7 @@ int	check_syntax_errors(t_token *token)
 			if (!prev || prev->type == TOK_PIPE || is_redi_operator(prev->type))
 			{
 				ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+				exit_status(258, 0);
 				return (1);
 			}
 			if (!tmp->next || tmp->next->type == TOK_PIPE
@@ -68,11 +70,13 @@ int	check_syntax_errors(t_token *token)
 						else
 							ft_putstr_fd("newline", 2);
 						ft_putstr_fd("'\n", 2);
+						exit_status(258, 0);
 						return (1);
 					}
 				}
 				else
 					ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+				exit_status(258, 0);
 				return (1);
 			}
 		}
@@ -99,6 +103,7 @@ int	check_syntax_errors(t_token *token)
 		if (k == 1)
 		{
 			ft_putstr_fd("minishell: syntax error \n", 2);
+			exit_status(258, 0);
 			return (1);
 		}
 		prev = tmp;

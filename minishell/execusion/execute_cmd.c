@@ -6,11 +6,12 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/29 11:52:15 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:04:20 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 
 
 void handle_heredoc(t_tree *tree, t_env *env)
