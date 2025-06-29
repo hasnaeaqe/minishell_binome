@@ -6,13 +6,12 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/27 18:30:01 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/29 13:58:12 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// oparse like export
 int is_valid(char *str)
 {
 	int i;
@@ -29,7 +28,14 @@ int is_valid(char *str)
 	}
 	return (0);
 }
-
+void free_node(t_env *tmp)
+{
+	free(tmp->key);
+	free(tmp->value);
+	tmp->key = NULL;
+	tmp->value = NULL;
+	free(tmp);
+}
 void	unset_one(t_env **head, char *key_to_unset)
 {
 	t_env	*tmp;
@@ -44,11 +50,7 @@ void	unset_one(t_env **head, char *key_to_unset)
 	if (tmp && ft_strcmp(tmp->key, key_to_unset) == 0)
 	{
 		*head = tmp->next;
-		free(tmp->key);
-		free(tmp->value);
-		tmp->key = NULL;
-		tmp->value = NULL;
-		free(tmp);
+		free_node(tmp);
 		return ;
 	}
 	while (tmp && ft_strcmp(tmp->key, key_to_unset) != 0)
@@ -59,10 +61,7 @@ void	unset_one(t_env **head, char *key_to_unset)
 	if(!tmp)
 		return;
 	prev->next = tmp->next;
-	free(tmp->key);
-	free(tmp->value);
-	free(tmp);
-	// when unsetting the first argument the env is not valid;
+	free_node(tmp);
 }
 
 int ft_unset(t_env **head, char **key_to_unset)
@@ -71,6 +70,7 @@ int ft_unset(t_env **head, char **key_to_unset)
 	int status = 0;
 	while(key_to_unset[i])
 	{
+		puts("main");
 		if (is_valid(key_to_unset[i]) == 0)
 			unset_one(head, key_to_unset[i]);
 		else

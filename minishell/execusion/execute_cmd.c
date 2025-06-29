@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/27 18:49:58 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/29 11:52:15 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,17 +186,17 @@ char **to_array(t_env *env, int size)
     return (array);
 }
 
-int execute_cmd(t_tree *tree, t_env *env) {
+int execute_cmd(t_tree *tree, t_env **env) {
 	
 	pid_t pid;
 	int status;
 	char **array;
 
 	status = 0;
-	array = to_array(env, ft_lstsize(env));
+	array = to_array(*env, ft_lstsize(*env));
 	if (tree && is_builtins(*tree->argv) == 1)
-		return (check_builts(tree, &env));
-	char *path = find_cmd_path(tree->argv[0], env);
+		return (check_builts(tree, env));
+	char *path = find_cmd_path(tree->argv[0], *env);
 	if (!path) {
 		if (errno != 13 && errno != 20 && errno != 2)
 		{
@@ -255,7 +255,7 @@ int execute_pipe(t_tree *tree, t_env *env)
 		dup2(pipefd[1], 1);
 		close(pipefd[0]); 
 		close(pipefd[1]);
-		exec_tree(tree->left, env);// should return int (status )
+		exec_tree(tree->left, &env);// should return int (status )
 		exit(127);
 	}
 	pid_right =  fork();
@@ -269,7 +269,7 @@ int execute_pipe(t_tree *tree, t_env *env)
 		dup2(pipefd[0], 0);
 		close(pipefd[1]);
 		close(pipefd[0]);
-		exec_tree(tree->right, env);
+		exec_tree(tree->right, &env);
 		exit(127);
 	}
 	close(pipefd[1]);
@@ -281,14 +281,14 @@ int execute_pipe(t_tree *tree, t_env *env)
 	return (WEXITSTATUS(status));
 }
 
-int exec_tree(t_tree *tree, t_env *env)
+int exec_tree(t_tree *tree, t_env **env)
 {
 	if (!tree)
 		return (1);
 	if (tree->kind == NODE_COMMAND)
-		return(execute_cmd(tree, env)); 
+		return(execute_cmd(tree, env));
 	else if (tree->kind == NODE_PIPE)
-		return (execute_pipe(tree, env));
+		return (execute_pipe(tree, *env));
 	return (0);
 }
 

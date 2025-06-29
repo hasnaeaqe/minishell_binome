@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/27 10:45:48 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/29 11:48:45 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int argc, char **argv, char **envp)
 		tree = parse_tree(&token,flag);
 		// print_tree(tree, 0);
 		handle_heredoc(tree, env);
-		exec_tree(tree, env);
+		exec_tree(tree, &env);
 		// puts("kk");
 		free_tokens(token);
 		free(line);

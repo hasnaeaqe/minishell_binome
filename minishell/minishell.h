@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/27 16:58:05 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/29 11:51:42 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char	*find_cmd_path(char *cmd, t_env *env);
 t_env	*create_node(char *cle, char *val);
 char	*ext_key(char *str);
 char	*ext_val(char *env);
-void	ft_printenv(t_env *head);
+void	ft_printenv(t_env **head);
 
 t_env	**env_to_array(t_env *env, int size);
 int parse_args(char *str);
@@ -140,7 +140,7 @@ int		ft_unset(t_env **head, char **key_to_unset);
 //export
 int		ft_export(char **argv, t_env **env);
 void	sort_list(t_env **env);
-void	ft_printexport(t_env *head);
+void	ft_printexport(t_env **head);
 t_env	*find_node(t_env *env, char *key);
 //cd
 int		ft_cd(char **argv, t_env *env);
@@ -157,5 +157,5 @@ void	handle_heredoc(t_tree *tree, t_env *env);
 
 void	put_errno(char *dir);
 
-int		exec_tree(t_tree *tree, t_env *env);
+int		exec_tree(t_tree *tree, t_env **env);
 #endif

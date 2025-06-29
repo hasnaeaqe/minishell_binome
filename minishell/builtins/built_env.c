@@ -6,27 +6,13 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 17:24:37 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/29 12:02:27 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
 
-t_env	*create_node(char *cle, char *val)
-{
-	t_env	*env;
-
-	if (!cle)
-		return(NULL);
-	env = ft_malloc(sizeof(t_env));
-	if (!env)
-		return (NULL);
-	env->key = cle;
-	env->value = val;
-	env->next = NULL;
-	return (env);
-}
 
 char *ext_key(char *str)
 {
@@ -51,19 +37,6 @@ char	*ext_val(char *env)
 		return(NULL);
 	val = ft_strdup(equal + 1);
 	return (val);
-}
-
-void	ft_printenv(t_env *head)
-{
-	t_env	*tmp;
-
-	tmp = head;
-	while (tmp)
-	{
-		if(tmp->value)
-			printf("%s=%s\n", tmp->key, tmp->value);
-		tmp = tmp->next;
-	}
 }
 
 t_env *ft_env(char **env)
@@ -91,28 +64,6 @@ t_env *ft_env(char **env)
 		i++;
 	}
 	return (head);
-}
-void    ft_lstadd_back(t_env **lst, t_env *new)
-{
-	t_env    *tmp;
-
-	if (lst == NULL || new == NULL)
-		return ;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		new->next = NULL;
-		return ;
-	}
-	else
-	{
-		tmp = *lst;
-		while (tmp -> next)
-		{
-			tmp = tmp-> next;
-		}
-		tmp -> next = new;
-	}
 }
 
 t_env *env_vide()
