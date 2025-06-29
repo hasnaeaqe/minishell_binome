@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/28 16:47:36 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/29 10:06:30 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = ft_env(envp);
-	set_old_to_null(env);
+	set_old_to_null(&env);
 	// ft_printenv(env);
 	while (1)
 	{
 		line = readline("minishell$ ");
-		built_pwd(env, 0);
+		// built_pwd(env, 0);
 		if (!line)
 			break ;
 		if (*line)

@@ -6,58 +6,13 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/27 10:37:56 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/29 10:20:05 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int check_builts(t_tree *tree,t_env **env)
-{
-	// printf("ana hona\n");
-    char **cmd;
 
-    if (!tree || !tree->argv || !tree->argv[0])
-        return (1);
-    cmd = tree->argv;
-    if (ft_strcmp(cmd[0], "cd") == 0)
-        return (ft_cd(cmd, *env));
-    if (ft_strcmp(cmd[0], "echo")== 0)
-	{
-        ft_echo(cmd);
-		return (0);
-	}
-    else if (ft_strcmp(cmd[0], "pwd")== 0)
-	{
-        return (built_pwd(*env, 1));
-	}
-	else if (ft_strcmp(cmd[0], "export") == 0)
-        ft_export(tree->argv, *env);
-    else if (ft_strcmp(cmd[0], "unset") == 0)
-        ft_unset(env, tree->argv + 1);
-
-    else if (ft_strcmp(cmd[0], "env")== 0)
-	{
-		ft_printenv(*env);
-		return (0);	
-	}
-	else if (ft_strcmp(cmd[0], "exit") == 0)
-        built_exit(tree->argv);
-	return (0);
-}
-int is_builtins(char *cmd)
-{
-	if (!cmd)
-		return (0);
-	if (ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "echo") == 0
-		|| ft_strcmp(cmd, "pwd") == 0
-	 	|| ft_strcmp(cmd, "env") == 0
-        || ft_strcmp(cmd, "export") == 0
-        || ft_strcmp(cmd, "unset") == 0
-        || ft_strcmp(cmd, "exit") == 0)
-		return (1);
-	return (0);
-}
 
 void handle_heredoc(t_tree *tree, t_env *env)
 {
@@ -152,6 +107,7 @@ void handle_heredoc(t_tree *tree, t_env *env)
 // 	return ; 
 // }
 
+
 int    handle_redirs(t_tree *tree)
  {
 	t_redir_node *redir;
@@ -163,20 +119,17 @@ int    handle_redirs(t_tree *tree)
 		if (redir->kind == REDIR_INPUT)
 		{
 			if (redir->ishd == 1)
-			{
 				fd = redir->fd;
-			}
 			else
-			{
 				fd = open (redir->filename, O_RDONLY);
-			}
 			if (fd < 0 || dup2(fd, 0) == -1)
 			{
 				// perror("input redirection");
-				ft_putstr_fd("minishell: ", 2);
-				ft_putstr_fd(redir->filename, 2);
-				ft_putstr_fd(": No such file or directory\n", 2);
-				exit(1);
+				put_errno(redir->filename);
+				// ft_putstr_fd("minishell: ", 2);
+				// ft_putstr_fd(redir->filename, 2);
+				// ft_putstr_fd(": No such file or directory\n", 2);
+				return (1);
 			}
 			close (fd);
 		}
@@ -186,7 +139,7 @@ int    handle_redirs(t_tree *tree)
 			if (fd < 0 || dup2(fd, 1) == -1)
 			{
 				perror("output redirection");
-				exit(1);
+				return (1);
 			}
 			close (fd);
 		}
@@ -196,7 +149,7 @@ int    handle_redirs(t_tree *tree)
 			if(fd < 0 || dup2(fd, 1) == -1)
 			{
 				perror ("append redirection ");
-				exit(1);
+				return (1);
 			}
 			close (fd);
 		}
@@ -243,24 +196,30 @@ int execute_cmd(t_tree *tree, t_env *env) {
 	status = 0;
 	array = to_array(env, ft_lstsize(env));
 	if (tree && is_builtins(*tree->argv) == 1)
-	{
 		return (check_builts(tree, &env));
-	}
 	char *path = find_cmd_path(tree->argv[0], env);
 	if (!path) {
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(tree->argv[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
-		return (127);
+		if (errno != 13 && errno != 20 && errno != 2)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(tree->argv[0], 2);
+			ft_putstr_fd(": command not found\n", 2);
+			return (127);
+		}
+		else
+		{
+			put_errno(tree->argv[0]);		
+		}
 	}
+	// put_errno(tree->argv[0]);
 	pid = fork();
 	if (pid == 0)
 	{
 		handle_redirs(tree);
-		//chec
+		//chec  
 		if (tree->argv && tree->argv[0] && execve(path, tree->argv, array) == -1)
 		{
-			perror("execve failed"); // 
+			// perror("execve failed"); // 
 		}
 		exit(0);
 	}

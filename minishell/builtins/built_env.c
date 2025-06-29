@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 16:03:59 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:24:37 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_env	*create_node(char *cle, char *val)
 {
 	t_env	*env;
 
-	if (!cle || !val)
+	if (!cle)
 		return(NULL);
 	env = ft_malloc(sizeof(t_env));
 	if (!env)
@@ -92,7 +92,6 @@ t_env *ft_env(char **env)
 	}
 	return (head);
 }
-//empty env
 void    ft_lstadd_back(t_env **lst, t_env *new)
 {
 	t_env    *tmp;
@@ -130,37 +129,12 @@ t_env *env_vide()
 	ft_lstadd_back(&env, create_node(ext_key("_=/usr/bin/env"), ext_val(("_=/usr/bin/env"))));
 	return (env);
 }
-// char *get_value(t_env *env, char *key)
-// {
-// 	while(env)
-// 	{
-// 		if(ft_strcmp(env->key, key))
-// 			return (env->value);
-// 		env = env->next;
-// 	}
-// 	return (NULL);
-// }
-
-// int	main(int argc, char **argv, char **env)
-// {
-// 	t_env	*head;
-
-// 	(void)argc;
-// 	(void)argv;
-// 	head = ft_env(env);
-// 	ft_printenv(head);
-// 	return (0);
-// }
-// void remove_value(char *old)
-// {
-	
-// }
-void set_old_to_null(t_env *env)
+void set_old_to_null(t_env **env)
 {
-	if (!env)
+	if (!env || !*env)
 		return ;
 	t_env *tmp;
-	tmp = env;
+	tmp = *env;
 	while(tmp)
 	{
 		if (ft_strcmp(tmp->key, "OLDPWD") == 0)

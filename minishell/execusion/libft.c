@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:21:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 16:05:42 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/27 12:12:07 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int	ft_isalpha(int c)
 	}
 	return (0);
 }
+
 char	*ft_strchr(const char *s, int c)
 {
 	int	i;
@@ -128,11 +129,13 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)&s[i]);
 	return (NULL);
 }
+
 void	ft_strncpy(char *dest, char *src, int n)
 {
-	int i;
+	int	i;
+
 	i = 0;
-	while(i < n && src[i])
+	while (i < n && src[i])
 	{
 		dest[i] = src[i];
 		i++;

@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/28 11:25:00 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/29 10:06:18 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,17 +132,33 @@ t_env	**env_to_array(t_env *env, int size);
 int parse_args(char *str);
 int exit_status(int status, int flag);
 
-int		ft_cd(char **argv, t_env *env);
-int		ft_echo(char **argv);
 t_env	*ft_env(char **env);
 t_env	*env_vide();
+void	set_old_to_null(t_env **env);
+
+int		ft_echo(char **argv);
 int		built_pwd(t_env *env, int write);
 void	built_exit(char **args);
-void	ft_export(char **argv, t_env *env);
-void	ft_unset(t_env **head, char **key_to_unset);
+int		ft_unset(t_env **head, char **key_to_unset);
+//export
+int		ft_export(char **argv, t_env **env);
+void	sort_list(t_env **env);
+void	ft_printexport(t_env *head);
+t_env	*find_node(t_env *env, char *key);
+//cd
+int		ft_cd(char **argv, t_env *env);
+char	*get_value(t_env *env, char *key);
+void	update_value(t_env *env, char *key, char *value);
+char	*remove_last_slash(char *path);
+void	erreur(char *dir);
+//built_exec
+int is_builtins(char *cmd);
+int check_builts(t_tree *tree,t_env **env);
 
-char *get_value(t_env *env, char *key);
-void set_old_to_null(t_env *env);
-int exec_tree(t_tree *tree, t_env *env);
-void handle_heredoc(t_tree *tree, t_env *env);
+int    handle_redirs(t_tree *tree);
+void	handle_heredoc(t_tree *tree, t_env *env);
+
+void	put_errno(char *dir);
+
+int		exec_tree(t_tree *tree, t_env *env);
 #endif
