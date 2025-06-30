@@ -1,5 +1,6 @@
 to handle dyal 3bd l7a9
 
+
 AddressSanitizer:DEADLYSIGNAL
 =================================================================
 ==43341==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x00010df38ce0 bp 0x7ffee1ccc1f0 sp 0x7ffee1ccc150 T0)
@@ -61,3 +62,59 @@ bash-3.2$ cd ././
 cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
 bash-3.2$ pwd
 /mnt/homes/haqajjef/Desktop/minishell/minishell/1/2/3/../././
+
+./minishell | ./minishell 
+
+parsing   
+minishell$ unset PWD OLDPWD
+minishell$ cd $PWD
+minishell: cd: : No such file or directory
+
+minishell$ export a="ls -la"
+minishell$ $a
+minishell: ls -la: command not found
+
+
+minishell$ export $NOTHER $HOME
+export: not an identifier: 
+minishell$ export $NOTHER 
+export: not an identifier: 
+
+
+minishell$ unset PATH
+main
+minishell$ pwd
+/mnt/homes/haqajjef/Desktop/minishell/minishell
+minishell$ export | grep PATH
+minishell: grep: command not found
+minishell$ ls
+minishell: ls: command not found
+minishell$ ls
+minishell: ls: command not found
+minishell$ $?
+minishell: 0: command not found
+minishell$ /./
+minishell$ builtins
+
+
+➜  minishell git:(master) ✗ env -i ./minishell 
+minishell$ env
+PATH=/mnt/homes/haqajjef/.docker/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.
+SHLVL=1
+_=/usr/bin/env
+minishell$ export
+declare -x /mnt/homes/haqajjef/Desktop/minishell/minishell
+declare -x PATH="/mnt/homes/haqajjef/.docker/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."
+declare -x SHLVL="1"
+declare -x _="/usr/bin/env"
+
+minishell$ echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t | echo q w e r t y >> t
+
+minishell$ << t | << m
+minishell$ 
+
+minishell$ ls > /dev/stdout | ls
+output redirection: Permission denied
+-qwerty         builtins        minishell       minishell.h     parsing
+Makefile        execusion       minishell.c     minishell.o
+

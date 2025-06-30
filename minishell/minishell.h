@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/29 14:03:51 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:17:55 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	ft_lstsize(t_env *lst);
 int		ft_count(char const *s, char c);
 char	*ft_itoa(int n);
 int	ft_isascii(int c);
+char *ft_strjoin_3(char *s1, char *s2, char *s3);
 //parsing
 int		check_syntax_errors(t_token *token);
 t_tree	*parse_tree(t_token **token,int flag);

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:08:32 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 16:03:55 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:31:37 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 void	ft_str(char *s)
 {
-	write(1, s, ft_strlen(s) +1);
+	printf("%s", s);
 }
 
 int	is_valid_option(char *str)
@@ -47,7 +47,9 @@ int	ft_echo(char **argv)
 {
 	int	i;
 	int	new_line;
+	char *buffer;
 
+	buffer = ft_strdup("");
 	new_line = 1;
 	i = 1;
 	if (argv[i] && is_valid_option(argv[i]) == 0)
@@ -58,12 +60,21 @@ int	ft_echo(char **argv)
 	while (argv[i])
 	{
 		if (argv[i + 1])
-			ft_str(ft_strjoin(argv[i], " "));
+		{
+			buffer = ft_strjoin_3(buffer, argv[i], " ");
+			if(!buffer)
+				return (free(buffer), 1);
+		}
 		else
-			ft_str(argv[i]);
+		{
+			buffer = ft_strjoin(buffer, argv[i]);
+			if(!buffer)
+				return (free(buffer), 1);
+		}
 		i++;
 	}
 	if (new_line)
-		write(1, "\n", 1);
+		buffer = ft_strjoin(buffer, "\n");
+	write(1, buffer, ft_strlen(buffer));
 	return (0);
 }
