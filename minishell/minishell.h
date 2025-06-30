@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/29 10:06:18 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/30 11:29:57 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ int		 remove_quotes(t_token **token);
 char	*expand_heredoc(char *line, t_env *env);
 int		handel_ambiguous(t_token **token);
 int exit_status(int status, int flag);
+void split_expand(t_token **token);
+t_token	*new_token(t_tok_type type, char *value);
 //exection
 char	*find_cmd_path(char *cmd, t_env *env);
 t_env	*create_node(char *cle, char *val);

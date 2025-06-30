@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/29 10:06:30 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:12:06 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,11 @@ int	main(int argc, char **argv, char **envp)
 		// 	free(line);
 		// 	continue ;
 		// }
-		flag=remove_quotes(&token);
 		// print_tokens(token);
+		print_tokens(token);
+		split_expand(&token);
+		flag=remove_quotes(&token);
+		print_tokens(token);
 		tree = parse_tree(&token,flag);
 		// print_tree(tree, 0);
 		handle_heredoc(tree, env);

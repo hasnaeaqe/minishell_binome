@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 12:08:19 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/28 16:41:13 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:25:58 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,25 +113,18 @@ char *add_quotes(char *str)
     char *dest;
     int i = 0;
 
-    puts("hh");
-    puts(str);
     dest = ft_malloc((ft_strlen(str)+3)*sizeof(char));
-    while(*str && (*str!='=' || *str!='+'))
+    while(*str && *str!='=' && *str!='+')
        dest[i++]=*str++;
-    puts("1");
     if (*str=='+')
         dest[i++]=*str++;
-    puts("2");
     if (*str=='=')
         dest[i++]=*str++;
-    puts("3");
     dest[i++]='"';
     while (*str)
         dest[i++]=*str++;
-    puts("4");
     dest[i++]='"';
     dest[i]='\0';
-    puts(dest);
     return (dest);
 }
 void check_export(t_token *token)
@@ -151,7 +144,7 @@ void check_export(t_token *token)
             {
                 str=ft_strdup(tmp->next->value);
                 i = 0;
-                while (str[i] && (str[i]!='=' || str[i]!='+'))
+                while (str[i] && str[i]!='=' && str[i]!='+')
                 {
                     if (str[i]=='$' )
                     {
@@ -160,7 +153,7 @@ void check_export(t_token *token)
                     }
                     i++;
                 }
-                if (check == 0)
+                if (check == 0 && !ft_strchr(&str[i],'"') && !ft_strchr(&str[i],'\''))
                     tmp->next->value=add_quotes(str);
                 tmp=tmp->next;
             }
@@ -177,7 +170,7 @@ void	expand_tokens(t_token **token, t_env *env)
     
     tmp = *token;
     prev = *token;
-    // check_export(tmp);
+    check_export(tmp);
     while(tmp)
     {
         if (tmp->type == TOK_WORD && prev->type != TOK_REDIR_HEREDOC)
@@ -279,4 +272,78 @@ int handel_ambiguous(t_token **token)
         tmp=tmp->next;
     }
     return (0);
+}
+void split_expand(t_token **token)
+{
+    t_token *tmp;
+    t_token *add;
+    t_token *prev=NULL;
+    t_token *neext=NULL;
+    char quote;
+    char *dest;
+    char *str;
+    int i;
+    int start;
+
+    tmp=*token;
+    while (tmp)
+    {
+        if (tmp->type==TOK_WORD)
+        {
+            if(ft_strchr(tmp->value,' '))
+            {
+                neext=tmp->next;
+                str=ft_strdup(tmp->value);
+                i=0;
+                start = i;
+                while (str[i])
+                {
+                    if (str[i]=='\'' || str[i]=='"')
+                    {
+                        quote = str[i++];
+                        while (str[i] && str[i]!=quote)
+                            i++;
+                        if (str[i]==quote)
+                            i++;
+                    }
+                    else if (str[i]==' ' || str[i]=='\0')
+                    {
+                        dest=ft_substr(str,start,i - start);
+                        add = new_token(TOK_WORD,dest);
+                        puts(add->value);
+                        if (!prev)
+                            prev=add;
+                        else
+                        {
+                            prev->next=add;
+                            prev=prev->next;   
+                        }
+                        // add_token(*prev,TOK_WORD,dest);
+                        if (str[i])
+                            start = ++i;
+                    }
+                    else
+                        i++;
+                }
+                dest=ft_substr(str,start,i - start);
+                add = new_token(TOK_WORD,dest);
+                puts(add->value);
+                if (!prev)
+                    prev=add;
+                else
+                {
+                    prev->next=add;
+                    prev=prev->next;
+                    prev->next=neext;
+                }
+                if (neext)
+                    prev->next=neext;
+            }
+            else
+                prev=tmp;
+        }
+        else
+            prev=tmp;
+        tmp=tmp->next;
+    }
 }
