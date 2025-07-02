@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/30 16:17:55 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/02 16:12:04 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 #include <errno.h>
+#include <sys/stat.h>
 
 
 #include <string.h>
@@ -54,8 +55,6 @@ typedef enum e_redir_type
 	REDIR_APPEND,
 	REDIR_HEREDOC
 }	t_redir_type;
- 
-
  
 typedef struct s_redir_node
 {
@@ -159,7 +158,8 @@ int check_builts(t_tree *tree,t_env **env);
 int    handle_redirs(t_tree *tree);
 void	handle_heredoc(t_tree *tree, t_env *env);
 
+void errors(char *cmd, int mode);
+int	is_directory(char *path);
 void	put_errno(char *dir);
-
 int		exec_tree(t_tree *tree, t_env **env);
 #endif

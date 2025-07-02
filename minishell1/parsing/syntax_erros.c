@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_erros.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 20:22:59 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/27 10:33:52 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/06/30 17:48:48 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,11 @@ int	check_syntax_errors(t_token *token)
 					}
 				}
 				else
+				{
 					ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-				exit_status(258, 0);
-				return (1);
+					exit_status(258, 0);
+					return (1);
+				}//tra chi mochkil rah mn hna
 			}
 		}
 		i = 0;

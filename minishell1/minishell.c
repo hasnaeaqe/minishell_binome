@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/29 14:04:03 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/02 16:32:24 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline("minishell$ ");
-		// built_pwd(env, 0);
 		if (!line)
 			break ;
 		if (*line)
 			add_history(line);
 		token = NULL;
 		tokenisation(line, &token);
+		// print_tokens(token);
 		if (check_syntax_errors(token))
 		{
 			free_tokens(token);
@@ -48,13 +48,11 @@ int	main(int argc, char **argv, char **envp)
 		// 	free(line);
 		// 	continue ;
 		// }
-		flag=remove_quotes(&token);
-		// print_tokens(token);
+		flag = remove_quotes(&token);
 		tree = parse_tree(&token,flag);
 		// print_tree(tree, 0);
 		handle_heredoc(tree, env);
 		exec_tree(tree, &env);
-		// puts("kk");
 		free_tokens(token);
 		free(line);
 	}

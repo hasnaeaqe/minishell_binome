@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/30 16:06:30 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/02 20:46:49 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void handle_heredoc(t_tree *tree, t_env *env)
 
     if (!tree)
         return ;
-    if (tree->kind != NODE_COMMAND || !tree->redirs)
+    if (tree->kind != NODE_COMMAND)
     {
         handle_heredoc(tree->left,env);
         handle_heredoc(tree->right,env);
@@ -59,52 +59,6 @@ void handle_heredoc(t_tree *tree, t_env *env)
     }
     return ; 
 }
-// void handle_heredoc(t_tree *tree)
-// {
-// 	t_redir_node *redir;
-// 	char    *line;
-// 	char    *delimiter;
-
-// 	if (!tree)
-// 		return ;
-// 	if (tree->kind != NODE_COMMAND || !tree->redirs)
-// 	{
-// 		handle_heredoc(tree->left);
-// 		handle_heredoc(tree->right);
-// 		return ;
-// 	}
-// 	redir = tree->redirs;
-// 	while (redir)
-// 	{
-// 		delimiter = redir->filename;
-// 		redir->ishd = 0;
-// 		if (redir->kind == REDIR_HEREDOC)
-// 		{
-// 			redir->ishd = 1;
-// 			unlink("/tmp/tmpfile");
-// 			int fd = open("/tmp/tmpfile", O_CREAT | O_WRONLY , 0644);
-// 			int fdread = open("/tmp/tmpfile", O_RDONLY, 0644);
-// 			unlink("/tmp/tmpfile");
-// 			redir->fd = fdread;
-// 			while(1) 
-// 			{
-// 				line = readline(">");
-// 				if (!line || ft_strcmp(line, delimiter) == 0) 
-// 				{
-// 					if (line)
-// 						free(line);
-// 					break;
-// 				}
-// 				ft_putstr_fd(line, fd);
-// 				write(fd, "\n", 1);	
-// 			}
-// 			redir->kind = REDIR_INPUT;
-// 		}
-// 		redir = redir->next;
-// 	}
-// 	return ; 
-// }
-
 
 int    handle_redirs(t_tree *tree)
  {
@@ -155,6 +109,7 @@ int    handle_redirs(t_tree *tree)
 	}
 	return (0);
 }
+
 char *ft_strjoin_3(char *s1, char *s2, char *s3)
 {
     char *tmp;
@@ -185,6 +140,17 @@ char **to_array(t_env *env, int size)
     return (array);
 }
 
+int		relative_or_absolute_path(const char *path) {
+	int i = 0;
+	while (path[i])
+	{
+		if (path[i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int execute_cmd(t_tree *tree, t_env **env) {
 	
 	pid_t pid;
@@ -196,39 +162,25 @@ int execute_cmd(t_tree *tree, t_env **env) {
 	if (tree && is_builtins(*tree->argv) == 1)
 		return (check_builts(tree, env));
 	char *path = find_cmd_path(tree->argv[0], *env);
-	if (!path) {
-		if (errno != 13 && errno != 20 && errno != 2)
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(tree->argv[0], 2);
-			ft_putstr_fd(": command not found\n", 2);
-			return (127);
-		}
-		else
-		{
-			put_errno(tree->argv[0]);		
-		}
+	if (!path || (is_directory(path) && !relative_or_absolute_path(tree->argv[0])))
+	{
+		errors(tree->argv[0], 33);
+		return (127);
 	}
-	// put_errno(tree->argv[0]);
 	pid = fork();
 	if (pid == 0)
 	{
+		puts("ana hona \n ");
 		handle_redirs(tree);
-		//chec  
 		if (tree->argv && tree->argv[0] && execve(path, tree->argv, array) == -1)
-		{
-			// perror("execve failed"); // 
-		}
-		exit(0);
+			exit (EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 	else
-	{
 		waitpid(pid, &status, 0);
-	}
 	free(path);
 	return (WEXITSTATUS(status));
 }
-
 
 int execute_pipe(t_tree *tree, t_env *env)
 {
@@ -241,7 +193,7 @@ int execute_pipe(t_tree *tree, t_env *env)
 	if (pipe(pipefd) == -1)
 	{
 		perror("pipe");
-		exit(1);
+		// exit(1);
 	}
 	pid_left = fork();
 	if (pid_left == -1)
@@ -290,5 +242,3 @@ int exec_tree(t_tree *tree, t_env **env)
 		return (execute_pipe(tree, *env));
 	return (0);
 }
-
-

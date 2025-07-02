@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 11:56:34 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/29 12:13:57 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/02 16:55:10 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	ft_printenv(t_env **head)
 {
 	t_env	*tmp;
 
+	if (!head || !*head)
+		return;
 	tmp = *head;
 	while (tmp)
 	{

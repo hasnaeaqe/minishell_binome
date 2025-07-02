@@ -6,13 +6,12 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/29 12:02:27 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/02 10:02:16 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
-
 
 char *ext_key(char *str)
 {

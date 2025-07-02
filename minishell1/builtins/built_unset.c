@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/29 13:58:12 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/02 14:41:25 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int ft_unset(t_env **head, char **key_to_unset)
 	int status = 0;
 	while(key_to_unset[i])
 	{
-		puts("main");
 		if (is_valid(key_to_unset[i]) == 0)
 			unset_one(head, key_to_unset[i]);
 		else
