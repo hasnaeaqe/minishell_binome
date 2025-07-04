@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/02 16:12:04 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/04 12:13:01 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <errno.h>
 #include <sys/stat.h>
 
 
@@ -162,4 +161,7 @@ void errors(char *cmd, int mode);
 int	is_directory(char *path);
 void	put_errno(char *dir);
 int		exec_tree(t_tree *tree, t_env **env);
+
+//
+char **to_array(t_env *env, int size);
 #endif

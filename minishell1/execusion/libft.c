@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:21:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/27 12:12:07 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/04 11:48:50 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,57 +54,6 @@ long	ft_atoi( char *str)
 	return ((long)(signe * c));
 }
 
-// size_t ft_strlen(const char *s)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (s[i])
-// 		i++;
-// 	return (i);
-// }
-// char	*ft_strdup( const char *s1)
-// {
-// 	int		lens1;
-// 	int		i;
-// 	char	*tab;
-
-// 	lens1 = ft_strlen(s1);
-// 	tab = malloc ((lens1 + 1) * sizeof(char));
-// 	if (tab == NULL)
-// 		return (NULL);
-// 	i = 0;
-// 	while (s1[i])
-// 	{
-// 		tab[i] = s1[i];
-// 		i++;
-// 	}
-// 	tab[i] = '\0';
-// 	return (tab);
-// }
-
-// char	*ft_strjoin(char  *s1, char  *s2)
-// {
-// 	char	*newstr;
-// 	char	*head;
-
-// 	if (!s1 && !s2)
-// 		return (NULL);
-// 	if (!s1)
-// 		return (ft_strdup(s2));
-// 	if (!s2)
-// 		return (ft_strdup(s1));
-// 	newstr = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) +1 * sizeof(char));
-// 	if (!newstr)
-// 		return (NULL);
-// 	head = newstr;
-// 	while (*s1)
-// 		*newstr++ = *s1++;
-// 	while (*s2)
-// 		*newstr++ = *s2++;
-// 	*newstr = '\0';
-// 	return (head);
-// }
 int	ft_isalpha(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))

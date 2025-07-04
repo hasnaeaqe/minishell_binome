@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 10:22:40 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/02 20:31:34 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/04 11:29:05 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_free_tab(char **tab)
 	int	i;
 
 	i = 0;
-	if (!tab[i])
+	if (!tab || !tab[i])
 		return ;
 	while (tab[i])
 		free (tab[i++]);
@@ -29,9 +29,11 @@ char	*check_in_paths(char **dirs, char *cmd)
 	char	*tmp;
 	char	*full_path;
 	int		i;
-
+	
+	if (!cmd)
+		return (NULL);
 	i = 0;
-	while (dirs[i])
+	while (dirs && dirs[i])
 	{
 		tmp = ft_strjoin(dirs[i], "/");
 		if (!tmp)
@@ -53,60 +55,19 @@ char	*check_in_paths(char **dirs, char *cmd)
 int	is_directory(char *path)
 {
 	struct stat st;
-
+	
+	if (!path)
+		return (0);
 	if (stat(path, &st) == 0 && S_ISDIR(st.st_mode))
 		return (1);
 	return (0);
 }
 
-int	is_not_directory(char *path)
-{
-	struct stat st;
-
-	if (stat(path, &st) == 0 && !S_ISDIR(st.st_mode))
-		return (1);
-	return (0);
-}
-// void permission_err(char *cmd)
-// {
-// 	ft_putstr_fd("minishell: ", 2);
-// 	ft_putstr_fd(cmd, 2);
-// 	ft_putstr_fd(": Permission denied\n", 2);
-// 	return ;
-// }
-
-// void cmd_not_found(char *cmd)
-// {
-// 	ft_putstr_fd("minishell: ", 2);
-// 	ft_putstr_fd(cmd, 2);
-// 	ft_putstr_fd(": command not found\n", 2);
-// 	return ;
-// }
-
-// void is_directory_error(char *cmd)
-// {
-// 	ft_putstr_fd("minishell: ", 2);
-// 	ft_putstr_fd(cmd, 2);
-// 	ft_putstr_fd(": is a directory\n", 2);
-// 	return ;
-// }
-// void no_file(char *cmd)
-// {
-// 	ft_putstr_fd("minishell: ", 2);
-// 	ft_putstr_fd(cmd, 2);
-// 	ft_putstr_fd(": No such file or directory\n", 2);
-// 	return ;
-// }
-// void not_dir(char *cmd)
-// {
-// 	ft_putstr_fd("minishell: ", 2);
-// 	ft_putstr_fd(cmd, 2);
-// 	ft_putstr_fd(": Not a directory\n", 2);
-// 	return ;
-// }
 
 void errors(char *cmd, int mode)
 {
+	if (!cmd)
+		return ;
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	if (mode == 13)
@@ -139,7 +100,7 @@ int check_cmd_path_errors(char *cmd)
 	if (cmd[ft_strlen(cmd) - 1] == '/')
 	{
 		cleaned = ft_substr(cmd, 0, ft_strlen(cmd) - 1);
-		if (access(cleaned, F_OK) == 0 && is_not_directory(cleaned))
+		if (access(cleaned, F_OK) == 0 && !is_directory(cleaned))
 		{
 			errors(cmd, 20);
 			free(cleaned);
@@ -170,12 +131,12 @@ char	*find_cmd_path(char *cmd, t_env *env)
 	char	*paths;
 	char	**dirs;
 	char	*full_path;
+	
 	if (!cmd)
-		return (NULL);
+		return (NULL);	
 	if (ft_strchr(cmd, '/'))
 	{
 		check_cmd_path_errors(cmd);
-			// return ;
 		return ft_strdup(cmd);
 	}
 	paths = get_value(env, "PATH");
