@@ -6,16 +6,11 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:08:32 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/02 10:02:09 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:46:24 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ft_str(char *s)
-{
-	printf("%s", s);
-}
 
 static int	is_valid_option(char *str)
 {
@@ -43,7 +38,7 @@ static char *build_echo_output(char ** argv, int index)
 	if (!buffer)
 		return (free(buffer), NULL);
 	i = index;
-	while (argv[i])
+	while (argv && argv[i])
 	{
 		tmp = buffer;
 		if (argv[i + 1])

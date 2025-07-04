@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/04 12:13:01 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:41:15 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include <readline/history.h>
 #include <sys/stat.h>
 
-
-#include <string.h>
 typedef enum e_tok_type
 {
 	TOK_WORD,
@@ -163,5 +161,6 @@ void	put_errno(char *dir);
 int		exec_tree(t_tree *tree, t_env **env);
 
 //
+char	*ft_strrchr(const char *s, int c);
 char **to_array(t_env *env, int size);
 #endif

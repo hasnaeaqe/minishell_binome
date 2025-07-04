@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/04 12:13:51 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:13:51 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void handle_heredoc(t_tree *tree, t_env *env)
         if (redir->kind == REDIR_HEREDOC)
         {
             redir->ishd = 1;
-            unlink("/tmp/tmpfile");//////access
+            unlink("/tmp/tmpfile");  /////access
             int fd = open("/tmp/tmpfile", O_CREAT | O_WRONLY , 0644);
             int fdread = open("/tmp/tmpfile", O_RDONLY, 0644);
             unlink("/tmp/tmpfile");
@@ -62,7 +62,8 @@ void handle_heredoc(t_tree *tree, t_env *env)
 }
 
 int    handle_redirs(t_tree *tree)
- {
+{
+	puts("ana hona \n");
 	t_redir_node *redir;
 	int fd;
 	
@@ -91,13 +92,14 @@ int    handle_redirs(t_tree *tree)
 			fd = open (redir->filename, O_CREAT| O_RDWR |O_TRUNC, 0644);
 			if (fd < 0 || dup2(fd, 1) == -1)
 			{
-				perror("output redirection");
+				// perror("output redirection"); // 
 				return (1);
 			}
 			close (fd);
 		}
 		else if (redir->kind == REDIR_APPEND)
 		{
+			puts("is append");
 			fd = open(redir->filename, O_CREAT| O_RDWR |O_APPEND, 0644);
 			if(fd < 0 || dup2(fd, 1) == -1)
 			{

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/02 16:32:24 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/04 12:35:07 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = ft_env(envp);
-	set_old_to_null(&env);
-	// ft_printenv(env);
+	update_value(env, "OLDPWD", NULL);
 	while (1)
 	{
 		line = readline("minishell$ ");

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 10:22:40 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/04 11:29:05 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:45:32 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,54 +90,59 @@ void errors(char *cmd, int mode)
 		ft_putstr_fd(": is a directory\n", 2);
 		return;
 	}
-	else
-		ft_putstr_fd(": command          not found\n", 2);
+	ft_putstr_fd(": command not found\n", 2);
+}
+int check_slash_final(char *cmd)
+{
+	int len;
+	if (!cmd)
+		return (0);
+	len= ft_strlen (cmd);
+	if (cmd[len - 1] == '/')
+	{
+		cmd[len - 1] = '\0';
+		if (access(cmd, F_OK) == 0 && !is_directory(cmd))
+		{
+			cmd[len - 1] = '/';
+			return (1);
+		}
+		cmd[len - 1] = '/';
+	}
+	return (0);
 }
 int check_cmd_path_errors(char *cmd)
 {
 	char *cleaned;
-
-	if (cmd[ft_strlen(cmd) - 1] == '/')
-	{
+	
+	if (!cmd)
+		return (0);
+	if (ft_strrchr(cmd, '/') ) //cmd[ft_strlen(cmd) - 1] == '/')
+	{ 
 		cleaned = ft_substr(cmd, 0, ft_strlen(cmd) - 1);
 		if (access(cleaned, F_OK) == 0 && !is_directory(cleaned))
-		{
-			errors(cmd, 20);
-			free(cleaned);
-			return 1;
-		}
+			return (errors(cmd, 20), free(cleaned), 1);
 		free(cleaned);
 	}
 	if (access(cmd, F_OK) != 0)
-	{
-		errors(cmd, 2);
-		return 1;
-	}
+		return (errors(cmd, 2), 1);
 	if (is_directory(cmd))
-	{
-		errors(cmd, 21);
-		return 1;
-	}
+		return (errors(cmd, 21), 1);
 	if (access(cmd, X_OK) != 0)
-	{
-		errors(cmd, 13);
-		return 1;
-	}
-	return 0;
+		return (errors(cmd, 13), 1);
+	return (0);
 }
 
 char	*find_cmd_path(char *cmd, t_env *env)
 {
 	char	*paths;
 	char	**dirs;
-	char	*full_path;
 	
 	if (!cmd)
 		return (NULL);	
 	if (ft_strchr(cmd, '/'))
 	{
 		check_cmd_path_errors(cmd);
-		return ft_strdup(cmd);
+		return (ft_strdup(cmd));
 	}
 	paths = get_value(env, "PATH");
 	if (!paths)
@@ -145,13 +150,13 @@ char	*find_cmd_path(char *cmd, t_env *env)
 	dirs = ft_split(paths, ':');
 	if (!dirs)
 		return (NULL);
-	full_path = check_in_paths(dirs, cmd);
-	if (full_path)
-		return (full_path);
-	full_path = ft_strjoin("./", cmd);
-	if (!full_path)
+	paths = check_in_paths(dirs, cmd);
+	if (paths)
+		return (paths);
+	paths = ft_strjoin("./", cmd);
+	if (!paths)
 		return (ft_free_tab(dirs), NULL);
-	if (access(full_path, X_OK) == 0)
-		return (ft_free_tab(dirs), full_path);
-	return (free(full_path), ft_free_tab(dirs), NULL);
+	if (access(paths, X_OK) == 0)
+		return (ft_free_tab(dirs), paths);
+	return (free(paths), ft_free_tab(dirs), NULL);
 }

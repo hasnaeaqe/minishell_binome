@@ -83,3 +83,29 @@ output redirection: Permission denied
 -qwerty         builtins        minishell       minishell.h     parsing
 Makefile        execusion       minishell.c     minishell.o
 
+
+dup dup2 waitpid fork execve stat access 
+
+
+
+
+/////////////////////////////
+
+
+minishell$ ksadfgdfg
+(null)
+minishell: ksadfgdfg: No such file or directory
+minishell$ 
+
+
+////////////////////////////
+
+
+minishell$ unset PATH
+ana hona 
+
+minishell$ ls
+ana hona 
+
+minishell: ls: No such file or directory
+minishell$ 
