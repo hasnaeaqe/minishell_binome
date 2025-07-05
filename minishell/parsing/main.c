@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:32:06 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/26 18:13:29 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/04 10:54:38 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,12 +147,15 @@ void	tokenisation(char *str, t_token **token)
 			while (str[i] && str[i] != ' ' && str[i] != '|'
 				&& str[i] != '<' && str[i] != '>')
 			{
-				if (str[i] == '\'' || str[i] =='"')
+				if (str[i]=='\t')
+					str[i]=' ';
+				else if (str[i] == '\'' || str[i] =='"')
 				{
 					quote = str[i++];
 					while (str[i] && str[i] != quote)
 						i++;
-					i++;
+					if (str[i]==quote)
+						i++;//tra chi haja 3awtani hna
 				}
 				else
 					i++;

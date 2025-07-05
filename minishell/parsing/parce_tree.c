@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parce_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 10:44:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/26 16:03:04 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/02 12:01:03 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_tree	*parse_commande(t_token **token, int flag)
 {
 	t_node_type		kind;
 	t_redir_node	*redir;
+	char *str;
 	t_token			*tmp;
 	char			**argv;
 	int				i;
@@ -84,22 +85,26 @@ t_tree	*parse_commande(t_token **token, int flag)
 	tmp = *token;
 	while (tmp && tmp->type != TOK_PIPE)
 	{
-		if (tmp->type == TOK_WORD)
+		str=tmp->value;
+		// puts(str);
+		if (tmp->type == TOK_WORD && str[0]!='\0')
 			i++;
-		else 
+		else if (is_redi_operator(tmp->type))
 			tmp = tmp->next;
 		tmp = tmp->next;
 	}
+	// printf("%d\n",i);
 	argv = ft_malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (*token && (*token)->type != TOK_PIPE)
 	{
 		tmp = *token;
-		if ((tmp)->type == TOK_WORD)
+		str=tmp->value;
+		if ((tmp)->type == TOK_WORD && str[0]!='\0')
 		{
 			argv[i++] = ft_strdup(tmp->value);
 		}
-		else
+		else if (is_redi_operator(tmp->type))
 		{
 			if (tmp->next && tmp->type == TOK_REDIR_APPEND)
 				redir_node(&redir, REDIR_APPEND, tmp->next->value,flag);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 10:22:40 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/27 12:11:18 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:18:21 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char	*find_cmd_path(char *cmd, t_env *env)
 	char	**dirs;
 	char	*full_path;
 
+	// if (!cmd)
+	// 	return (NULL);
 	if (access(cmd, X_OK) == 0)
 		return (ft_strdup(cmd));
 	paths = get_value(env, "PATH");

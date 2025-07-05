@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/30 18:21:07 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:58:12 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void handle_heredoc(t_tree *tree, t_env *env)
             while(1)
             {
                 line = readline(">");
+				// delimiter=handel_delemiter_expand(delimiter);
                 if (!line || ft_strcmp(line, delimiter) == 0) 
                 {
                     if (line)

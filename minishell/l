@@ -1,9 +1,4 @@
-Makefile
-builtins
-execusion
-l
-minishell
-minishell.c
-minishell.h
-minishell.o
-parsing
+minishell$ export x="           "
+minishell$ ls$x-l
+minishell: ls           -l: command not found
+minishell$  

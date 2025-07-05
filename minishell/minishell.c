@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/30 20:12:06 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/05 09:40:47 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ int	main(int argc, char **argv, char **envp)
 		expand_tokens(&token, env);
 		// if (handel_ambiguous(&token))
 		// {
-		// 	free_tokens(token);
 		// 	free(line);
+		// 	free_tokens(token);
 		// 	continue ;
 		// }
 		// print_tokens(token);
-		print_tokens(token);
-		split_expand(&token);
+		tkherbi9a(&token);
+		// print_tokens(token);
 		flag=remove_quotes(&token);
-		print_tokens(token);
+		// print_tokens(token);
 		tree = parse_tree(&token,flag);
-		// print_tree(tree, 0);
+		print_tree(tree, 0);
 		handle_heredoc(tree, env);
 		exec_tree(tree, env);
 		free_tokens(token);
