@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/04 10:59:28 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/05 10:07:19 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <errno.h>
 #include <sys/stat.h>
 
-#include <string.h>
 typedef enum e_tok_type
 {
 	TOK_WORD,
@@ -54,8 +52,6 @@ typedef enum e_redir_type
 	REDIR_APPEND,
 	REDIR_HEREDOC
 }	t_redir_type;
- 
-
  
 typedef struct s_redir_node
 {
@@ -109,6 +105,7 @@ int	ft_lstsize(t_env *lst);
 int		ft_count(char const *s, char c);
 char	*ft_itoa(int n);
 int	ft_isascii(int c);
+char *ft_strjoin_3(char *s1, char *s2, char *s3);
 //parsing
 int		check_syntax_errors(t_token *token);
 t_tree	*parse_tree(t_token **token,int flag);
@@ -129,7 +126,7 @@ char	*find_cmd_path(char *cmd, t_env *env);
 t_env	*create_node(char *cle, char *val);
 char	*ext_key(char *str);
 char	*ext_val(char *env);
-void	ft_printenv(t_env *head);
+void	ft_printenv(t_env **head);
 
 t_env	**env_to_array(t_env *env, int size);
 int parse_args(char *str);
@@ -146,7 +143,7 @@ int		ft_unset(t_env **head, char **key_to_unset);
 //export
 int		ft_export(char **argv, t_env **env);
 void	sort_list(t_env **env);
-void	ft_printexport(t_env *head);
+void	ft_printexport(t_env **head);
 t_env	*find_node(t_env *env, char *key);
 //cd
 int		ft_cd(char **argv, t_env *env);
@@ -161,7 +158,12 @@ int check_builts(t_tree *tree,t_env **env);
 int    handle_redirs(t_tree *tree);
 void	handle_heredoc(t_tree *tree, t_env *env);
 
+void errors(char *cmd, int mode);
+int	is_directory(char *path);
 void	put_errno(char *dir);
+int		exec_tree(t_tree *tree, t_env **env);
 
-int		exec_tree(t_tree *tree, t_env *env);
+//
+char	*ft_strrchr(const char *s, int c);
+char **to_array(t_env *env, int size);
 #endif

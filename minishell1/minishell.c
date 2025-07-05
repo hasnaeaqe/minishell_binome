@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/05 09:40:47 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/05 10:06:59 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,17 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = ft_env(envp);
-	set_old_to_null(&env);
-	// ft_printenv(env);
+	update_value(env, "OLDPWD", NULL);
 	while (1)
 	{
 		line = readline("minishell$ ");
-		// built_pwd(env, 0);
 		if (!line)
 			break ;
 		if (*line)
 			add_history(line);
 		token = NULL;
 		tokenisation(line, &token);
+		// print_tokens(token);
 		if (check_syntax_errors(token))
 		{
 			free_tokens(token);
@@ -56,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 		tree = parse_tree(&token,flag);
 		print_tree(tree, 0);
 		handle_heredoc(tree, env);
-		exec_tree(tree, env);
+		exec_tree(tree, &env);
 		free_tokens(token);
 		free(line);
 	}

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:41 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/27 12:55:08 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/29 12:21:44 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void add_to_env_or_update(t_env **env, char *key_to_add, char *value_to_add, int
 			else if (mode == 0)
 			{
 				free(existe->value);
+				existe->value = NULL;
 				existe->value = ft_strdup(value_to_add);
 			}
 		return ;
@@ -125,6 +126,6 @@ int ft_export(char **argv, t_env **env)
 	array = env_to_array(*env, size);
 	sort_list(array);
 	if(argv && !argv[1])
-		ft_printexport(*array);
+		ft_printexport(array);
 	return (0);
 }

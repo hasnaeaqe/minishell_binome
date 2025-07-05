@@ -6,13 +6,11 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 12:26:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/27 12:29:37 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/02 16:57:45 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../minishell.h"
-
 
 t_env *find_node(t_env *env, char *key)
 {
@@ -41,11 +39,13 @@ int	ft_lstsize(t_env *lst)
 	return (count);
 } 
 
-void	ft_printexport(t_env *head)
+void	ft_printexport(t_env **head)
 {
 	t_env	*tmp;
 
-	tmp = head;
+	if (!head || !*head)
+		return ;
+	tmp = *head;
 	while (tmp)
 	{
 		if(tmp->value)

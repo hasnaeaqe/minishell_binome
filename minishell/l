@@ -1,4 +1,0 @@
-minishell$ export x="           "
-minishell$ ls$x-l
-minishell: ls           -l: command not found
-minishell$  

@@ -6,28 +6,13 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:08:32 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 16:03:55 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:46:24 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// size_t	ft_strlen(const char *s)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (s && s[i] != '\0')
-// 		i++;
-// 	return (i);
-// }
-
-void	ft_str(char *s)
-{
-	write(1, s, ft_strlen(s) +1);
-}
-
-int	is_valid_option(char *str)
+static int	is_valid_option(char *str)
 {
 	int	i;
 
@@ -43,10 +28,36 @@ int	is_valid_option(char *str)
 	return (0);
 }
 
+static char *build_echo_output(char ** argv, int index)
+{
+	char 	*buffer;
+	char 	*tmp;
+	int		i;
+
+	buffer = ft_strdup("");
+	if (!buffer)
+		return (free(buffer), NULL);
+	i = index;
+	while (argv && argv[i])
+	{
+		tmp = buffer;
+		if (argv[i + 1])
+			buffer = ft_strjoin_3(buffer, argv[i], " ");
+		else
+			buffer = ft_strjoin(buffer, argv[i]);
+		free(tmp);
+		if(!buffer)
+			return (NULL);
+		i++;
+	}
+	return (buffer);
+}
 int	ft_echo(char **argv)
 {
 	int	i;
 	int	new_line;
+	char *buffer;
+	char *tmp;
 
 	new_line = 1;
 	i = 1;
@@ -55,15 +66,17 @@ int	ft_echo(char **argv)
 		new_line = 0;
 		i++;
 	}
-	while (argv[i])
-	{
-		if (argv[i + 1])
-			ft_str(ft_strjoin(argv[i], " "));
-		else
-			ft_str(argv[i]);
-		i++;
-	}
+	buffer = build_echo_output(argv, i);
+	if (!buffer)
+		return (free(buffer), 1);
 	if (new_line)
-		write(1, "\n", 1);
-	return (0);
+	{
+		tmp = buffer;
+		buffer = ft_strjoin(buffer, "\n");
+		free(tmp);
+		if(!buffer)
+			return (1);
+	}
+	write(1, buffer, ft_strlen(buffer));
+	return (free(buffer),0);
 }

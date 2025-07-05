@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/27 12:25:39 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:55:24 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int get_home(char **argv, t_env *env)
 	{
 		home = get_value(env, "HOME");
 		if(!home)
-			return(ft_putstr_fd("minishell: cd: HOME not set\n", 2), 1);
+			return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), 0);
 		if (chdir(home) != 0)
 		{
 			erreur(home);
@@ -78,12 +78,12 @@ int check_double_point(char *path, char *pwd, t_env *env)
 {
 	char *new_pwd;
 
-	if (ft_strcmp(path, "..") == 0)
-		{
-			new_pwd = remove_last_slash(pwd);
-			if(chdir(new_pwd) != 0)
-				return (erreur(path), 1);
-		}	
+	if (path && ft_strcmp(path, "..") == 0)
+	{
+		new_pwd = remove_last_slash(pwd);
+		if(chdir(new_pwd) != 0)
+			return (erreur(path), 1);
+	}	
 	else
 	{
 		erreur(path);

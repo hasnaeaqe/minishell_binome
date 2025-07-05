@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:48:18 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/27 18:49:37 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:05:52 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,14 @@ int check_builts(t_tree *tree,t_env **env)
         status =  ft_export(tree->argv, env);
     else if (ft_strcmp(cmd[0], "unset") == 0)
         status = ft_unset(env, tree->argv + 1);
-
-
     else if (ft_strcmp(cmd[0], "env")== 0)
 	{
-		ft_printenv(*env);
+		ft_printenv(env);
         reset_redir(fd_in, fd_out);
 		return (0);	
 	}
 	else if (ft_strcmp(cmd[0], "exit") == 0)
         built_exit(tree->argv);
     reset_redir(fd_in, fd_out);
-	return (0);
+	return (status);
 }
