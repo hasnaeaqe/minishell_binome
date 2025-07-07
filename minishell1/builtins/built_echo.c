@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:08:32 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/04 19:46:24 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:55:34 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static int	is_valid_option(char *str)
 	return (0);
 }
 
-static char *build_echo_output(char ** argv, int index)
+static char	*build_echo_output(char **argv, int index)
 {
-	char 	*buffer;
-	char 	*tmp;
+	char	*buffer;
+	char	*tmp;
 	int		i;
 
 	buffer = ft_strdup("");
@@ -46,18 +46,19 @@ static char *build_echo_output(char ** argv, int index)
 		else
 			buffer = ft_strjoin(buffer, argv[i]);
 		free(tmp);
-		if(!buffer)
+		if (!buffer)
 			return (NULL);
 		i++;
 	}
 	return (buffer);
 }
+
 int	ft_echo(char **argv)
 {
-	int	i;
-	int	new_line;
-	char *buffer;
-	char *tmp;
+	int		i;
+	int		new_line;
+	char	*buffer;
+	char	*tmp;
 
 	new_line = 1;
 	i = 1;
@@ -74,9 +75,9 @@ int	ft_echo(char **argv)
 		tmp = buffer;
 		buffer = ft_strjoin(buffer, "\n");
 		free(tmp);
-		if(!buffer)
+		if (!buffer)
 			return (1);
 	}
 	write(1, buffer, ft_strlen(buffer));
-	return (free(buffer),0);
+	return (free(buffer), 0);
 }

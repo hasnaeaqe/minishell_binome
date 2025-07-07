@@ -3,27 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/05 10:06:59 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/07 20:15:47 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+// void f(void)
+// {
+// 	system("leaks minishell");
+// }
+
 int	main(int argc, char **argv, char **envp)
 {
+	printf("Bienvenue dans une nouvelle instance de minishell 🐚\n");
 	char	*line;
 	t_token	*token;
 	t_tree	*tree;
 	t_env *env;
-
+	// atexit(f);
 	int flag;
 	(void)argc;
 	(void)argv;
 	env = ft_env(envp);
-	update_value(env, "OLDPWD", NULL);
+	// update_value(env, "OLDPWD", NULL);
 	while (1)
 	{
 		line = readline("minishell$ ");
@@ -53,9 +60,11 @@ int	main(int argc, char **argv, char **envp)
 		flag=remove_quotes(&token);
 		// print_tokens(token);
 		tree = parse_tree(&token,flag);
-		print_tree(tree, 0);
+		// print_tree(tree, 0);
 		handle_heredoc(tree, env);
-		exec_tree(tree, &env);
+		int status  = exec_tree(tree, &env);
+		// printf("status == %d\n", status);
+		exit_status(status , 0);
 		free_tokens(token);
 		free(line);
 	}

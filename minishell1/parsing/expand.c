@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 12:08:19 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/05 09:50:59 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/05 12:40:31 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ char *expand(char *src,char *str, t_env *env)
     len = ft_strlen(src) - ft_strlen(dest)*count+ ft_strlen(expand_value)*count - count;
     // printf("count : %d\n",count);
     // printf("len :%d\n",len);
-    printf("value : %s,str : %s  dest: %s , exapnd : %s , total: %s\n",src,str,dest,expand_value,rwina(src,dest,expand_value, len));
+    // printf("value : %s,str : %s  dest: %s , exapnd : %s , total: %s\n",src,str,dest,expand_value,rwina(src,dest,expand_value, len));
     return (ft_strdup(rwina(src,dest,expand_value, len)));
 }
 char *add_quotes(char *str)

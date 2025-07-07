@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:21:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/04 20:41:05 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:25:19 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,4 @@ void	ft_strncpy(char *dest, char *src, int n)
 		i++;
 	}
 	dest[i] = '\0';
-}
-char	*ft_strrchr(const char *s, int c)
-{
-	size_t	i;
-
-	i = ft_strlen(s);
-	if ((unsigned char)c == '\0')
-		return ((char *)&s[i]);
-	while (i > 0)
-	{
-		if (s[i - 1] == (unsigned char)c)
-			return ((char *)&s[i - 1]);
-		i--;
-	}
-	return (NULL);
 }

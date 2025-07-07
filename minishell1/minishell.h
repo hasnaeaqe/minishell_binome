@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/05 10:07:19 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:11:31 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,11 @@ void	expand_tokens(t_token **token, t_env *env);
 int		 remove_quotes(t_token **token);
 char	*expand_heredoc(char *line, t_env *env);
 int		handel_ambiguous(t_token **token);
-int exit_status(int status, int flag);
 void tkherbi9a(t_token **token);
 t_token	*new_token(t_tok_type type, char *value);
 int	is_redi_operator(t_tok_type type);
 //exection
-char	*find_cmd_path(char *cmd, t_env *env);
+char	*find_cmd_path(char *cmd, t_env *env, int *status);
 t_env	*create_node(char *cle, char *val);
 char	*ext_key(char *str);
 char	*ext_val(char *env);
@@ -134,7 +133,6 @@ int exit_status(int status, int flag);
 
 t_env	*ft_env(char **env);
 t_env	*env_vide();
-void	set_old_to_null(t_env **env);
 
 int		ft_echo(char **argv);
 int		built_pwd(t_env *env, int write);
@@ -145,25 +143,27 @@ int		ft_export(char **argv, t_env **env);
 void	sort_list(t_env **env);
 void	ft_printexport(t_env **head);
 t_env	*find_node(t_env *env, char *key);
+t_env **env_to_array(t_env *env, int size);
 //cd
 int		ft_cd(char **argv, t_env *env);
 char	*get_value(t_env *env, char *key);
 void	update_value(t_env *env, char *key, char *value);
 char	*remove_last_slash(char *path);
-void	erreur(char *dir);
+int	erreur(char *dir);
 //built_exec
 int is_builtins(char *cmd);
 int check_builts(t_tree *tree,t_env **env);
 
+char	*check_in_paths(char **dirs, char *cmd);
+void	ft_free_tab(char **tab);
+
 int    handle_redirs(t_tree *tree);
 void	handle_heredoc(t_tree *tree, t_env *env);
 
-void errors(char *cmd, int mode);
+int errors(char *cmd, int mode);
 int	is_directory(char *path);
-void	put_errno(char *dir);
 int		exec_tree(t_tree *tree, t_env **env);
 
 //
-char	*ft_strrchr(const char *s, int c);
 char **to_array(t_env *env, int size);
 #endif
