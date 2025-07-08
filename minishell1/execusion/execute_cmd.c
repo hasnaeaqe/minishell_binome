@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/08 15:16:37 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/08 17:15:41 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ static pid_t	create_child(int pipefd[2], t_tree *child_tree,
 	}
 	return (pid);
 }
-
 
 int execute_pipe(t_tree *tree, t_env *env)
 {

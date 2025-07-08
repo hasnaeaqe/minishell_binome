@@ -3,49 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   built_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/29 10:10:54 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:49:10 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// static int	check(int s)
-// {
-// 	if (s == -1)
-// 		return (0);
-// 	return (-1);
-// }
-
-// int	ft_atoi(const char *str)
-// {
-// 	int		s;
-// 	long	r;
-// 	long	tmp;
-
-// 	r = 0;
-// 	s = 1;
-// 	while (*str == ' ' || (*str >= 9 && *str <= 13))
-// 		str++;
-// 	if (*str == '+' || *str == '-')
-// 	{
-// 		if (*str == '-')
-// 			s = -1;
-// 		str++;
-// 	}
-// 	while (*str >= '0' && *str <= '9')
-// 	{
-// 		tmp = r;
-// 		r = r * 10 + (*str - '0');
-// 		if (r / 10 != tmp)
-// 			return (check(s));
-// 		str++;
-// 	}
-// 	return ((int)(s * r));
-// }
-
 
 int exit_status(int status, int flag)
 {
@@ -77,37 +42,31 @@ int	is_numeric(char *str)
 
 void	built_exit(char **args)
 {
-	printf("exit\n");
-	if (!args)
+	int overflow;
+	int arg;
+	overflow = 0;
+	// ft_putstr_fd("exit\n", 2);
+	if (!args || !args[1])
         exit(0);
-	if (args[1])
+	if (!is_numeric(args[1]))
 	{
-		if (!is_numeric(args[1]))
-		{
-			printf("exit: %s: numeric argument required\n", args[1]);
-			exit(255);
-		}
-		if (args[2])
-		{
-			printf("exit: too many arguments\n");
-			return ;
-		}
-		int	arg = ft_atoi(args[1]);
-		// if (arg < 0 || arg > 255)
-        // {
-        //     printf("exit: %d: invalid exit status\n", arg);
-        //     exit(255);
-        // }
-		exit((unsigned char)arg);
+		ft_putstr_fd("exit: ", 2);
+		ft_putstr_fd(args[1], 2);
+		ft_putstr_fd("numeric argument required\n", 2);
+		exit(255);
 	}
-	exit (0);
+	arg = ft_atoi(args[1], &overflow);
+	if (overflow)
+	{
+		ft_putstr_fd("exit: ", 2);
+		ft_putstr_fd(args[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+		exit (255);
+	}
+	if (args[2])
+	{
+		ft_putstr_fd("exit: too many arguments\n", 2);
+		return ;
+	}
+	exit((unsigned char)arg);
 }
-
-// int	main(int argc, char **argv)
-// {
-// 	if (argc > 1)
-// 		built_exit(argv);
-// 	else
-// 		built_exit(NULL);
-// 	return (0);
-// }

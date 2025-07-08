@@ -220,3 +220,24 @@ minishell$ cat 5
 cat: 5: No such file or directory
 
 
+
+
+
+/////////////////////////////////
+
+minishell$ ls > $dfgdfg
+minishell: ambiguous redirect
+Makefile        builtins        execusion       l               ls              minishell       minishell.c     minishell.h     minishell.o     parsing         |
+
+
+//////////////////////////////////
+
+cd :
+
+Process 19640: 446 nodes malloced for 95 KB
+Process 19640: 1 leak for 1024 total leaked bytes.
+
+    1 (1.00K) ROOT LEAK: 0x7f8250009800 [1024]  length: 37  "/mnt/homes/haqajjef/Desktop/minishell"
+
+
+

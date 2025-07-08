@@ -6,17 +6,16 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/08 16:13:03 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:36:45 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-// void f(void)
-// {
-// 	system("leaks minishell");
-// }
+void f(void)
+{
+	system("leaks minishell");
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -58,7 +57,7 @@ int	main(int argc, char **argv, char **envp)
 		// 	continue ;
 		// }
 		// print_tokens(token);
-		tkherbi9a(&token);
+		// tkherbi9a(&token);
 		// print_tokens(token);
 		flag=remove_quotes(&token);
 		// print_tokens(token);

@@ -1,0 +1,125 @@
+to handle dyal 3bd l7a9
+
+
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==43341==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x00010df38ce0 bp 0x7ffee1ccc1f0 sp 0x7ffee1ccc150 T0)
+==43341==The signal is caused by a READ memory access.
+==43341==Hint: address points to the zero page.
+    #0 0x10df38ce0 in ft_strcmp+0x80 (minishell:x86_64+0x100005ce0)
+    #1 0x10df3e9c3 in check_double_point+0x23 (minishell:x86_64+0x10000b9c3)
+    #2 0x10df3eb4b in ft_cd+0xeb (minishell:x86_64+0x10000bb4b)
+    #3 0x10df446a5 in check_builts+0x205 (minishell:x86_64+0x1000116a5)
+    #4 0x10df3b5e8 in execute_cmd+0x2b8 (minishell:x86_64+0x1000085e8)
+    #5 0x10df3c403 in exec_tree+0x93 (minishell:x86_64+0x100009403)
+    #6 0x10df43f0e in main+0x3ae (minishell:x86_64+0x100010f0e)
+    #7 0x7fff6d58ccc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+==43341==Register values:
+rax = 0x0000000000000000  rbx = 0x00007ffee1ccc3a0  rcx = 0x0000100000000000  rdx = 0x0000100000000000  
+rdi = 0x0000000000000000  rsi = 0x000000010df46600  rbp = 0x00007ffee1ccc1f0  rsp = 0x00007ffee1ccc150  
+ r8 = 0x0000000000000005   r9 = 0x0000000000000000  r10 = 0x0000000000000000  r11 = 0x0000000000000203  
+r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV (minishell:x86_64+0x100005ce0) in ft_strcmp+0x80
+==43341==ABORTING
+[1]    43341 abort      ./minishell
+
+THIS IN BASH
+
+bash-3.2$ cd ././
+cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+bash-3.2$ pwd
+/mnt/homes/haqajjef/Desktop/minishell/minishell/1/2/3/../././
+
+./minishell | ./minishell 
+
+parsing  -------
+minishell$ unset PWD OLDPWD
+minishell$ cd $PWD
+minishell: cd: : No such file or directory
+
+minishell$ export a="ls -la"
+minishell$ $a
+minishell: ls -la: command not found
+
+
+minishell$ export $NOTHER $HOME
+export: not an identifier: 
+minishell$ export $NOTHER 
+export: not an identifier: 
+
+
+minishell$ unset PATH
+main
+minishell$ pwd
+/mnt/homes/haqajjef/Desktop/minishell/minishell
+minishell$ export | grep PATH
+minishell: grep: command not found
+minishell$ ls
+minishell: ls: command not found
+minishell$ ls
+minishell: ls: command not found
+minishell$ $?
+minishell: 0: command not found
+minishell$ /./
+minishell$ builtins
+
+////
+➜  minishell git:(master) ✗ env -i ./minishell 
+minishell$ env
+PATH=/mnt/homes/haqajjef/.docker/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.
+SHLVL=1
+_=/usr/bin/env
+minishell$ export
+declare -x /mnt/homes/haqajjef/Desktop/minishell/minishell
+declare -x PATH="/mnt/homes/haqajjef/.docker/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."
+declare -x SHLVL="1"
+declare -x _="/usr/bin/env"
+
+
+minishell$ ls > /dev/stdout | ls
+output redirection: Permission denied
+-qwerty         builtins        minishell       minishell.h     parsing
+Makefile        execusion       minishell.c     minishell.o
+
+
+dup dup2 waitpid fork execve stat access 
+
+
+
+
+/////////////////////////////
+
+
+minishell$ ksadfgdfg
+(null)
+minishell: ksadfgdfg: No such file or directory
+minishell$ 
+
+
+////////////////////////////
+
+
+minishell$ unset PATH
+ana hona 
+
+minishell$ ls
+ana hona 
+
+minishell: ls: No such file or directory
+minishell$ 
+
+
+
+
+minishell$ touch wwww
+minishell$ ls > wwww
+258             b               execusion       minishell       minishell.o
+Makefile        builtins        ls              minishell.c     parsing
+a               ddd             malloc.o        minishell.h     wwww
+minishell$ 
+
+
+
+

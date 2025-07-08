@@ -11,3 +11,99 @@ $"$"
 ***************************************
 
 ***************************************
+
+minishell$ $EMTY""
+minishell$ ""$EMTY
+minishell$ ""$EMTY
+minishell$ ""$EMTY""
+minishell$ $EMTY''
+minishell$ 
+
+******************************************************************************
+a="ls la"
+export g=$a  j=$a    m+=$a   l+=$a  t+=$a
+
+******************************************************************************
+
+export a+=$a
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==20658==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x000107b086a9 bp 0x7ffee810c450 sp 0x7ffee810c380 T0)
+==20658==The signal is caused by a READ memory access.
+==20658==Hint: address points to the zero page.
+    #0 0x107b086a9 in check_export+0x49 (minishell:x86_64+0x1000156a9)
+    #1 0x107b08cc1 in expand_tokens+0x91 (minishell:x86_64+0x100015cc1)
+    #2 0x107b0bd67 in main+0x2f7 (minishell:x86_64+0x100018d67)
+    #3 0x7fff6c22fcc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+==20658==Register values:
+rax = 0x0000000000000008  rbx = 0x00007ffee810c660  rcx = 0x0000100000000001  rdx = 0x0000100000000000  
+rdi = 0x0000000000000000  rsi = 0x0000100000000000  rbp = 0x00007ffee810c450  rsp = 0x00007ffee810c380  
+ r8 = 0x0000000000000002   r9 = 0x00000000331db163  r10 = 0x0000000000000020  r11 = 0xfffffe9000000670  
+r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV (minishell:x86_64+0x1000156a9) in check_export+0x49
+==20658==ABORTING
+
+************************************************************************************************************************************************************
+
+export a=$a=$a=$a=$a=$a=$a=$a
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==21150==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x00010d66d6a9 bp 0x7ffee25a7450 sp 0x7ffee25a7380 T0)
+==21150==The signal is caused by a READ memory access.
+==21150==Hint: address points to the zero page.
+    #0 0x10d66d6a9 in check_export expand.c:250
+    #1 0x10d66dcc1 in expand_tokens expand.c:279
+    #2 0x10d670d67 in main minishell.c:41
+    #3 0x7fff6c22fcc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+==21150==Register values:
+rax = 0x0000000000000008  rbx = 0x00007ffee25a7660  rcx = 0x0000100000000001  rdx = 0x0000100000000000  
+rdi = 0x0000000000000000  rsi = 0x0000100000000000  rbp = 0x00007ffee25a7450  rsp = 0x00007ffee25a7380  
+ r8 = 0x0000000000000002   r9 = 0x00000000d9310ea0  r10 = 0x0000000000000020  r11 = 0xfffffe9000000670  
+r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV expand.c:250 in check_export
+==21150==ABORTING
+zsh: abort      ./minishell
+cbayousf@e3r3p14 minishell1 % ./minishell
+
+
+************************************************************************************************************************************************************
+
+ echo $USER$PATH$PWD$USER$USER$USER
+
+******************************************************************************
+
+/////exection
+minishell$ ls > $EMTY
+value : $EMTY,str : $EMTY  dest: EMTY , exapnd :  
+minishell: ambiguous redirect
+258             b               ddd             ls              minishell.c     parsing
+Makefile        bash            execusion       malloc.o        minishell.h     wwww
+a               builtins        gg              minishell       minishell.o
+
+******************************************************************************
+
+////exection
+
+minishell$ export a="           ls      "
+minishell$ ls > $a
+value : $a,str : $a  dest: a , exapnd :   ls  
+minishell: ambiguous redirect
+ls
+
+******************************************************************************
+
+minishell$ ls > ""
+                a               ddd             ls la           minishell.h     r
+  ls            b               execusion       malloc.o        minishell.o     t
+258             bash            gg              minishell       parsing         wwww
+Makefile        builtins        ls              minishell.c     q               y
+
+******************************************************************************
+
+export x="''''"
+$x
+******************************************************************************

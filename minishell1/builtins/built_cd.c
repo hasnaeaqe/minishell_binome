@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/07 15:54:18 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:46:47 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ cannot access parent directories: No such file or directory\n", 2);
 		return (0);
 	}
 	return (update_value(env, "OLDPWD", old_pwd),
-		update_value(env, "PWD", pwd), 0);
+		update_value(env, "PWD", pwd), free(pwd), 0);
 }
 
 int	check_double_point(char *path, char *pwd, t_env *env)
