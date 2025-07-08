@@ -6,34 +6,33 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/30 15:55:24 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:54:18 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int get_home(char **argv, t_env *env)
+int	get_home(char **argv, t_env *env)
 {
-	char *home;
+	char	*home;
+
 	if (!env)
 		return (1);
 	if (argv && !argv[1])
 	{
 		home = get_value(env, "HOME");
-		if(!home)
+		if (!home)
 			return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), 0);
 		if (chdir(home) != 0)
-		{
-			erreur(home);
-			return (127);
-		}
+			return (erreur(home));
 		return (0);
 	}
 	return (1);
 }
-int point(t_env *env, char **argv)
+
+int	point(t_env *env, char **argv)
 {
-	char *pwd;
+	char	*pwd;
 
 	if (!env)
 		return (1);
@@ -46,7 +45,7 @@ int point(t_env *env, char **argv)
 	return (1);
 }
 
-int check_pwd(t_env *env, char *old_pwd)
+int	check_pwd(t_env *env, char *old_pwd)
 {
 	char	*pwd;
 	t_env	*tmp;
@@ -56,39 +55,38 @@ int check_pwd(t_env *env, char *old_pwd)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
-		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", 2);
+		ft_putstr_fd("cd: error retrieving current directory: getcwd: \
+cannot access parent directories: No such file or directory\n", 2);
 		pwd = get_value(env, "PWD");
 		pwd = ft_strjoin(pwd, "/..");
 		if (!pwd)
 			return (1);
 		tmp = env;
-		while(tmp)
+		while (tmp)
 		{
 			if (ft_strcmp(tmp->key, "PWD") == 0)
-				update_value(env,"PWD" ,pwd);
+				update_value(env, "PWD", pwd);
 			tmp = tmp->next;
 		}
 		update_value(env, "OLDPWD", old_pwd);
-		return (1);
+		return (0);
 	}
-	return(update_value(env, "OLDPWD", old_pwd), update_value(env, "PWD", pwd), 0);
+	return (update_value(env, "OLDPWD", old_pwd),
+		update_value(env, "PWD", pwd), 0);
 }
 
-int check_double_point(char *path, char *pwd, t_env *env)
+int	check_double_point(char *path, char *pwd, t_env *env)
 {
-	char *new_pwd;
+	char	*new_pwd;
 
 	if (path && ft_strcmp(path, "..") == 0)
 	{
 		new_pwd = remove_last_slash(pwd);
-		if(chdir(new_pwd) != 0)
-			return (erreur(path), 1);
-	}	
-	else
-	{
-		erreur(path);
-		return (check_pwd(env, pwd));
+		if (chdir(new_pwd) != 0)
+			return (erreur(path));
 	}
+	else
+		return (check_pwd(env, pwd), erreur(path));
 	return (check_pwd(env, pwd));
 }
 
@@ -104,6 +102,6 @@ int	ft_cd(char **argv, t_env *env)
 		return (check_pwd(env, pwd));
 	path = argv[1];
 	if (chdir(path) != 0)
-		check_double_point(path, pwd, env);
+		return (check_double_point(path, pwd, env));
 	return (check_pwd(env, pwd));
 }

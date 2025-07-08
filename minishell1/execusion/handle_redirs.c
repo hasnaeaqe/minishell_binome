@@ -6,25 +6,25 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/08 16:06:29 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:16:54 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
 
-int count_dolar()
-{
+// int count_dolar()
+// {
 	
-}
-int handel_dolar(char *line, char *delimiter)
-{
-	if (ft_strnstr(delimiter, "$\"\"",ft_strlen(delimiter)))
-	{
-		count_dolar();
-	}
+// }
+// int handel_dolar(char *line, char *delimiter)
+// {
+// 	if (ft_strnstr(delimiter, "$\"\"",ft_strlen(delimiter)))
+// 	{
+// 		count_dolar();
+// 	}
 	
-}
+// }
 void handle_heredoc(t_tree *tree, t_env *env)
 {
     t_redir_node *redir;
@@ -48,14 +48,14 @@ void handle_heredoc(t_tree *tree, t_env *env)
         {
             redir->ishd = 1;
             unlink("/tmp/tmpfile");  /////access
-            int fd = open("/tmp/tmpfile", O_CREAT | O_WRONLY , 0644);
+            int fd = open("/tmp/tmpfile", O_CREAT | O_WRONLY | O_APPEND , 0644);
             int fdread = open("/tmp/tmpfile", O_RDONLY, 0644);
             unlink("/tmp/tmpfile");
             redir->fd = fdread;
             while(1)
             {
                 line = readline(">");
-                if (!line || !ft_strcmp(line, delimiter) || handel_dolar(line, delimiter)) 
+                if (!line || !ft_strcmp(line, delimiter)) 
                 {
                     if (line)
                         free(line);
@@ -73,9 +73,9 @@ void handle_heredoc(t_tree *tree, t_env *env)
     return ; 
 }
 
+
 int    handle_redirs(t_tree *tree)
 {
-	// puts("ana hona \n");
 	t_redir_node *redir;
 	int fd;
 	
@@ -100,7 +100,6 @@ int    handle_redirs(t_tree *tree)
 			if (fd < 0 || dup2(fd, 0) == -1)
 			{
 				// perror("input redirection");
-				// put_errno(redir->filename);
 				// ft_putstr_fd("minishell: ", 2);
 				// ft_putstr_fd(redir->filename, 2);
 				// ft_putstr_fd(": No such file or directory\n", 2);

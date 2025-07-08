@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 11:56:34 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/02 16:55:10 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:03:40 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_env	*create_node(char *cle, char *val)
 	t_env	*env;
 
 	if (!cle)
-		return(NULL);
+		return (NULL);
 	env = ft_malloc(sizeof(t_env));
 	if (!env)
 		return (NULL);
@@ -26,9 +26,25 @@ t_env	*create_node(char *cle, char *val)
 	env->next = NULL;
 	return (env);
 }
-void    ft_lstadd_back(t_env **lst, t_env *new)
+
+int	ft_lstsize(t_env *lst)
 {
-	t_env    *tmp;
+	int		count;
+	t_env	*head;
+
+	count = 0;
+	head = lst;
+	while (head)
+	{
+		head = head->next;
+		count++;
+	}
+	return (count);
+}
+
+void	ft_lstadd_back(t_env **lst, t_env *new)
+{
+	t_env	*tmp;
 
 	if (lst == NULL || new == NULL)
 		return ;
@@ -38,26 +54,22 @@ void    ft_lstadd_back(t_env **lst, t_env *new)
 		new->next = NULL;
 		return ;
 	}
-	else
-	{
-		tmp = *lst;
-		while (tmp -> next)
-		{
-			tmp = tmp-> next;
-		}
-		tmp -> next = new;
-	}
+	tmp = *lst;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
 }
+
 void	ft_printenv(t_env **head)
 {
 	t_env	*tmp;
 
 	if (!head || !*head)
-		return;
+		return ;
 	tmp = *head;
 	while (tmp)
 	{
-		if(tmp->value)
+		if (tmp->value)
 			printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}

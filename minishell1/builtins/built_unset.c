@@ -6,29 +6,31 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/02 14:41:25 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:02:14 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int is_valid(char *str)
+static int	is_valid(char *str)
 {
-	int i;
+	int	i;
+
 	if (!str)
 		return (1);
-	if((!ft_isalpha(str[0]) && str[0] != '_') || ft_isdigit(str[0]))
+	if ((!ft_isalpha(str[0]) && str[0] != '_') || ft_isdigit(str[0]))
 		return (1);
 	i = 1;
-	while(str[i])
+	while (str[i])
 	{
-		if(!ft_isalpha(str[i]) &&  str[i] != '_' && !ft_isdigit(str[i]))
+		if (!ft_isalpha(str[i]) && str[i] != '_' && !ft_isdigit(str[i]))
 			return (1);
 		i++;
 	}
 	return (0);
 }
-void free_node(t_env *tmp)
+
+static void	free_node(t_env *tmp)
 {
 	free(tmp->key);
 	free(tmp->value);
@@ -36,6 +38,7 @@ void free_node(t_env *tmp)
 	tmp->value = NULL;
 	free(tmp);
 }
+
 void	unset_one(t_env **head, char *key_to_unset)
 {
 	t_env	*tmp;
@@ -46,7 +49,7 @@ void	unset_one(t_env **head, char *key_to_unset)
 	tmp = *head;
 	prev = NULL;
 	if (!tmp)
-		return;
+		return ;
 	if (tmp && ft_strcmp(tmp->key, key_to_unset) == 0)
 	{
 		*head = tmp->next;
@@ -56,19 +59,22 @@ void	unset_one(t_env **head, char *key_to_unset)
 	while (tmp && ft_strcmp(tmp->key, key_to_unset) != 0)
 	{
 		prev = tmp;
-		tmp =tmp->next;
+		tmp = tmp->next;
 	}
-	if(!tmp)
-		return;
+	if (!tmp)
+		return ;
 	prev->next = tmp->next;
 	free_node(tmp);
 }
 
-int ft_unset(t_env **head, char **key_to_unset)
+int	ft_unset(t_env **head, char **key_to_unset)
 {
-	int i = 0;
-	int status = 0;
-	while(key_to_unset[i])
+	int	i;
+	int	status;
+
+	i = 0;
+	status = 0;
+	while (key_to_unset[i])
 	{
 		if (is_valid(key_to_unset[i]) == 0)
 			unset_one(head, key_to_unset[i]);
