@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/07 20:15:34 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:06:09 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ char	*ext_key(char *str)
 	while (str[i] && str[i] != '=' && str[i] != '+')
 		i++;
 	key = ft_malloc(sizeof(char) * (i + 1));
-	ft_strncpy(key, str, i);
-	key[i] = '\0';
+	// ft_strncpy(key, str, i);
+	// key[i] = '\0';
+	key = ft_strndup(str, i);
 	return (key);
 }
 
@@ -74,8 +75,7 @@ t_env	*env_vide(void)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (NULL);
-	path = "PATH=/mnt/homes/haqajjef/.docker/bin:/usr/gnu/bin: \
-	/usr/local/bin:/bin:/usr/bin:.";
+	path = "PATH=/mnt/homes/haqajjef/.docker/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.";
 	ft_lstadd_back(&env, create_node(ext_key(path), ext_val(path)));
 	ft_lstadd_back(&env, create_node("PWD", pwd));
 	ft_lstadd_back(&env, create_node(ext_key("SHLVL=1"), ext_val("SHLVL=1")));

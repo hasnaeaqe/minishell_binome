@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/07 20:15:47 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:13:03 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	printf("Bienvenue dans une nouvelle instance de minishell 🐚\n");
 	char	*line;
+	char	*free_line;
 	t_token	*token;
 	t_tree	*tree;
 	t_env *env;
@@ -33,7 +34,9 @@ int	main(int argc, char **argv, char **envp)
 	// update_value(env, "OLDPWD", NULL);
 	while (1)
 	{
-		line = readline("minishell$ ");
+		free_line = readline("minishell$ ");
+		line = ft_strdup(free_line);
+		free(free_line);
 		if (!line)
 			break ;
 		if (*line)
@@ -66,7 +69,6 @@ int	main(int argc, char **argv, char **envp)
 		// printf("status == %d\n", status);
 		exit_status(status , 0);
 		free_tokens(token);
-		free(line);
 	}
 	return (0);
 }

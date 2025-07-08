@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/07 16:35:41 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/08 15:16:37 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	execute_cmd(t_tree *tree, t_env **env)
 		return (1);
 	status = 0;
 	array = to_array(*env, ft_lstsize(*env));
-	if (tree && is_builtins(*tree->argv) == 1)
+	if (tree && is_builtins(*tree->argv))
 		return (check_builts(tree, env));
 	pid = fork();
 	if (pid == 0)
