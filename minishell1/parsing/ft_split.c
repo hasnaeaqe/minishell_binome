@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:05 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/06/26 16:02:45 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:31:58 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
- int	ft_count(char const *s, char c)
+int	ft_count(char const *s, char c)
 {
 	int	i;
 	int	count;
@@ -110,27 +110,4 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	result = cr_word(s, c, result);
 	return (result);
-}
-
-char	*ft_strjoin(char  *s1, char  *s2)
-{
-	char	*newstr;
-	char	*head;
-
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	newstr = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) +1 * sizeof(char));
-	if (!newstr)
-		return (NULL);
-	head = newstr;
-	while (*s1)
-		*newstr++ = *s1++;
-	while (*s2)
-		*newstr++ = *s2++;
-	*newstr = '\0';
-	return (head);
 }

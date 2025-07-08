@@ -1,17 +1,65 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   libft_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/27 10:27:09 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/27 10:27:10 by cbayousf         ###   ########.fr       */
+/*   Created: 2025/07/06 18:39:33 by cbayousf          #+#    #+#             */
+/*   Updated: 2025/07/08 10:31:29 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../minishell.h"
+
+int	count_word(char *s, char c)
+{
+	int		i;
+	int		count;
+
+	i = 0;
+	count = 0;
+	while (s[i] != '\0')
+	{
+		while (s[i] == c)
+			i++;
+		if (s[i] != '\0')
+		{
+			count++;
+			while (s[i] != c && s[i])
+			{
+				if (s[i] == '"' || s[i] == '\'')
+					skip_single_double_quote(s, &i);
+				else
+					i++;
+			}
+		}
+	}
+	return (count);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*newstr;
+	char	*head;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	newstr = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) +1 * sizeof(char));
+	if (!newstr)
+		return (NULL);
+	head = newstr;
+	while (*s1)
+		*newstr++ = *s1++;
+	while (*s2)
+		*newstr++ = *s2++;
+	*newstr = '\0';
+	return (head);
+}
 
 static int	ft_count_nbr(int n)
 {

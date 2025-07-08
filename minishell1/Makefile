@@ -1,12 +1,15 @@
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 RM = rm -f
 
 
-PARSE = parsing/garbage_collector.c parsing/main.c  parsing/parce_tree.c parsing/syntax_erros.c parsing/test.c parsing/print_tree.c  parsing/my_libft.c \
-  parsing/ft_split.c  execusion/execute_cmd.c   execusion/path.c builtins/built_exit.c execusion/libft.c   builtins/for_cd.c  builtins/for_export.c\
+PARSE = parsing/expand_0.c parsing/expand_1.c parsing/expand_2.c parsing/expand_3.c parsing/expand_4.c parsing/ft_split.c \
+    parsing/garbage_collector.c parsing/libft_1.c parsing/libft_2.c parsing/libft_3.c \
+	parsing/parce_tree_0.c parsing/parce_tree_1.c parsing/print_tree.c  parsing/quotes.c parsing/splite_expand.c   \
+	parsing/syntax_errors_0.c parsing/syntax_errors_1.c parsing/tokenisation.c   \
+  execusion/execute_cmd.c execusion/path.c builtins/built_exit.c execusion/libft.c   builtins/for_cd.c  builtins/for_export.c \
   builtins/built_cd.c builtins/built_echo.c builtins/built_pwd.c builtins/built_env.c   builtins/built_export.c builtins/built_unset.c execusion/exec.c execusion/handle_redirs.c  \
-	parsing/expand.c parsing/quotes.c minishell.c  execusion/check_cmd.c builtins/for_env.c parsing/ft_itoa.c\
+	 minishell.c  execusion/check_cmd.c builtins/for_env.c \
 
 OB = $(PARSE:.c=.o)
 

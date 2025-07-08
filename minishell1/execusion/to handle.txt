@@ -109,3 +109,17 @@ ana hona
 
 minishell: ls: No such file or directory
 minishell$ 
+
+
+
+
+minishell$ touch wwww
+minishell$ ls > wwww
+258             b               execusion       minishell       minishell.o
+Makefile        builtins        ls              minishell.c     parsing
+a               ddd             malloc.o        minishell.h     wwww
+minishell$ 
+
+
+
+

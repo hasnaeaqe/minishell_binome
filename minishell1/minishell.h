@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/05 10:07:19 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/08 15:15:01 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_token
 {
 	t_tok_type		type;
 	char			*value;
+	int				ambig;
 	struct s_token	*next;
 }	t_token;
 
@@ -60,6 +61,7 @@ typedef struct s_redir_node
 	int					ishd;
 	int					flag;
 	char				*filename;
+	int				ambiguous;
 	struct s_redir_node	*next;
 }	t_redir_node;
 
@@ -68,8 +70,8 @@ typedef struct s_tree
 	t_node_type		kind;
 	char			**argv;
 	t_redir_node	*redirs;
+	
 	// int				pipes[2];
-	// int				ambiguous;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }	t_tree;
@@ -106,20 +108,43 @@ int		ft_count(char const *s, char c);
 char	*ft_itoa(int n);
 int	ft_isascii(int c);
 char *ft_strjoin_3(char *s1, char *s2, char *s3);
+int	count_word(char  *s, char c);
+int count_quote(char *src);
 //parsing
-int		check_syntax_errors(t_token *token);
-t_tree	*parse_tree(t_token **token,int flag);
-void	print_tree(t_tree *tree, int depth);
 void	tokenisation(char *str, t_token **token);
-void	print_tokens(t_token *token);
+t_token	*new_token(t_tok_type type, char *value);
+
+int		check_syntax_errors(t_token *token);
+int		is_redi_operator(t_tok_type type);
+int		open_quotes(char *str, int *i);
+
 void	free_tokens(t_token *token);
 void	expand_tokens(t_token **token, t_env *env);
-int		 remove_quotes(t_token **token);
-char	*expand_heredoc(char *line, t_env *env);
+void	check_export(t_token *token);
+int		valide_key(char *str, int *i);
+char	*add_quotes(char *str);
+char	*expand(char *src, char *str, t_env *env, int flag);
+size_t		count_expand(char *src, char *dest, int flag);
+char	*rwina(char *value, char *dest, char *expand_value, int len, int flag);
+void	replace_single_quote(int *i, int *j, char *value, char **total_str);
+void	replace_double_quote(int *i, int *j, char *value, char **total_str, char *expand_value, char *dest);
+void	replace_word(int *i, int *j, char *expand_value,char **total_str, int dest_len);
 int		handel_ambiguous(t_token **token);
+void	skip_single_double_quote(char *str, int *i);
+void	splite_expand(t_token **token);
+int		 remove_quotes(t_token **token);
+t_tree	*parse_tree(t_token **token, int flag);
+t_tree	*parse_commande(t_token **token, int flag);
+int	count_quote(char *src);
+char	*trasform_garbeg(char *str);
+t_redir_node	*new_redir(t_redir_type kind, char *filename, int flag, int ambiguous);
+t_tree	*new_tree(t_node_type kind, char **argv, t_redir_node *redirs);
+
+void	print_tree(t_tree *tree, int depth);
+void	print_tokens(t_token *token);
+char	*expand_heredoc(char *line, t_env *env, int flag);
 int exit_status(int status, int flag);
 void tkherbi9a(t_token **token);
-t_token	*new_token(t_tok_type type, char *value);
 int	is_redi_operator(t_tok_type type);
 //exection
 char	*find_cmd_path(char *cmd, t_env *env);

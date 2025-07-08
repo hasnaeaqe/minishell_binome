@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 20:11:41 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/06/30 17:41:03 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/08 10:10:43 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	print_tree(t_tree *tree, int depth)
 
 			for (int j = 0; j < depth + 1; j++)
 				printf("  ");
-			printf("REDIR %s -> %s flag :%d \n", type_str, redir->filename, redir->flag);
+			printf("REDIR %s -> %s flag :%d  ambiguous : %d \n", type_str, redir->filename, redir->flag, redir->ambiguous);
 			redir = redir->next;
 		}
 	}
@@ -66,5 +66,33 @@ void	print_tree(t_tree *tree, int depth)
 			printf("  ");
 		printf("RIGHT:\n");
 		print_tree(tree->right, depth + 1);
+	}
+}
+char	*type_token(t_tok_type type)
+{
+	if (type == TOK_WORD)
+		return ("WORD");
+	else if (type == TOK_PIPE)
+		return ("PIPE");
+	else if (type == TOK_REDIR_INPUT)
+		return ("REDIR_IN");
+	else if (type == TOK_REDIR_OUTPUT)
+		return ("REDIR_OUT");
+	else if (type == TOK_REDIR_APPEND)
+		return ("REDIR_APPEND");
+	else if (type == TOK_REDIR_HEREDOC)
+		return ("REDIR_HEREDOC");
+	else
+		return ("UNKNOWN");
+}
+void	print_tokens(t_token *token)
+{
+	t_token	*tmp;
+
+	tmp = token;
+	while (tmp)
+	{
+		printf("type : %s | value : %s | ambig : %d\n", type_token(tmp->type), tmp->value, tmp->ambig);
+		tmp = tmp->next;
 	}
 }

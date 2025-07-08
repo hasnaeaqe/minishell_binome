@@ -6,11 +6,16 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/05 10:06:59 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/08 13:06:02 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// void f(void)
+// {
+// 	system("leaks minishell");
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -18,10 +23,10 @@ int	main(int argc, char **argv, char **envp)
 	t_token	*token;
 	t_tree	*tree;
 	t_env *env;
-
 	int flag;
 	(void)argc;
 	(void)argv;
+		// atexit(f);
 	env = ft_env(envp);
 	update_value(env, "OLDPWD", NULL);
 	while (1)
@@ -31,9 +36,10 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (*line)
 			add_history(line);
+		else
+			continue ;
 		token = NULL;
 		tokenisation(line, &token);
-		// print_tokens(token);
 		if (check_syntax_errors(token))
 		{
 			free_tokens(token);
@@ -41,6 +47,8 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		expand_tokens(&token, env);
+		handel_ambiguous(&token);
+		// print_tokens(token);
 		// if (handel_ambiguous(&token))
 		// {
 		// 	free(line);
@@ -48,12 +56,12 @@ int	main(int argc, char **argv, char **envp)
 		// 	continue ;
 		// }
 		// print_tokens(token);
-		tkherbi9a(&token);
+		splite_expand(&token);
 		// print_tokens(token);
 		flag=remove_quotes(&token);
 		// print_tokens(token);
 		tree = parse_tree(&token,flag);
-		print_tree(tree, 0);
+		// print_tree(tree, 0);
 		handle_heredoc(tree, env);
 		exec_tree(tree, &env);
 		free_tokens(token);

@@ -3,16 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/04 15:13:51 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:06:29 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
 
+int count_dolar()
+{
+	
+}
+int handel_dolar(char *line, char *delimiter)
+{
+	if (ft_strnstr(delimiter, "$\"\"",ft_strlen(delimiter)))
+	{
+		count_dolar();
+	}
+	
+}
 void handle_heredoc(t_tree *tree, t_env *env)
 {
     t_redir_node *redir;
@@ -43,14 +55,14 @@ void handle_heredoc(t_tree *tree, t_env *env)
             while(1)
             {
                 line = readline(">");
-                if (!line || !ft_strcmp(line, delimiter)) 
+                if (!line || !ft_strcmp(line, delimiter) || handel_dolar(line, delimiter)) 
                 {
                     if (line)
                         free(line);
                     break;
                 }
                 if (redir->flag == 0)
-                    line = expand_heredoc(line, env);
+                    line = expand_heredoc(line, env,1);
                 ft_putstr_fd(line, fd);
                 write(fd, "\n", 1);    
             }
@@ -63,7 +75,7 @@ void handle_heredoc(t_tree *tree, t_env *env)
 
 int    handle_redirs(t_tree *tree)
 {
-	puts("ana hona \n");
+	// puts("ana hona \n");
 	t_redir_node *redir;
 	int fd;
 	
@@ -75,7 +87,16 @@ int    handle_redirs(t_tree *tree)
 			if (redir->ishd == 1)
 				fd = redir->fd;
 			else
-				fd = open (redir->filename, O_RDONLY);
+			{
+				if (redir->ambiguous==1)
+				{
+					ft_putstr_fd("minishell: ambiguous redirect\n", 2);
+					exit_status(1,0);
+					return (1);
+				}
+				else
+					fd = open (redir->filename, O_RDONLY);
+			}
 			if (fd < 0 || dup2(fd, 0) == -1)
 			{
 				// perror("input redirection");
@@ -89,7 +110,14 @@ int    handle_redirs(t_tree *tree)
 		}
 		else if (redir->kind == REDIR_OUTPUT)
 		{
-			fd = open (redir->filename, O_CREAT| O_RDWR |O_TRUNC, 0644);
+			if (redir->ambiguous==1)
+			{
+				ft_putstr_fd("minishell: ambiguous redirect\n", 2);
+				exit_status(1,0);
+				return (1);
+			}
+			else
+				fd = open (redir->filename, O_CREAT| O_RDWR |O_TRUNC, 0644);
 			if (fd < 0 || dup2(fd, 1) == -1)
 			{
 				// perror("output redirection"); // 
@@ -99,8 +127,14 @@ int    handle_redirs(t_tree *tree)
 		}
 		else if (redir->kind == REDIR_APPEND)
 		{
-			puts("is append");
-			fd = open(redir->filename, O_CREAT| O_RDWR |O_APPEND, 0644);
+			if (redir->ambiguous==1)
+			{
+				ft_putstr_fd("minishell: ambiguous redirect\n", 2);
+				exit_status(1,0);
+				return (1);
+			}
+			else
+				fd = open(redir->filename, O_CREAT| O_RDWR |O_APPEND, 0644);
 			if(fd < 0 || dup2(fd, 1) == -1)
 			{
 				perror ("append redirection ");
