@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/08 20:49:10 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:56:25 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,19 @@ int	is_numeric(char *str)
 	return (1);
 }
 
-void	built_exit(char **args)
+int	built_exit(char **args)
 {
 	int overflow;
 	int arg;
 	overflow = 0;
-	// ft_putstr_fd("exit\n", 2);
+	ft_putstr_fd("exit\n", 2);
 	if (!args || !args[1])
         exit(0);
 	if (!is_numeric(args[1]))
 	{
 		ft_putstr_fd("exit: ", 2);
 		ft_putstr_fd(args[1], 2);
-		ft_putstr_fd("numeric argument required\n", 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
 		exit(255);
 	}
 	arg = ft_atoi(args[1], &overflow);
@@ -66,7 +66,7 @@ void	built_exit(char **args)
 	if (args[2])
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
-		return ;
+		return (1);
 	}
 	exit((unsigned char)arg);
 }

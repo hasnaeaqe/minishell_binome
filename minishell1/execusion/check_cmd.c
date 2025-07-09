@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:48:18 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/08 15:17:45 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:57:01 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int ft_built(t_tree *tree ,t_env **env, int fd_in, int fd_out)
 		return (0);	
 	}
 	else if (ft_strcmp(cmd[0], "exit") == 0)
-		built_exit(tree->argv);
+		status = built_exit(tree->argv);
 	return (status);
 }
 

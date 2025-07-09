@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/08 20:45:32 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:06:30 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*ft_strjoin(char  *s1, char  *s2);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 void	ft_strncpy(char *dest, char *src, int n);
-long	ft_atoi( char *str, int *overflow);
+int	ft_atoi( char *str, int *overflow);
 int		ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void    ft_lstadd_back(t_env **lst, t_env *new);
@@ -162,7 +162,7 @@ t_env	*env_vide();
 
 int		ft_echo(char **argv);
 int		built_pwd(t_env *env, int write);
-void	built_exit(char **args);
+int		built_exit(char **args);
 int		ft_unset(t_env **head, char **key_to_unset);
 //export
 int		ft_export(char **argv, t_env **env);
