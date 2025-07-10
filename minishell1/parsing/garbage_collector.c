@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:53:14 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/08 15:49:44 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:41:50 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	ft_free(void *p, int k)
 	static void		*lst[INT_MAX];
 	static size_t	i;
 
+	// while(i > 0 ) free(lst[--i])
 	if (k)
 	{
 		while (lst[i])

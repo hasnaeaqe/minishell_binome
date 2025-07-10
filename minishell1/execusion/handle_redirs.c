@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/08 16:16:54 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:48:41 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,21 @@ void handle_heredoc(t_tree *tree, t_env *env)
         if (redir->kind == REDIR_HEREDOC)
         {
             redir->ishd = 1;
-            unlink("/tmp/tmpfile");  /////access
+			if (access("/tmp/tmpfile", F_OK) == 0)
+            	unlink("/tmp/tmpfile"); 
             int fd = open("/tmp/tmpfile", O_CREAT | O_WRONLY | O_APPEND , 0644);
+			if (fd == -1)
+			{
+				perror("heredoc open write");
+				return ;
+			}
             int fdread = open("/tmp/tmpfile", O_RDONLY, 0644);
+			if (fdread == -1)
+			{
+				perror("heredoc open (read)");
+				close(fd);
+				return;
+			}
             unlink("/tmp/tmpfile");
             redir->fd = fdread;
             while(1)
@@ -64,8 +76,10 @@ void handle_heredoc(t_tree *tree, t_env *env)
                 if (redir->flag == 0)
                     line = expand_heredoc(line, env,1);
                 ft_putstr_fd(line, fd);
-                write(fd, "\n", 1);    
+                write(fd, "\n", 1);
+				free (line);
             }
+			close(fd);
             redir->kind = REDIR_INPUT;
         }
         redir = redir->next;

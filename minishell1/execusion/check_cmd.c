@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:48:18 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/09 14:57:01 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/10 13:15:28 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,12 @@ int check_builts(t_tree *tree,t_env **env)
 {
 	int fd_in = dup(STDIN_FILENO);
 	int fd_out = dup (STDOUT_FILENO);
-	char **cmd;
 	int status = 0;
 
 	if (!tree || !tree->argv || !tree->argv[0])
 		return (1); 
 	if (handle_redirs(tree) != 0)
 		return (1); 
-	cmd = tree->argv;
 	status = ft_built(tree, env, fd_in, fd_out);
 	reset_redir(fd_in, fd_out);
 	return (status);

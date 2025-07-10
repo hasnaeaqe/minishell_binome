@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/09 19:56:42 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:25:14 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,13 @@ static void	free_node(t_env *tmp)
 {
 	if (!tmp)
 		return ;
-	puts("ana hona");
-	printf("key ----> %s\n", tmp->key);
-	printf("value ----> %s\n", tmp->value);
 	// if (tmp->key)
 	// 	free(tmp->key);
-	puts("1");
 	if (tmp->value)
 		free(tmp->value);
-	// printf("key ----> %s\n", tmp->key);
-	// printf("value ----> %s\n", tmp->value);
-	puts("2");
 	// tmp->key = NULL;
 	// tmp->value = NULL;
 	free(tmp);
-	puts("3");
 }
 
 void	unset_one(t_env **head, char *key_to_unset)
@@ -56,31 +48,25 @@ void	unset_one(t_env **head, char *key_to_unset)
 	t_env	*tmp;
 	t_env	*prev;
 
-	if (!head || !*head)
+	if (!head || !*head || !key_to_unset)
 		return ;
 	tmp = *head;
 	prev = NULL;
-	if (tmp && ft_strcmp(tmp->key, key_to_unset) == 0)
+	if (tmp && tmp->key && ft_strcmp(tmp->key, key_to_unset) == 0)
 	{
 		*head = tmp->next;
 		free_node(tmp);
 		return ;
 	}
-	while (tmp && ft_strcmp(tmp->key, key_to_unset) != 0)
+	while (tmp && tmp->key && ft_strcmp(tmp->key, key_to_unset) != 0)
 	{
 		prev = tmp;
 		tmp = tmp->next;
 	}
-	printf("{{{---> }}}%s\n", prev->key);
-	printf("{{{---> }}}%s\n", prev->value);
-	printf("---> %s\n", tmp->key);
-	printf("---> %s\n", tmp->value);
-	puts("here");
 	if (!tmp)
 		return ;
 	prev->next = tmp->next;
 	tmp->next = NULL;
-	puts("0");
 	free_node(tmp);
 }
 

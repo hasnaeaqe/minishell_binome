@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/08 17:15:41 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/10 13:14:51 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static pid_t	create_child(int pipefd[2], t_tree *child_tree,
 int execute_pipe(t_tree *tree, t_env *env)
 {
 	int pipefd[2];
-	pid_t pid_left;
+	// pid_t pid_left;
 	pid_t pid_right;
 	int status;
 
@@ -120,7 +120,7 @@ int execute_pipe(t_tree *tree, t_env *env)
 		perror("pipe");
 		// exit(1); // exit if in child
 	}
-	pid_left = create_child(pipefd, tree->left, env, 1);
+	create_child(pipefd, tree->left, env, 1);
 	pid_right = create_child(pipefd, tree->right, env, 0);
 	
 	close(pipefd[1]);

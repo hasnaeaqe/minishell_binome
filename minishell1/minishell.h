@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/09 15:06:30 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:41:33 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
+
+
+// built_exit.h ou header commun
+extern int status_exit;
 
 typedef enum e_tok_type
 {
@@ -143,8 +148,7 @@ t_tree	*new_tree(t_node_type kind, char **argv, t_redir_node *redirs);
 void	print_tree(t_tree *tree, int depth);
 void	print_tokens(t_token *token);
 char	*expand_heredoc(char *line, t_env *env, int flag);
-int exit_status(int status, int flag);
-void tkherbi9a(t_token **token);
+// void tkherbi9a(t_token **token);
 int	is_redi_operator(t_tok_type type);
 //exection
 char	*find_cmd_path(char *cmd, t_env *env, int *status);

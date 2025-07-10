@@ -1,5 +1,5 @@
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -fPIC#-fsanitize=address -g
 RM = rm -f
 
 
@@ -19,9 +19,8 @@ NOM = minishell
 all: $(NOM) 
 
 
-
 $(NOM): $(OB)
-	$(CC) $(CFLAGS) $(OB) -o $(NOM) -lreadline
+	$(CC) $(CFLAGS) $(OB) -o $(NOM) -lreadline -lncurses
 
 $(OB): minishell.h
 

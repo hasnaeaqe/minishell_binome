@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:40:38 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/07 16:21:25 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:24:06 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 	unsigned char	*s;
 	unsigned char	*l;
 
+	if (!s1 || !s2)
+		return (1);
 	s = (unsigned char *)s1;
 	l = (unsigned char *)s2;
 	i = 0;
