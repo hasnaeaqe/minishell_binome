@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/10 15:41:33 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:30:55 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <readline/history.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <signal.h>
 
 
 // built_exit.h ou header commun
@@ -104,7 +105,7 @@ char	*ft_strjoin(char  *s1, char  *s2);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 void	ft_strncpy(char *dest, char *src, int n);
-int	ft_atoi( char *str, int *overflow);
+long	ft_atoi( char *str, int *overflow);
 int		ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void    ft_lstadd_back(t_env **lst, t_env *new);

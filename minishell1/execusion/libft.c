@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:21:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/09 15:06:00 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/11 11:14:00 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	ft_isdigit(int c)
 // 	}
 // }
 
-int	ft_atoi( char *str, int *overflow)
+long	ft_atoi( char *str, int *overflow)
 {
 	int			i;
-	int 	c;
+	long long	c;
 	int			signe;
 
 	i = 0;
@@ -47,16 +47,12 @@ int	ft_atoi( char *str, int *overflow)
 	while (str && str[i] >= '0' && str[i] <= '9')
 	{
 		int prev = c;
-		// if ((c > (LONG_MAX / 10)) ||
-		// 	(c == (LONG_MAX / 10) && (str[i]- '0') > (LONG_MAX % 10)))
 		c = c * 10 + (str[i] - '0');
 		if (c / 10 != prev)
 		{
 			*overflow = 1;
 			return (0);
 		}
-		// if ((signe == 1 && c > INT_MAX) || (signe == -1 && (-c) < INT_MIN))
-		// 	return ((long)(c * signe));
 		i++;
 	}
 	return ((signe * c));

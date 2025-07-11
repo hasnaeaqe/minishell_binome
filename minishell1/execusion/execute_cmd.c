@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/10 13:14:51 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/11 16:35:59 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	execute_cmd(t_tree *tree, t_env **env)
 		exec_path(tree, env, array);
 	else
 		waitpid(pid, &status, 0);
+	// free (array);
 	return (WEXITSTATUS(status));
 }
 
@@ -120,6 +121,9 @@ int execute_pipe(t_tree *tree, t_env *env)
 		perror("pipe");
 		// exit(1); // exit if in child
 	}
+	handle_heredoc(tree->left, env);
+	handle_heredoc(tree->right, env);
+
 	create_child(pipefd, tree->left, env, 1);
 	pid_right = create_child(pipefd, tree->right, env, 0);
 	
