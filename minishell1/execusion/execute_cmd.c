@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/11 16:35:59 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/12 20:11:05 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,6 @@ int execute_pipe(t_tree *tree, t_env *env)
 		perror("pipe");
 		// exit(1); // exit if in child
 	}
-	handle_heredoc(tree->left, env);
-	handle_heredoc(tree->right, env);
 
 	create_child(pipefd, tree->left, env, 1);
 	pid_right = create_child(pipefd, tree->right, env, 0);
@@ -138,7 +136,7 @@ int execute_pipe(t_tree *tree, t_env *env)
 int exec_tree(t_tree *tree, t_env **env)
 {
 	if (!tree)
-		return (1);
+	return (1);
 	if (tree->kind == NODE_COMMAND)
 		return (execute_cmd(tree, env));
 	else if (tree->kind == NODE_PIPE)
