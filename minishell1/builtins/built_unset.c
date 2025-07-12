@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/07 16:02:14 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:25:14 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ static int	is_valid(char *str)
 
 static void	free_node(t_env *tmp)
 {
-	free(tmp->key);
-	free(tmp->value);
-	tmp->key = NULL;
-	tmp->value = NULL;
+	if (!tmp)
+		return ;
+	// if (tmp->key)
+	// 	free(tmp->key);
+	if (tmp->value)
+		free(tmp->value);
+	// tmp->key = NULL;
+	// tmp->value = NULL;
 	free(tmp);
 }
 
@@ -44,19 +48,17 @@ void	unset_one(t_env **head, char *key_to_unset)
 	t_env	*tmp;
 	t_env	*prev;
 
-	if (head && !*head)
+	if (!head || !*head || !key_to_unset)
 		return ;
 	tmp = *head;
 	prev = NULL;
-	if (!tmp)
-		return ;
-	if (tmp && ft_strcmp(tmp->key, key_to_unset) == 0)
+	if (tmp && tmp->key && ft_strcmp(tmp->key, key_to_unset) == 0)
 	{
 		*head = tmp->next;
 		free_node(tmp);
 		return ;
 	}
-	while (tmp && ft_strcmp(tmp->key, key_to_unset) != 0)
+	while (tmp && tmp->key && ft_strcmp(tmp->key, key_to_unset) != 0)
 	{
 		prev = tmp;
 		tmp = tmp->next;
@@ -64,6 +66,7 @@ void	unset_one(t_env **head, char *key_to_unset)
 	if (!tmp)
 		return ;
 	prev->next = tmp->next;
+	tmp->next = NULL;
 	free_node(tmp);
 }
 
@@ -74,10 +77,20 @@ int	ft_unset(t_env **head, char **key_to_unset)
 
 	i = 0;
 	status = 0;
-	while (key_to_unset[i])
+	if (!head || !*head)
+		return (0);
+	while (key_to_unset && key_to_unset[i])
 	{
+		if (!ft_strcmp(key_to_unset[i], "_"))
+		{
+			i++;
+			continue;
+		}
 		if (is_valid(key_to_unset[i]) == 0)
+		{
 			unset_one(head, key_to_unset[i]);
+			
+		}
 		else
 		{
 			ft_putstr_fd("minishell: unset: ", 2);

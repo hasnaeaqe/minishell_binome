@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:53:14 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/10 16:14:16 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 16:22:05 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 static void	ft_free(void *p, size_t k)
 {
-	static void		*lst[INT_MAX];
+	static void		*lst[1000000]; //INT_MAX
 	static size_t	i;
 
+	// while(i > 0 ) free(lst[--i])
 	if (k)
 	{
 		while (lst[i])

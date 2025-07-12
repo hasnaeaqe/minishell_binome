@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:41 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/07 16:00:07 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/10 13:15:14 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ int	parse_args(char *str)
 static void	add_to_env_or_update(t_env **env, char *key_to_add,
 				char *value_to_add, int mode)
 {
-	t_env	*tmp;
+	// t_env	*tmp;
 	t_env	*new_node;
 	char	*old_value;
 	t_env	*existe;
 
-	tmp = *env;
+	// tmp = *env;
 	existe = find_node(*env, key_to_add);
 	if (existe)
 	{

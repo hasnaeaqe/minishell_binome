@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:05 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/10 16:30:09 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 16:24:24 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,7 @@ static char	**cr_word(char const *s, char c, char **result)
 char	**ft_split(char const *s, char c)
 {
 	char	**result;
-	int		i;
-	int		k;
 
-	i = 0;
-	k = 0;
 	if (s == NULL)
 		return (NULL);
 	result = malloc((ft_count(s, c) + 1) * sizeof(char *));

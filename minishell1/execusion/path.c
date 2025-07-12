@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 10:22:40 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/07 16:10:22 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:37:48 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	errors(char *cmd, int mode)
 {
 	if (!cmd)
-		return (1);
+		exit(0);
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	if (mode == 13)

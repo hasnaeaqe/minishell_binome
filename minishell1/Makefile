@@ -22,9 +22,8 @@ NOM = minishell
 all: $(NOM) 
 
 
-
 $(NOM): $(OB)
-	$(CC) $(CFLAGS) $(OB) -o $(NOM) $(LDFLAGS)
+	$(CC) $(CFLAGS) $(OB) -o $(NOM) $(LDFLAGS) -lncurses
 
 $(OB): minishell.h
 

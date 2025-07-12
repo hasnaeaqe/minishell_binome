@@ -220,3 +220,126 @@ minishell$ cat 5
 cat: 5: No such file or directory
 
 
+
+
+
+/////////////////////////////////
+
+minishell$ ls > $dfgdfg
+minishell: ambiguous redirect
+Makefile        builtins        execusion       l               ls              minishell       minishell.c     minishell.h     minishell.o     parsing         |
+
+
+//////////////////////////////////
+
+cd :
+
+Process 19640: 446 nodes malloced for 95 KB
+Process 19640: 1 leak for 1024 total leaked bytes.
+
+    1 (1.00K) ROOT LEAK: 0x7f8250009800 [1024]  length: 37  "/mnt/homes/haqajjef/Desktop/minishell"
+
+
+
+bash-3.2$ exit fbdfb 41
+exit
+bash: exit: fbdfb: numeric argument required
+
+bash-3.2$ exit "         1            "
+exit
+➜  minishell1 git:(master) ✗ $?
+
+minishell$ unset _
+{{{---> }}}_ls
+{{{---> }}}(null)
+[1]    98085 segmentation fault  ./minishell
+
+minishell$ unset dfgfg
+{{{---> }}}_
+{{{---> }}}/mnt/homes/haqajjef/Desktop/minishell/minishell1/./minishell
+[1]    98340 segmentation fault  ./minishell
+
+leaks Report Version: 4.0
+Process 3213: 408 nodes malloced for 104 KB
+Process 3213: 1 leak for 1024 total leaked bytes.
+
+    1 (1.00K) ROOT LEAK: 0x7fa8ae009800 [1024]  length: 47  has-length-byte:  "mnt/homes/haqajjef/Desktop/minishell/minishell1"
+
+env -i ./minishell 
+pwd
+
+
+leaks Report Version: 4.0
+Process 4525: 2413 nodes malloced for 174 KB
+Process 4525: 14 leaks for 224 total leaked bytes.
+
+    14 (224 bytes) << TOTAL >>
+      1 (16 bytes) ROOT LEAK: 0x7fba83c05930 [16]
+      1 (16 bytes) ROOT LEAK: 0x7fba83c05940 [16]
+      1 (16 bytes) ROOT LEAK: 0x7fba83c05950 [16]
+      1 (16 bytes) ROOT LEAK: 0x7fba83d0d5a0 [16]  length: 1  "3"
+      1 (16 bytes) ROOT LEAK: 0x7fba83d0dde0 [16]
+      1 (16 bytes) ROOT LEAK: 0x7fba83d0e0b0 [16]
+      1 (16 bytes) ROOT LEAK: 0x7fba83d0e0c0 [16]  length: 1  "1"
+      1 (16 bytes) ROOT LEAK: 0x7fba83e0ff90 [16]  length: 1  "4"
+      1 (16 bytes) ROOT LEAK: 0x7fba83f04080 [16]
+      1 (16 bytes) ROOT LEAK: 0x7fba83f04090 [16]
+      1 (16 bytes) ROOT LEAK: 0x7fba86004080 [16]
+      1 (16 bytes) ROOT LEAK: 0x7fba86004090 [16]  length: 1  "4"
+      1 (16 bytes) ROOT LEAK: 0x7fba860040a0 [16]  length: 1  "2"
+      1 (16 bytes) ROOT LEAK: 0x7fba86104080 [16]  length: 3  "101"
+
+➜  minishell1 git:(master) ✗ env -i ./minishell
+Bienvenue dans une nouvelle instance de minishell 🐚
+minishell$  cat << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 101 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10
+>
+>
+>
+>
+>
+>
+>
+>
+>1
+>2
+>3
+>4
+>4
+>5
+>6
+>7
+>8
+>9
+>101
+>1
+>2
+>3
+>4
+>5 
+
+
+minishell$ cat << $""
+>
+>
+>
+>
+>^D
+
+
+
+
+
+minishell$ 
+
+bash-3.2$ cat << $""
+> 
+bash-3.2$ 
+
+
+bash-3.2$ echo "'"
+'
+bash-3.2$ 
+
+minishell$ echo "'"
+
+minishell$ 

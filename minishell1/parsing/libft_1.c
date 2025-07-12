@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:40:38 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/11 15:13:44 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 16:21:28 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 	unsigned char	*s;
 	unsigned char	*l;
 
+	if (!s1 || !s2)
+		return (1);
 	s = (unsigned char *)s1;
 	l = (unsigned char *)s2;
 	i = 0;
