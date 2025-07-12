@@ -6,13 +6,14 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:31:49 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/08 12:09:43 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:24:41 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	add_nodes1(t_token **tmp, t_token **prev, char *str, int *start, int *i)
+static void	add_nodes1(t_token **tmp, t_token **prev,
+	char *str, int *start, int *i)
 {
 	char	*dest;
 	t_token	*add;
@@ -32,7 +33,9 @@ static void	add_nodes1(t_token **tmp, t_token **prev, char *str, int *start, int
 		*tmp = *prev;
 	}
 }
-static void	add_nodes2(t_token **tmp, t_token **prev, char *str, int *start, int *i, t_token **neext)
+
+static void	add_nodes2(t_token **tmp, t_token **prev,
+	char *str, int *start, int *i, t_token **neext)
 {
 	char	*dest;
 	t_token	*add;
@@ -53,6 +56,7 @@ static void	add_nodes2(t_token **tmp, t_token **prev, char *str, int *start, int
 		*tmp = *prev;
 	}
 }
+
 void	skip_single_double_quote(char *str, int *i)
 {
 	char	quote;
@@ -87,7 +91,7 @@ static void	loop_split(t_token **neext, t_token **tmp, t_token **prev)
 		else
 			i++;
 	}
-	add_nodes2(tmp, prev, str, &start, &i,neext);
+	add_nodes2(tmp, prev, str, &start, &i, neext);
 	if (*neext)
 		(*prev)->next = *neext;
 }
@@ -98,6 +102,8 @@ void	splite_expand(t_token **token)
 	t_token	*prev;
 	t_token	*neext;
 
+	if (!token || !*token)
+		return ;
 	tmp = *token;
 	prev = NULL;
 	neext = NULL;

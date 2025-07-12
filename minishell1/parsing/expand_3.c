@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 16:47:29 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/08 15:14:37 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:11:21 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 char	*add_quotes(char *str)
 {
-	char	*dest;
-	int		i;
+	char		*dest;
+	size_t		i;
 
 	i = 0;
-	// if (!str)
-	// 	return (NULL);
 	dest = ft_malloc((ft_strlen(str) + 3) * sizeof(char));
 	while (*str && *str != '=' && *str != '+')
 		dest[i++] = *str++;

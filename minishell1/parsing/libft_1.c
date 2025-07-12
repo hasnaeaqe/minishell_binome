@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   libft_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:40:38 by cbayousf          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/12 16:11:15 by haqajjef         ###   ########.fr       */
+=======
+/*   Updated: 2025/07/12 16:21:28 by cbayousf         ###   ########.fr       */
+>>>>>>> 712bc4be0111533d6c44bc842618b5273d222d11
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +28,8 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strdup(char *s1)
 {
-	char	*str;
-	int		i;
+	char		*str;
+	size_t		i;
 
 	i = 0;
 	if (!s1)
@@ -45,10 +49,10 @@ char	*ft_strdup(char *s1)
 	return (str);
 }
 
-char	*ft_strndup(char *s1, int n)
+char	*ft_strndup(char *s1, size_t n)
 {
-	char	*str;
-	int		i;
+	char		*str;
+	size_t		i;
 
 	i = 0;
 	if (!s1)

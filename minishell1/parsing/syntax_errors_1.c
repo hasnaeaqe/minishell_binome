@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 13:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/07 15:50:51 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:06:47 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,41 @@ int	open_quotes(char *str, int *i)
 	else
 		(*i)++;
 	return (k);
+}
+
+int	word_error(t_token *tmp)
+{
+	char	*str;
+	int		i;
+	int		k;
+
+	i = 0;
+	str = tmp->value;
+	while (str[i])
+		k = open_quotes(str, &i);
+	if (k == 1)
+	{
+		ft_putstr_fd("minishell: syntax error \n", 2);
+		exit_status(258, 0);
+		return (1);
+	}
+	return (0);
+}
+
+void	max_herdoc(t_token *token)
+{
+	int	i;
+
+	i = 0;
+	while (token)
+	{
+		if (token->type == TOK_REDIR_HEREDOC)
+			i++;
+		token = token->next;
+	}
+	if (i > 16)
+	{
+		ft_putstr_fd("bash: maximum here-document count exceeded", 2);
+		exit(1);
+	}
 }

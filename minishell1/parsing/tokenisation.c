@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:32:06 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/07 16:29:35 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:13:50 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	add_token(t_token **token, t_tok_type type, char *value)
 	}
 }
 
-static void	tok_redir_1(int *i, t_token **token, char *str)
+static void	tok_redir_1(size_t *i, t_token **token, char *str)
 {
 	if (str[*i + 1] == '<')
 	{
@@ -45,7 +45,7 @@ static void	tok_redir_1(int *i, t_token **token, char *str)
 	}
 }
 
-static void	tok_redir_2(int *i, t_token **token, char *str)
+static void	tok_redir_2(size_t *i, t_token **token, char *str)
 {
 	if (str[*i + 1] == '>')
 	{
@@ -59,7 +59,7 @@ static void	tok_redir_2(int *i, t_token **token, char *str)
 	}
 }
 
-static void	tok_word(int *i, t_token **token, char *str)
+static void	tok_word(size_t *i, t_token **token, char *str)
 {
 	int		start;
 	char	*word_quote;
@@ -88,9 +88,11 @@ static void	tok_word(int *i, t_token **token, char *str)
 
 void	tokenisation(char *str, t_token **token)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
+	if (!str)
+		return ;
 	while (str[i])
 	{
 		while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))

@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 10:44:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/08 12:00:40 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:31:34 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ static t_tree	*parse_pipe(t_token **token, int flag)
 	t_tree	*right;
 
 	left = parse_commande(token, flag);
-	// if (!left)
-	// 	return (NULL);
 	if (*token && (*token)->type == TOK_PIPE)
 	{
 		*token = (*token)->next;
@@ -68,8 +66,8 @@ static int	finde_pipe(t_token *token)
 
 t_tree	*parse_tree(t_token **token, int flag)
 {
-	// if (!token || !*token)
-	// 	return (NULL);
+	if (!token || !*token)
+		return (NULL);
 	if (finde_pipe(*token))
 		return (parse_pipe(token, flag));
 	else

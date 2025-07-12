@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 15:02:12 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/08 10:06:34 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:29:55 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	count_quote(char *src)
 			quote = src[i++];
 			while (src[i] == quote)
 				i++;
-			if (src[i] == '\0')
+			if (src[i] == '\0' )
 				return (1);
 		}
 		else
@@ -34,17 +34,15 @@ int	count_quote(char *src)
 	return (0);
 }
 
-static char	*rm_qts(char *src, int len)
+static char	*rm_qts(char *src, size_t len)
 {
-	char	*dest;
-	char	quote;
-	int		i;
-	int		j;
+	char		*dest;
+	char		quote;
+	size_t		i;
+	size_t		j;
 
 	i = 0;
 	j = 0;
-	if (count_quote(src) == 1)
-		return (src);
 	dest = ft_malloc((len + 1) * sizeof(char));
 	while (src[i])
 	{
@@ -63,31 +61,6 @@ static char	*rm_qts(char *src, int len)
 	return (dest);
 }
 
-static int	quote_loop(char *src, int *i)
-{
-	char	quote;
-	int		len;
-
-	len = 0;
-	if (src[*i] == '\'' || src[*i] == '"')
-	{
-		quote = src[(*i)++];
-		while (src[*i] && src[*i] != quote)
-		{
-			len++;
-			(*i)++;
-		}
-		if (src[*i] == quote)
-			(*i)++;
-	}
-	else
-	{
-		len++;
-		(*i)++;
-	}
-	return (len);
-}
-
 static int	flag_heredoc(t_token *tmp)
 {
 	int	flag;
@@ -101,27 +74,46 @@ static int	flag_heredoc(t_token *tmp)
 int	remove_quotes(t_token **token)
 {
 	t_token	*tmp;
-	char	*src;
-	int		len;
-	int		i;
 	int		flag;
 
+	if (!token || !*token)
+		return (0);
 	tmp = *token;
 	while (tmp)
 	{
 		if (tmp->type == TOK_REDIR_HEREDOC)
 			flag = flag_heredoc(tmp);
-		if (tmp->type == TOK_WORD)
-		{
-			src = ft_strdup(tmp->value);
-			i = 0;
-			len = 0;
-			while (src[i])
-				len += quote_loop(src, &i);
-			free(tmp->value);
-			tmp->value = rm_qts(src, len);
-		}
 		tmp = tmp->next;
 	}
 	return (flag);
+}
+
+char	*rm_quotes(char *src)
+{
+	size_t	i;
+	size_t	len;
+	char	quote;
+
+	i = 0;
+	len = 0;
+	while (src[i])
+	{
+		if (src[i] == '\'' || src[i] == '"')
+		{
+			quote = src[i++];
+			while (src[i] && src[i] != quote)
+			{
+				len++;
+				i++;
+			}
+			if (src[i] == quote)
+				i++;
+		}
+		else
+		{
+			len++;
+			i++;
+		}
+	}
+	return (rm_qts(src, len));
 }

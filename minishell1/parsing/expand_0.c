@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 12:08:19 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/08 12:40:12 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:19:28 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	check_while(char **str, int *i, t_env *env)
 	else if ((*str)[*i] == '$' && (*str)[(*i) + 1])
 	{
 		*str = expand(*str, &(*str)[*i], env, 0);
-		*i = 0; 
+		*i = 0;
 	}
 	else
 		(*i)++;
@@ -63,6 +63,8 @@ void	expand_tokens(t_token **token, t_env *env)
 	char	*str;
 	int		i;
 
+	if (!token || !*token)
+		return ;
 	tmp = *token;
 	prev = *token;
 	check_export(tmp);

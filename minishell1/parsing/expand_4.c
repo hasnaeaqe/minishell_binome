@@ -6,45 +6,49 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 16:05:05 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/08 12:42:44 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 16:09:34 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	loop_rwina(char *value, char *dest, char *expand_value,
-	char **total_str, int flag, int *j)
+static void	loop_rwina(t_replace_ctx *ctx,
+	char **total_str, size_t flag, size_t *j)
 {
-	int	i;
-	int	dest_len;
+	size_t	i;
+	size_t	dest_len;
 
 	i = 0;
-	dest_len = ft_strlen(dest);
-	while (value[i])
+	dest_len = ft_strlen(ctx->dest);
+	while (ctx->value[i])
 	{
-		if (value[i] == '\'' && flag == 0)
-			replace_single_quote(&i, j, value, total_str);
-		else if (value[i] == '"')
-			replace_double_quote(&i, j, value, total_str,
-				expand_value, dest);
-		else if (value[i] == '$' && value[i + 1]
-			&& ft_strncmp(&value[i + 1], dest, dest_len) == 0)
-				replace_word(&i, j, expand_value, total_str, dest_len);
+		if (ctx->value[i] == '\'' && flag == 0)
+			replace_single_quote(&i, j, ctx->value, total_str);
+		else if (ctx->value[i] == '"')
+			replace_double_quote(&i, j, total_str, ctx);
+		else if (ctx->value[i] == '$' && ctx->value[i + 1]
+			&& (ft_strncmp(&(ctx->value)[i + 1], ctx->dest, dest_len) == 0
+			|| ft_strncmp(&(ctx->value)[i], ctx->dest, dest_len) == 0
+			|| (ctx->value)[i + 1] == ctx->dest[0] * (-1)))
+			replace_word(&i, j, total_str, ctx);
 		else
-			(*total_str)[(*j)++] = value[i++];
+		{
+			puts("2");
+			(*total_str)[(*j)++] = ctx->value[i++];
+		}
 	}
 }
 
-char	*rwina(char *value, char *dest, char *expand_value, int len, int flag)
+char	*rwina(t_replace_ctx *ctx, size_t len, int flag)
 {
-	char	*total_str;
-	int		j;
+	char		*total_str;
+	size_t		j;
 
-	// if (!value || !dest)
-	// 	return (NULL);
 	total_str = ft_malloc((len + 1) * sizeof(char));
 	j = 0;
-	loop_rwina(value, dest, expand_value, &total_str, flag, &j);
+	loop_rwina(ctx, &total_str, flag, &j);
+	if (!total_str)
+		return (NULL);
 	total_str[j] = '\0';
 	return (total_str);
 }
@@ -56,10 +60,7 @@ t_redir_node	*new_redir(t_redir_type kind,
 
 	new = ft_malloc(sizeof(t_redir_node));
 	new->kind = kind;
-	if (count_quote(filename) == 1)
-		new->filename = ft_strdup("");
-	else
-		new->filename = trasform_garbeg(ft_strdup(filename));
+	new->filename = trasform_garbeg(rm_quotes(filename));
 	new->flag = flag;
 	new->ambiguous = ambiguous;
 	new->next = NULL;
@@ -81,4 +82,27 @@ t_token	*new_token(t_tok_type type, char *value)
 	}
 	new->next = NULL;
 	return (new);
+}
+
+int	handel_ambiguous(t_token **token)
+{
+	t_token	*tmp;
+
+	if (!token || !*token)
+		return (1);
+	tmp = *token;
+	while (tmp)
+	{
+		if (tmp->type == TOK_REDIR_APPEND || tmp->type == TOK_REDIR_INPUT
+			|| tmp->type == TOK_REDIR_OUTPUT)
+		{
+			if (tmp->next && count_word(tmp->next->value, ' ') != 1)
+			{
+				tmp->ambig = 1;
+				return (1);
+			}
+		}
+		tmp = tmp->next;
+	}
+	return (0);
 }
