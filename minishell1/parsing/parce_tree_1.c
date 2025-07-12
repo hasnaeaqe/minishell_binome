@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 10:07:26 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/08 12:08:33 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:24:30 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	redir_node(t_redir_node **redir, t_redir_type kind,
 		tmp->next = new;
 	}
 }
+
 static void	handle_redirection_token(t_token *tmp, t_token **token,
 	t_redir_node **redir, int flag)
 {
@@ -44,6 +45,7 @@ static void	handle_redirection_token(t_token *tmp, t_token **token,
 		redir_node(redir, REDIR_OUTPUT, tmp->next->value, flag, tmp->ambig);
 	*token = tmp->next;
 }
+
 static int	parse_loop_tokens(t_token **token, char ***argv,
 	t_redir_node **redir, int flag)
 {
@@ -58,10 +60,7 @@ static int	parse_loop_tokens(t_token **token, char ***argv,
 		str = tmp->value;
 		if ((tmp)->type == TOK_WORD && str[0] != '\0')
 		{
-			if (count_quote(str) == 1)
-				(*argv)[i++] = ft_strdup("");
-			else
-				(*argv)[i++] = trasform_garbeg(ft_strdup(str));
+			(*argv)[i++] = trasform_garbeg(rm_quotes(str));
 		}
 		else if (is_redi_operator(tmp->type))
 			handle_redirection_token(tmp, token, redir, flag);
@@ -70,12 +69,11 @@ static int	parse_loop_tokens(t_token **token, char ***argv,
 	return (i);
 }
 
-
-static int	count_args(t_token **token)
+static size_t	count_args(t_token **token)
 {
-	int		i;
-	t_token *tmp;
-	char	*str;
+	size_t		i;
+	t_token		*tmp;
+	char		*str;
 
 	i = 0;
 	tmp = *token;
@@ -99,7 +97,7 @@ t_tree	*parse_commande(t_token **token, int flag)
 {
 	t_redir_node	*redir;
 	char			**argv;
-	int				i;
+	size_t			i;
 
 	i = count_args(token);
 	if (i < 0)

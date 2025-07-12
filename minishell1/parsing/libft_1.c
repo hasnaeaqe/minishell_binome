@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:40:38 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/07 16:21:25 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:13:44 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strdup(char *s1)
 {
-	char	*str;
-	int		i;
+	char		*str;
+	size_t		i;
 
 	i = 0;
 	if (!s1)
@@ -45,10 +45,10 @@ char	*ft_strdup(char *s1)
 	return (str);
 }
 
-char	*ft_strndup(char *s1, int n)
+char	*ft_strndup(char *s1, size_t n)
 {
-	char	*str;
-	int		i;
+	char		*str;
+	size_t		i;
 
 	i = 0;
 	if (!s1)

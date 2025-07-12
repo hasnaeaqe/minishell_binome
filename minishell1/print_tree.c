@@ -6,11 +6,11 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 20:11:41 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/08 10:10:43 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 11:37:35 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 void	print_tree(t_tree *tree, int depth)
 {

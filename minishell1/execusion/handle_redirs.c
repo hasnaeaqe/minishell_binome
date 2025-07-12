@@ -6,25 +6,37 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/08 16:16:54 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/11 16:38:44 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
 
-// int count_dolar()
-// {
-	
-// }
-// int handel_dolar(char *line, char *delimiter)
-// {
-// 	if (ft_strnstr(delimiter, "$\"\"",ft_strlen(delimiter)))
-// 	{
-// 		count_dolar();
-// 	}
-	
-// }
+int count_dolar(char *delimiter)
+{
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (delimiter[i])
+	{
+		if (delimiter[i]=='$')
+			count++;
+		i++;
+	}
+	return (count);
+}
+char *handel_dolar(char *delimiter,int flag)
+{
+	if (flag == 1)
+	{
+		if (count_dolar(delimiter)%2!=0)
+			return (ft_strdup(&delimiter[1]));
+	}
+	return (delimiter);
+}
 void handle_heredoc(t_tree *tree, t_env *env)
 {
     t_redir_node *redir;
@@ -55,6 +67,7 @@ void handle_heredoc(t_tree *tree, t_env *env)
             while(1)
             {
                 line = readline(">");
+				delimiter = handel_dolar(delimiter, redir->flag);
                 if (!line || !ft_strcmp(line, delimiter)) 
                 {
                     if (line)

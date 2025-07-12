@@ -6,13 +6,13 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:53:14 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/08 15:49:44 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:14:16 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	ft_free(void *p, int k)
+static void	ft_free(void *p, size_t k)
 {
 	static void		*lst[INT_MAX];
 	static size_t	i;
@@ -26,7 +26,7 @@ static void	ft_free(void *p, int k)
 		lst[i++] = p;
 }
 
-void	ft_exit(int n)
+void	ft_exit(size_t n)
 {
 	ft_free(NULL, 1);
 	exit(n);
@@ -58,7 +58,7 @@ void	free_tokens(t_token *token)
 
 char	*trasform_garbeg(char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])
