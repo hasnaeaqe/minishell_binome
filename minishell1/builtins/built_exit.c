@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 10:43:42 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/13 17:13:14 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ int	is_numeric(char *str)
 	return (1);
 }
 
-int	built_exit(char **args)
+int	built_exit(char **args, int is_child)
 {
 	int overflow;
 	int arg;
 	overflow = 0;
-	ft_putstr_fd("exit\n", 2);
+	if (!is_child)
+		ft_putstr_fd("exit\n", 2);
 	if (!args || !args[1])
         exit(0);
 	if (!is_numeric(args[1]))

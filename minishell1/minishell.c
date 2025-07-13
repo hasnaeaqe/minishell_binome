@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 15:05:05 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/13 17:19:22 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	process_line(char *line, t_env **env)
 	tree = parse_tree(&token, flag);
 	// print_tree(tree, 0);
 	handle_heredoc(tree, *env);
-	status = exec_tree(tree, env);
+	status = exec_tree(tree, env, 0);
 	setup_signals();
 	exit_status(status, 0);
 	free_tokens(token);

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 10:29:48 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/13 17:18:45 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	exec_path(t_tree *tree, t_env **env, char **array)
 	exit(EXIT_SUCCESS);
 }
 
-int	execute_cmd(t_tree *tree, t_env **env)
+int	execute_cmd(t_tree *tree, t_env **env, int is_child)
 {
 	pid_t	pid;
 	int		status;
@@ -70,7 +70,7 @@ int	execute_cmd(t_tree *tree, t_env **env)
 	status = 0;
 	array = to_array(*env, ft_lstsize(*env));
 	if (tree && is_builtins(*tree->argv))
-		return (check_builts(tree, env));
+		return (check_builts(tree, env, is_child));
 	pid = fork();
 	if (pid == 0)
 		exec_path(tree, env, array);
@@ -102,7 +102,7 @@ static pid_t	create_child(int pipefd[2], t_tree *child_tree,
 			dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
 		close(pipefd[1]);
-		exit(exec_tree(child_tree, &env));
+		exit(exec_tree(child_tree, &env, 1));
 	}
 	return (pid);
 }
@@ -122,7 +122,6 @@ int execute_pipe(t_tree *tree, t_env *env)
 		perror("pipe");
 		// exit(1); // exit if in child
 	}
-
 	create_child(pipefd, tree->left, env, 1);
 	pid_right = create_child(pipefd, tree->right, env, 0);
 	
@@ -134,12 +133,12 @@ int execute_pipe(t_tree *tree, t_env *env)
 		;
 	return (WEXITSTATUS(status));
 }
-int exec_tree(t_tree *tree, t_env **env)
+int exec_tree(t_tree *tree, t_env **env, int is_child)
 {
 	if (!tree)
-	return (1);
+		return (1);
 	if (tree->kind == NODE_COMMAND)
-		return (execute_cmd(tree, env));
+		return (execute_cmd(tree, env, is_child));
 	else if (tree->kind == NODE_PIPE)
 		return (execute_pipe(tree, *env));
 	return (0);
