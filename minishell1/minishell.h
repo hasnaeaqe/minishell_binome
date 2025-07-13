@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/12 19:42:03 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/13 10:14:50 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char			*ft_strjoin(char *s1, char *s2);
 char			**ft_split(char const *s, char c);
 char			*ft_strchr(const char *s, int c);
 void			ft_strncpy(char *dest, char *src, int n);
-long			ft_atoi( char *str);
+long			ft_atoi( char *str, int *overflow);
 int				ft_strnstr(const char *haystack,
 					const char *needle, size_t len);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
@@ -145,7 +145,7 @@ void			replace_word(size_t *i, size_t *j, char **total_str,
 int				handel_ambiguous(t_token **token);
 void			skip_single_double_quote(char *str, int *i);
 void			splite_expand(t_token **token);
-int				remove_quotes(t_token **token);
+int				flag_herdoc(t_token **token);
 t_tree			*parse_tree(t_token **token, int flag);
 t_tree			*parse_commande(t_token **token, int flag);
 int				count_quote(char *src);
@@ -172,7 +172,7 @@ t_env			*ft_env(char **env);
 t_env			*env_vide(void);
 int				ft_echo(char **argv);
 int				built_pwd(t_env *env, int write);
-void			built_exit(char **args);
+int			built_exit(char **args);
 int				ft_unset(t_env **head, char **key_to_unset);
 int				ft_export(char **argv, t_env **env);
 void			sort_list(t_env **env);

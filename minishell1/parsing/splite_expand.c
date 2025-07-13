@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:31:49 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/12 12:24:41 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/13 10:36:18 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	add_nodes1(t_token **tmp, t_token **prev,
 	char	*dest;
 	t_token	*add;
 
+	if (*i - *start <= 0)
+		return ;
 	dest = ft_substr(str, *start, (*i) - (*start));
 	add = new_token(TOK_WORD, dest);
 	if (!*prev)
@@ -40,6 +42,8 @@ static void	add_nodes2(t_token **tmp, t_token **prev,
 	char	*dest;
 	t_token	*add;
 
+	if (*i - *start <= 0)
+		return ;
 	dest = ft_substr(str, *start, (*i) - (*start));
 	add = new_token(TOK_WORD, dest);
 	if (!*prev)
@@ -120,4 +124,5 @@ void	splite_expand(t_token **token)
 			prev = tmp;
 		tmp = tmp->next;
 	}
+	
 }

@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 10:07:26 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/11 18:24:30 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 20:38:35 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ static int	parse_loop_tokens(t_token **token, char ***argv,
 		tmp = *token;
 		str = tmp->value;
 		if ((tmp)->type == TOK_WORD && str[0] != '\0')
-		{
 			(*argv)[i++] = trasform_garbeg(rm_quotes(str));
-		}
 		else if (is_redi_operator(tmp->type))
 			handle_redirection_token(tmp, token, redir, flag);
 		*token = (*token)->next;

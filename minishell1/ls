@@ -1,0 +1,9 @@
+Makefile
+builtins
+execusion
+ls
+minishell
+minishell.c
+minishell.h
+parsing
+print_tree.c
