@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:31:49 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/13 10:36:18 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/13 16:33:30 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,4 @@ void	splite_expand(t_token **token)
 			prev = tmp;
 		tmp = tmp->next;
 	}
-	
 }

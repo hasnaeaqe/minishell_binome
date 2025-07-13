@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 13:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/12 12:06:47 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/13 12:55:05 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ void	max_herdoc(t_token *token)
 	if (i > 16)
 	{
 		ft_putstr_fd("bash: maximum here-document count exceeded", 2);
-		exit(1);
+		exit(exit_status(2,0));
 	}
 }

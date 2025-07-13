@@ -107,3 +107,311 @@ Makefile        builtins        ls              minishell.c     q               
 export x="''''"
 $x
 ******************************************************************************
+export a="           "
+minishell$ $a
+minishell:   : command not found
+
+minishell$ $a""
+minishell: : command not found
+minishell$ ""$a
+minishell: : command not found
+minishell$ ""$a""
+minishell: : command not found
+minishell$ $a''
+minishell: : command not found
+minishell$ ''$a''
+minishell: : command not found
+minishell$ ''$a
+minishell: : command not found
+minishell$ 
+minishell$ export a="           ls      -la     "
+minishell$ """"""$a""""""
+minishell: : command not found
+minishell$ 
+
+
+
+
+minishell$ cat << rr
+>"$USER"
+>'$USER'
+>$USER
+>rr
+"��������"
+'��������'
+��������
+
+
+
+
+minishell$ << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g << g
+bash: maximum here-document count exceeded%                                                                                    
+cbayousf@e3r3p18 minishell1 % echo $?
+1
+
+
+
+
+
+
+minishell$ |
+minishell$ 
+minishell$    control + c
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ ls
+minishell$ 
+
+
+
+
+
+
+minishell$ lsk
+minishell: lsk: command not found
+minishell$ $? | $?
+minishell: 127: command not found
+minishell: 127: command not found
+
+
+
+
+minishell$ exit 1 | exit 2 | exit 3 | exit 4
+exit
+exit
+exit
+exit
+
+
+
+minishell$ lsk
+minishell: lsk: command not found
+minishell$ exit 1 | exit 2 | echo $? > ex | exit 4
+exit
+exit
+exit
+minishell$ cat ex
+127
+minishell$ 
+
+
+
+
+
+
+
+minishell$ cp /bin/ls .
+minishell$ unset PATH
+minishell$ ls
+minishell: ls: No such file or directory
+minishell$ 
+
+
+
+
+
+
+
+
+
+
+
+cbayousf@e3r3p18 minishell1 % env -i ./minishell
+minishell$ export    
+declare -x PATH="/mnt/homes/haqajjef/.docker/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."
+declare -x PWD="/mnt/homes/cbayousf/Desktop/minishell/minishell1"
+declare -x SHLVL="1"
+declare -x _="/usr/bin/env"
+minishell$ unser PATH PWD SHLVL _
+minishell: unser: command not found
+minishell$ unset PATH PWD SHLVL _
+minishell$ ls
+minishell: ls: No such file or directory
+minishell$ clear
+minishell: clear: No such file or directory
+minishell$ cd ..
+minishell$ pwd
+=================================================================
+==4508==ERROR: AddressSanitizer: heap-use-after-free on address 0x619000003780 at pc 0x00010231fcd3 bp 0x7ffeed8ec8f0 sp 0x7ffeed8ec8e8
+READ of size 1 at 0x619000003780 thread T0
+    #0 0x10231fcd2 in ft_strlen+0x72 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10000ccd2)
+    #1 0x102321a4a in ft_strjoin+0x9a (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10000ea4a)
+    #2 0x102331da1 in ft_strjoin_3+0x31 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10001eda1)
+    #3 0x102331eca in to_array+0x10a (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10001eeca)
+    #4 0x10232acd1 in execute_cmd+0x1e1 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100017cd1)
+    #5 0x10232bc93 in exec_tree+0x93 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100018c93)
+    #6 0x102333c01 in process_line+0x291 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100020c01)
+    #7 0x1023336fb in main+0x1bb (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x1000206fb)
+    #8 0x7fff6a2e8cc8 in start+0x0 (/usr/lib/system/libdyld.dylib:x86_64+0x1acc8)
+
+0x619000003780 is located 0 bytes inside of 1024-byte region [0x619000003780,0x619000003b80)
+freed by thread T0 here:
+    #0 0x102bcf2c6 in wrap_free+0xa6 (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6)
+    #1 0x10232ec23 in check_pwd+0x1b3 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10001bc23)
+    #2 0x10232ee07 in ft_cd+0x107 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10001be07)
+    #3 0x102334084 in ft_built+0xf4 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100021084)
+    #4 0x102333f60 in check_builts+0x140 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100020f60)
+    #5 0x10232ad77 in execute_cmd+0x287 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100017d77)
+    #6 0x10232bc93 in exec_tree+0x93 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100018c93)
+    #7 0x102333c01 in process_line+0x291 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100020c01)
+    #8 0x1023336fb in main+0x1bb (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x1000206fb)
+    #9 0x7fff6a2e8cc8 in start+0x0 (/usr/lib/system/libdyld.dylib:x86_64+0x1acc8)
+
+previously allocated by thread T0 here:
+    #0 0x102bcf17d in wrap_malloc+0x9d (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x4917d)
+    #1 0x7fff6a35eaa7 in __private_getcwd+0x48 (/usr/lib/system/libsystem_c.dylib:x86_64+0x26aa7)
+    #2 0x102bb5cf3 in wrap_getcwd+0x43 (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x2fcf3)
+    #3 0x10232eaac in check_pwd+0x3c (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10001baac)
+    #4 0x10232ee07 in ft_cd+0x107 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10001be07)
+    #5 0x102334084 in ft_built+0xf4 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100021084)
+    #6 0x102333f60 in check_builts+0x140 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100020f60)
+    #7 0x10232ad77 in execute_cmd+0x287 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100017d77)
+    #8 0x10232bc93 in exec_tree+0x93 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100018c93)
+    #9 0x102333c01 in process_line+0x291 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100020c01)
+    #10 0x1023336fb in main+0x1bb (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x1000206fb)
+    #11 0x7fff6a2e8cc8 in start+0x0 (/usr/lib/system/libdyld.dylib:x86_64+0x1acc8)
+
+SUMMARY: AddressSanitizer: heap-use-after-free (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10000ccd2) in ft_strlen+0x72
+Shadow bytes around the buggy address:
+  0x1c32000006a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1c32000006b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1c32000006c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1c32000006d0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x1c32000006e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x1c32000006f0:[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x1c3200000700: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x1c3200000710: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x1c3200000720: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x1c3200000730: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x1c3200000740: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4508==ABORTING
+zsh: abort      env -i ./minishell
+cbayousf@e3r3p18 minishell1 % 
+
+
+
+
+
+
+cbayousf@e3r3p18 minishell1 % env -i ./minishell
+minishell$ export
+declare -x PATH="/mnt/homes/haqajjef/.docker/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."
+declare -x PWD="/mnt/homes/cbayousf/Desktop/minishell/minishell1"
+declare -x SHLVL="1"
+declare -x _="/usr/bin/env"
+minishell$ unset PATH PWD SHLVL _
+minishell$ cd e
+ee         ee0        ex         execusion/ 
+minishell$ cd e
+ee         ee0        ex         execusion/ 
+minishell$ cd ex
+ex         execusion/ 
+minishell$ cd execusion/
+minishell$ clear
+=================================================================
+==4605==ERROR: AddressSanitizer: heap-use-after-free on address 0x619000003780 at pc 0x00010f665cd3 bp 0x7ffee05a68f0 sp 0x7ffee05a68e8
+READ of size 1 at 0x619000003780 thread T0
+    #0 0x10f665cd2 in ft_strlen+0x72 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10000ccd2)
+    #1 0x10f667a4a in ft_strjoin+0x9a (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10000ea4a)
+    #2 0x10f677da1 in ft_strjoin_3+0x31 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10001eda1)
+    #3 0x10f677eca in to_array+0x10a (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10001eeca)
+    #4 0x10f670cd1 in execute_cmd+0x1e1 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100017cd1)
+    #5 0x10f671c93 in exec_tree+0x93 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100018c93)
+    #6 0x10f679c01 in process_line+0x291 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100020c01)
+    #7 0x10f6796fb in main+0x1bb (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x1000206fb)
+    #8 0x7fff6a2e8cc8 in start+0x0 (/usr/lib/system/libdyld.dylib:x86_64+0x1acc8)
+
+0x619000003780 is located 0 bytes inside of 1024-byte region [0x619000003780,0x619000003b80)
+freed by thread T0 here:
+    #0 0x10ff102c6 in wrap_free+0xa6 (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6)
+    #1 0x10f674c23 in check_pwd+0x1b3 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10001bc23)
+    #2 0x10f674e07 in ft_cd+0x107 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10001be07)
+    #3 0x10f67a084 in ft_built+0xf4 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100021084)
+    #4 0x10f679f60 in check_builts+0x140 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100020f60)
+    #5 0x10f670d77 in execute_cmd+0x287 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100017d77)
+    #6 0x10f671c93 in exec_tree+0x93 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100018c93)
+    #7 0x10f679c01 in process_line+0x291 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100020c01)
+    #8 0x10f6796fb in main+0x1bb (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x1000206fb)
+    #9 0x7fff6a2e8cc8 in start+0x0 (/usr/lib/system/libdyld.dylib:x86_64+0x1acc8)
+
+previously allocated by thread T0 here:
+    #0 0x10ff1017d in wrap_malloc+0x9d (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x4917d)
+    #1 0x7fff6a35eaa7 in __private_getcwd+0x48 (/usr/lib/system/libsystem_c.dylib:x86_64+0x26aa7)
+    #2 0x10fef6cf3 in wrap_getcwd+0x43 (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x2fcf3)
+    #3 0x10f674aac in check_pwd+0x3c (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10001baac)
+    #4 0x10f674e07 in ft_cd+0x107 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10001be07)
+    #5 0x10f67a084 in ft_built+0xf4 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100021084)
+    #6 0x10f679f60 in check_builts+0x140 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100020f60)
+    #7 0x10f670d77 in execute_cmd+0x287 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100017d77)
+    #8 0x10f671c93 in exec_tree+0x93 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100018c93)
+    #9 0x10f679c01 in process_line+0x291 (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x100020c01)
+    #10 0x10f6796fb in main+0x1bb (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x1000206fb)
+    #11 0x7fff6a2e8cc8 in start+0x0 (/usr/lib/system/libdyld.dylib:x86_64+0x1acc8)
+
+SUMMARY: AddressSanitizer: heap-use-after-free (/mnt/homes/cbayousf/Desktop/minishell/minishell1/./minishell:x86_64+0x10000ccd2) in ft_strlen+0x72
+Shadow bytes around the buggy address:
+  0x1c32000006a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1c32000006b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1c32000006c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1c32000006d0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x1c32000006e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x1c32000006f0:[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x1c3200000700: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x1c3200000710: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x1c3200000720: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x1c3200000730: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x1c3200000740: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4605==ABORTING
+zsh: abort      env -i ./minishell
