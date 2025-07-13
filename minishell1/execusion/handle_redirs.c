@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/12 20:48:39 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/13 10:27:32 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,8 +241,7 @@ static int handle_input(t_redir_node *redir)
 	{
         ft_putstr_fd("minishell: ", 2);
 		perror(redir->filename); 
-		// return (1);
-        exit(1);
+		return (1);
 	}
 	close (fd);
 	return (0);
@@ -289,10 +288,10 @@ int    handle_redirs(t_tree *tree)
 		if (redir->kind == REDIR_INPUT)
 		{
 			if (handle_input(redir))
-				return (1);
+			 	return (1);
 		}
-		else if (redir->kind == REDIR_OUTPUT)
-		{
+        if (redir->kind == REDIR_OUTPUT)
+        {
 			if (handle_output(redir))
 				return (1);
 		}
@@ -315,16 +314,8 @@ int    handle_redirs(t_tree *tree)
 // 	redir = tree->redirs;
 // 	while (redir)
 // 	{
-// 		if (redir->kind == REDIR_INPUT)
-// 		{
-// 			if (redir->ishd == 1)
-// 				fd = redir->fd;
-// 			else
-// 			{
-// 				if (redir->ambiguous==1)
-// 				{
-// 					ft_putstr_fd("minishell: ambiguous redirect\n", 2);
-// 					exit_status(1,0);
+// 		if minishell$ ls < $sdfghjkl
+	// exit_status(1,0);
 // 					return (1);
 // 				}
 // 				else

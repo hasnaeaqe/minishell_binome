@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/12 19:42:03 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/13 10:15:38 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
+#include <sys/wait.h>
 # include <signal.h>
 
 extern int	g_signal;
@@ -107,7 +108,7 @@ char			*ft_strjoin(char *s1, char *s2);
 char			**ft_split(char const *s, char c);
 char			*ft_strchr(const char *s, int c);
 void			ft_strncpy(char *dest, char *src, int n);
-long			ft_atoi( char *str);
+long			ft_atoi( char *str, int *overflow);
 int				ft_strnstr(const char *haystack,
 					const char *needle, size_t len);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
@@ -172,7 +173,7 @@ t_env			*ft_env(char **env);
 t_env			*env_vide(void);
 int				ft_echo(char **argv);
 int				built_pwd(t_env *env, int write);
-void			built_exit(char **args);
+int			built_exit(char **args);
 int				ft_unset(t_env **head, char **key_to_unset);
 int				ft_export(char **argv, t_env **env);
 void			sort_list(t_env **env);
