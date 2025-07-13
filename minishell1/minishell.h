@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/13 10:42:21 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/13 15:35:41 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
-#include <sys/wait.h>
+#include <sys/wait.h> // only in linux 
 # include <signal.h>
 
 extern int	g_signal;
@@ -195,4 +195,5 @@ int				errors(char *cmd, int mode);
 int				is_directory(char *path);
 int				exec_tree(t_tree *tree, t_env **env);
 char			**to_array(t_env *env, int size);
+void			handle_heredoc_sigint(int sig);
 #endif

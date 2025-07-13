@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 10:29:17 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/13 15:05:05 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,9 @@ static void	process_line(char *line, t_env **env)
 	expand_tokens(&token, *env);
 	handel_ambiguous(&token);
 	splite_expand(&token);
-	print_tokens(token);
 	flag = flag_herdoc(&token);
 	tree = parse_tree(&token, flag);
-	print_tree(tree, 0);
+	// print_tree(tree, 0);
 	handle_heredoc(tree, *env);
 	status = exec_tree(tree, env);
 	setup_signals();
