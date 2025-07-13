@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/13 10:14:50 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/13 10:42:21 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
+#include <sys/wait.h>
 # include <signal.h>
 
 extern int	g_signal;
@@ -172,7 +173,7 @@ t_env			*ft_env(char **env);
 t_env			*env_vide(void);
 int				ft_echo(char **argv);
 int				built_pwd(t_env *env, int write);
-int			built_exit(char **args);
+int				built_exit(char **args);
 int				ft_unset(t_env **head, char **key_to_unset);
 int				ft_export(char **argv, t_env **env);
 void			sort_list(t_env **env);
