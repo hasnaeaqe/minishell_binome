@@ -1,5 +1,5 @@
 CC = cc 
-READLINE_DIR = $(shell brew --prefix readline)
+READLINE_DIR = /mnt/homes/cbayousf/homebrew/Cellar/readline/8.3.1
 
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g -I$(READLINE_DIR)/include
 LDFLAGS = -L$(READLINE_DIR)/lib -lreadline

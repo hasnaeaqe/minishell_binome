@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 16:05:05 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/12 16:09:34 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 20:34:31 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ static void	loop_rwina(t_replace_ctx *ctx,
 			|| (ctx->value)[i + 1] == ctx->dest[0] * (-1)))
 			replace_word(&i, j, total_str, ctx);
 		else
-		{
-			puts("2");
 			(*total_str)[(*j)++] = ctx->value[i++];
-		}
 	}
 }
 

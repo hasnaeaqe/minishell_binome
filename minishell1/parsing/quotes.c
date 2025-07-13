@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 15:02:12 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/12 12:29:55 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/12 20:37:43 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	flag_heredoc(t_token *tmp)
 	return (flag);
 }
 
-int	remove_quotes(t_token **token)
+int	flag_herdoc(t_token **token)
 {
 	t_token	*tmp;
 	int		flag;

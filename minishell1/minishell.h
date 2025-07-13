@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/13 10:15:38 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/13 10:42:21 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void			replace_word(size_t *i, size_t *j, char **total_str,
 int				handel_ambiguous(t_token **token);
 void			skip_single_double_quote(char *str, int *i);
 void			splite_expand(t_token **token);
-int				remove_quotes(t_token **token);
+int				flag_herdoc(t_token **token);
 t_tree			*parse_tree(t_token **token, int flag);
 t_tree			*parse_commande(t_token **token, int flag);
 int				count_quote(char *src);
@@ -173,7 +173,7 @@ t_env			*ft_env(char **env);
 t_env			*env_vide(void);
 int				ft_echo(char **argv);
 int				built_pwd(t_env *env, int write);
-int			built_exit(char **args);
+int				built_exit(char **args);
 int				ft_unset(t_env **head, char **key_to_unset);
 int				ft_export(char **argv, t_env **env);
 void			sort_list(t_env **env);

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 10:27:32 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/13 10:47:20 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void write_in_herdoc(t_redir_node * redir, t_env *env, int fd)
     while(1)
     {
         line = readline(">");
+		redir->filename = handel_dolar(redir->filename, redir->flag);
         if (!line || !ft_strcmp(line, redir->filename)) 
         {
             if (line)
@@ -207,7 +208,7 @@ void handle_heredoc(t_tree *tree, t_env *env)
 //             {
 //                 line = readline(">");
 					// delimiter = handel_dolar(delimiter, redir->flag);
-//                 if (!line || !ft_strcmp(line, delimiter)) 
+//                 if (!line || !ft_strc Réponse courte :mp(line, delimiter)) 
 //                 {
 //                     if (line)
 //                         free(line);
