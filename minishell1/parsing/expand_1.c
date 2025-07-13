@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 14:40:34 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/12 16:09:14 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/13 19:58:04 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,19 @@ char	*expand_value(size_t *i, char *str)
 	char	*dest;
 
 	j = 0;
+	dest = ft_malloc((*i + 2) * sizeof(char));
 	if (j == (*i) - 1)
 	{
 		if (str[*i] != '"' && str[*i] != '\'')
 		{
-			dest = ft_malloc((*i + 2) * sizeof(char));
 			dest[j++] = str[*i - 1];
 			dest[j++] = str[*i];
 		}
 		else
-		{
-			dest = ft_malloc((*i + 1) * sizeof(char));
 			dest[j++] = str[*i] * (-1);
-		}
 	}
 	else
 	{
-		dest = ft_malloc((*i + 1) * sizeof(char));
 		while (j < *i - 1)
 		{
 			dest[j] = str[j + 1];

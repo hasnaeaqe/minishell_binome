@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 10:19:44 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/13 14:42:51 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/13 20:19:27 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,16 @@
 void	handle_sigint(int sig)
 {
 	(void)sig;
-	g_signal = 1;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	if(sig == SIGINT)
+	{
+		g_signal = 1;
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();	
+	}
+	else
+		g_signal = 0;
 }
 
 void	handle_sigquit(int sig)
@@ -34,7 +39,7 @@ void	setup_signals(void)
 	rl_catch_signals = 0;
 }
 
-void handle_heredoc_sigint(int sig)
+void	handle_heredoc_sigint(int sig)
 {
 	(void) sig;
 	write(1, "\n", 1);

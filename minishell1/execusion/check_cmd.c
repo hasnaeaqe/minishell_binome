@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:48:18 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 12:28:47 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/13 17:16:06 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void reset_redir(int fd_in , int fd_out)
 	dup2(fd_out, STDOUT_FILENO);
 }
 
-static int ft_built(t_tree *tree ,t_env **env, int fd_in, int fd_out)
+static int ft_built(t_tree *tree ,t_env **env, int fd_in, int fd_out, int is_child )
 {
 	int status = 0;
 	char **cmd;
@@ -54,11 +54,11 @@ static int ft_built(t_tree *tree ,t_env **env, int fd_in, int fd_out)
 		return (0);	
 	}
 	else if (ft_strcmp(cmd[0], "exit") == 0)
-		status = built_exit(tree->argv);
+		status = built_exit(tree->argv, is_child);
 	return (status);
 }
 
-int check_builts(t_tree *tree,t_env **env)
+int check_builts(t_tree *tree,t_env **env, int is_child)
 {
 	int fd_in = dup(STDIN_FILENO);
 	int fd_out = dup (STDOUT_FILENO);
@@ -68,7 +68,7 @@ int check_builts(t_tree *tree,t_env **env)
 		return (1); 
 	if (handle_redirs(tree) != 0)
 		return (1); 
-	status = ft_built(tree, env, fd_in, fd_out);
+	status = ft_built(tree, env, fd_in, fd_out, is_child);
 	reset_redir(fd_in, fd_out);
 	return (status);
 }

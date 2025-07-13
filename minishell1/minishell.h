@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/13 15:35:41 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/13 19:53:10 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ typedef struct s_replace_ctx
 	char	*value;
 	char	*expand_value;
 	char	*dest;
-	int		*start;
+	int		start;
 	char	*str;
-	int		*i;
+	int		i;
 }	t_replace_ctx;
 
 typedef struct s_redir_node
@@ -173,7 +173,7 @@ t_env			*ft_env(char **env);
 t_env			*env_vide(void);
 int				ft_echo(char **argv);
 int				built_pwd(t_env *env, int write);
-int				built_exit(char **args);
+int				built_exit(char **args, int is_child);
 int				ft_unset(t_env **head, char **key_to_unset);
 int				ft_export(char **argv, t_env **env);
 void			sort_list(t_env **env);
@@ -186,14 +186,14 @@ void			update_value(t_env *env, char *key, char *value);
 char			*remove_last_slash(char *path);
 int				erreur(char *dir);
 int				is_builtins(char *cmd);
-int				check_builts(t_tree *tree, t_env **env);
+int				check_builts(t_tree *tree, t_env **env, int is_child);
 char			*check_in_paths(char **dirs, char *cmd);
 void			ft_free_tab(char **tab);
 int				handle_redirs(t_tree *tree);
 void			handle_heredoc(t_tree *tree, t_env *env);
 int				errors(char *cmd, int mode);
 int				is_directory(char *path);
-int				exec_tree(t_tree *tree, t_env **env);
+int				exec_tree(t_tree *tree, t_env **env, int is_child);
 char			**to_array(t_env *env, int size);
 void			handle_heredoc_sigint(int sig);
 #endif

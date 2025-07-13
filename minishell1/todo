@@ -8,3 +8,7 @@ fd leak on heredoc
 
 
 ///// 
+./minishell < /dev/urandom 
+
+to fix prob use istty 
+

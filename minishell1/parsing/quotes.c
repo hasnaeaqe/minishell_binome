@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 15:02:12 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/12 20:37:43 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/13 20:01:50 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,7 @@ char	*rm_quotes(char *src)
 	size_t	len;
 	char	quote;
 
-	i = 0;
-	len = 0;
+	(1) && (i = 0, len = 0);
 	while (src[i])
 	{
 		if (src[i] == '\'' || src[i] == '"')
