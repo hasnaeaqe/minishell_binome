@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 15:28:12 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/13 16:42:55 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void	process_line(char *line, t_env **env)
 	splite_expand(&token);
 	flag = flag_herdoc(&token);
 	tree = parse_tree(&token, flag);
+	print_tree(tree, 0);
 	handle_heredoc(tree, *env);
 	status = exec_tree(tree, env);
 	setup_signals();

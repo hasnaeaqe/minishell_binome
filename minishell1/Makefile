@@ -1,7 +1,7 @@
 CC = cc 
 READLINE_DIR = /mnt/homes/cbayousf/homebrew/Cellar/readline/8.3.1
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g -I$(READLINE_DIR)/include
+CFLAGS = -Wall -Wextra -Werror -I$(READLINE_DIR)/include #-fsanitize=address -g 
 LDFLAGS = -L$(READLINE_DIR)/lib -lreadline
 RM = rm -f
 
@@ -12,7 +12,7 @@ PARSE = parsing/expand_0.c parsing/expand_1.c parsing/expand_2.c parsing/expand_
 	parsing/syntax_errors_0.c parsing/syntax_errors_1.c parsing/tokenisation.c  parsing/signle.c \
   execusion/execute_cmd.c execusion/path.c builtins/built_exit.c execusion/libft.c   builtins/for_cd.c  builtins/for_export.c \
   builtins/built_cd.c builtins/built_echo.c builtins/built_pwd.c builtins/built_env.c   builtins/built_export.c builtins/built_unset.c execusion/exec.c execusion/handle_redirs.c  \
-	 minishell.c  execusion/check_cmd.c builtins/for_env.c \
+	 minishell.c  execusion/check_cmd.c builtins/for_env.c execusion/heredoc.c\
 
 OB = $(PARSE:.c=.o)
 

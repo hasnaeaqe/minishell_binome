@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:48:18 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/10 13:15:28 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/13 12:28:47 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ int is_builtins(char *cmd)
 	return (0);
 }
 
-void reset_redir(int fd_in , int fd_out)
+static void reset_redir(int fd_in , int fd_out)
 {
 	dup2(fd_in, STDIN_FILENO);
 	dup2(fd_out, STDOUT_FILENO);
 }
+
 static int ft_built(t_tree *tree ,t_env **env, int fd_in, int fd_out)
 {
 	int status = 0;
