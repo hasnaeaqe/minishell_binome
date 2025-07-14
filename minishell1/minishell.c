@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 17:19:22 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/13 20:43:26 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,14 @@ static int	handle_line(char **line)
 	return (1);
 }
 
-static int	handle_signal(char *line)
+static void	handle_signal(char *line)
 {
+	(void)line;
 	if (g_signal)
 	{
 		exit_status(1, 0);
 		g_signal = 0;
-		free(line);
-		return (1);
 	}
-	return (0);
 }
 
 static void	process_line(char *line, t_env **env)
@@ -87,8 +85,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (!handle_line(&line))
 			continue ;
-		if (handle_signal(line))
-			continue ;
+		handle_signal(line);
 		process_line(line, &env);
 	}
 	return (0);

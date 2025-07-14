@@ -8,3 +8,7 @@
 
 
 ///// 
+./minishell < /dev/urandom 
+
+to fix prob use istty 
+

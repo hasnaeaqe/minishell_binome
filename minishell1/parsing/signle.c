@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 10:19:44 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/13 16:30:47 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/14 18:27:38 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,16 @@
 void	handle_sigint(int sig)
 {
 	(void)sig;
-	g_signal = 1;
-	write(1, "\n", 1);
-	//rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	if(sig == SIGINT)
+	{
+		g_signal = 1;
+		write(1, "\n", 1);
+		// rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();	
+	}
+	else
+		g_signal = 0;
 }
 
 void	handle_sigquit(int sig)
@@ -31,10 +36,10 @@ void	setup_signals(void)
 {
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
-	//rl_catch_signals = 0;
+	// rl_catch_signals = 0;
 }
 
-void handle_heredoc_sigint(int sig)
+void	handle_heredoc_sigint(int sig)
 {
 	(void) sig;
 	write(1, "\n", 1);

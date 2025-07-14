@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/14 16:43:54 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/14 18:25:07 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ typedef struct s_replace_ctx
 	char	*value;
 	char	*expand_value;
 	char	*dest;
-	int		*start;
-	// char	*str;
-	int		*i;
+	int		start;
+	char	*str;
+	int		i;
 }	t_replace_ctx;
 
 typedef struct s_redir_node

@@ -6,21 +6,21 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:31:49 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/13 10:36:18 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/13 20:03:09 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static void	add_nodes1(t_token **tmp, t_token **prev,
-	char *str, int *start, int *i)
+	char *str, t_replace_ctx **ctx)
 {
 	char	*dest;
 	t_token	*add;
 
-	if (*i - *start <= 0)
+	if ((*ctx)->i - (*ctx)->start <= 0)
 		return ;
-	dest = ft_substr(str, *start, (*i) - (*start));
+	dest = ft_substr(str, (*ctx)->start, (*ctx)->i - (*ctx)->start);
 	add = new_token(TOK_WORD, dest);
 	if (!*prev)
 	{
@@ -36,15 +36,15 @@ static void	add_nodes1(t_token **tmp, t_token **prev,
 	}
 }
 
-static void	add_nodes2(t_token **tmp, t_token **prev,
-	char *str, int *start, int *i, t_token **neext)
+static void	add_nodes2(t_token **tmp, t_token **prev, char *str,
+	t_replace_ctx **ctx, t_token **neext)
 {
 	char	*dest;
 	t_token	*add;
 
-	if (*i - *start <= 0)
+	if ((*ctx)->i - (*ctx)->start <= 0)
 		return ;
-	dest = ft_substr(str, *start, (*i) - (*start));
+	dest = ft_substr(str, (*ctx)->start, (*ctx)->i - (*ctx)->start);
 	add = new_token(TOK_WORD, dest);
 	if (!*prev)
 	{
@@ -74,28 +74,28 @@ void	skip_single_double_quote(char *str, int *i)
 
 static void	loop_split(t_token **neext, t_token **tmp, t_token **prev)
 {
-	int		start;
-	int		i;
-	char	*str;
+	t_replace_ctx	*ctx;
+	char			*str;
 
+	ctx = ft_malloc(sizeof(t_replace_ctx));
 	*neext = (*tmp)->next;
 	str = ft_strdup((*tmp)->value);
-	i = 0;
-	start = i;
-	while (str[i])
+	ctx->i = 0;
+	ctx->start = ctx->i;
+	while (str[ctx->i])
 	{
-		if (str[i] == '\'' || str[i] == '"')
-			skip_single_double_quote(str, &i);
-		else if (str[i] == ' ' || str[i] == '\0')
+		if (str[ctx->i] == '\'' || str[ctx->i] == '"')
+			skip_single_double_quote(str, &(ctx->i));
+		else if (str[ctx->i] == ' ' || str[ctx->i] == '\0')
 		{
-			add_nodes1(tmp, prev, str, &start, &i);
-			if (str[i])
-				start = ++i;
+			add_nodes1(tmp, prev, str, &ctx);
+			if (str[ctx->i])
+				ctx->start = ++ctx->i;
 		}
 		else
-			i++;
+			ctx->i++;
 	}
-	add_nodes2(tmp, prev, str, &start, &i, neext);
+	add_nodes2(tmp, prev, str, &ctx, neext);
 	if (*neext)
 		(*prev)->next = *neext;
 }
@@ -124,5 +124,4 @@ void	splite_expand(t_token **token)
 			prev = tmp;
 		tmp = tmp->next;
 	}
-	
 }

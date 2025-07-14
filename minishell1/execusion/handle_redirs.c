@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 15:11:10 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/13 16:45:11 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 
 static int handle_input(t_redir_node *redir)
 {
