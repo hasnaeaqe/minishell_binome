@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:21:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 10:39:35 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/14 15:29:48 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-// static void	check_atoi(int signe, long long c)
+// static void	check_atoi(int signe, long long c, int *overflow)
 // {
 // 	if ((signe == 1 && c > INT_MAX) || (signe == -1 && (-c) < INT_MIN))
 // 	{
-// 		printf("error");
+// 		*overflow = 1;
+// 		return (0);
 // 	}
 // }
 
@@ -32,6 +33,7 @@ long	ft_atoi( char *str, int *overflow)
 	int			i;
 	long long	c;
 	int			signe;
+	long long	prev;
 
 	i = 0;
 	c = 0;
@@ -46,9 +48,9 @@ long	ft_atoi( char *str, int *overflow)
 	}
 	while (str && str[i] >= '0' && str[i] <= '9')
 	{
-		int prev = c;
+		prev = c;
 		c = c * 10 + (str[i] - '0');
-		if (c / 10 != prev)
+		if (c/10 != prev)  //(signe == 1 && c < prev) || (signe == -1 && c > prev))
 		{
 			*overflow = 1;
 			return (0);

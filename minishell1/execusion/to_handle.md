@@ -14,6 +14,7 @@ AddressSanitizer:DEADLYSIGNAL
     #5 0x10df3c403 in exec_tree+0x93 (minishell:x86_64+0x100009403)
     #6 0x10df43f0e in main+0x3ae (minishell:x86_64+0x100010f0e)
     #7 0x7fff6d58ccc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+    
 
 ==43341==Register values:
 rax = 0x0000000000000000  rbx = 0x00007ffee1ccc3a0  rcx = 0x0000100000000000  rdx = 0x0000100000000000  

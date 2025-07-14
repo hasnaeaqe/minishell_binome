@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/10 20:25:14 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/14 14:52:53 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,10 @@ static void	free_node(t_env *tmp)
 {
 	if (!tmp)
 		return ;
-	// if (tmp->key)
-	// 	free(tmp->key);
 	if (tmp->value)
 		free(tmp->value);
-	// tmp->key = NULL;
-	// tmp->value = NULL;
+	tmp->key = NULL;
+	tmp->value = NULL;
 	free(tmp);
 }
 
@@ -70,6 +68,13 @@ void	unset_one(t_env **head, char *key_to_unset)
 	free_node(tmp);
 }
 
+static void	not_valid(char *key_to_unset)
+{
+	ft_putstr_fd("minishell: unset: ", 2);
+	ft_putstr_fd(key_to_unset, 2);
+	ft_putstr_fd(" : not a valid identifier\n", 2);
+}
+
 int	ft_unset(t_env **head, char **key_to_unset)
 {
 	int	i;
@@ -84,18 +89,13 @@ int	ft_unset(t_env **head, char **key_to_unset)
 		if (!ft_strcmp(key_to_unset[i], "_"))
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		if (is_valid(key_to_unset[i]) == 0)
-		{
 			unset_one(head, key_to_unset[i]);
-			
-		}
 		else
 		{
-			ft_putstr_fd("minishell: unset: ", 2);
-			ft_putstr_fd(key_to_unset[i], 2);
-			ft_putstr_fd(" : not a valid identifier\n", 2);
+			not_valid(key_to_unset[i]);
 			status = 1;
 		}
 		i++;
