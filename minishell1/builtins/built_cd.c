@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/14 18:48:47 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:38:05 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	get_home(char **argv, t_env *env)
 	if (argv && !argv[1])
 	{
 		home = get_value(env, "HOME");
-		if (!home)
+		if (!home || !*home)
 			return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), 0);
 		if (chdir(home) != 0)
 			return (erreur(home));

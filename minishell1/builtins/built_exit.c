@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/14 18:46:21 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:13:51 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	args_required(char *arg)
 	ft_putstr_fd("exit: ", 2);
 	ft_putstr_fd(arg, 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
+	exit (255);
 }
 
 int	built_exit(char **args, int is_child)
@@ -60,15 +61,10 @@ int	built_exit(char **args, int is_child)
 	if (!args || !args[1])
 		exit(0);
 	if (!is_numeric(args[1]))
-		return(args_required(args[1]), 255);
+		args_required(args[1]);
 	arg = ft_atoi(args[1], &overflow);
 	if (overflow)
-	{
 		args_required(args[1]);
-		exit(255);
-	}
-	if (arg < 0 || arg > 255)
-		arg = arg % 256;
 	if (args[2])
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
