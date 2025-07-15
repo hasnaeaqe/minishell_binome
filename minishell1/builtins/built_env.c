@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/14 16:25:56 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:49:24 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ char	*ext_key(char *str)
 	while (str[i] && str[i] != '=' && str[i] != '+')
 		i++;
 	key = ft_malloc(sizeof(char) * (i + 1));
-	// ft_strncpy(key, str, i);
-	// key[i] = '\0';
 	key = ft_strndup(str, i);
 	return (key);
 }
@@ -75,7 +73,8 @@ t_env	*env_vide(void)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (NULL);
-	path = "PATH=/mnt/homes/haqajjef/.docker/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.";
+	path = "PATH=/mnt/homes/haqajjef/.docker/bin:/usr/gnu/bin:"
+		"/usr/local/bin:/bin:/usr/bin:.";
 	ft_lstadd_back(&env, create_node("OLDPWD", NULL));
 	ft_lstadd_back(&env, create_node(ext_key(path), ext_val(path)));
 	ft_lstadd_back(&env, create_node("PWD", pwd));

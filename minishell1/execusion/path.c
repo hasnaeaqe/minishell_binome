@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 10:22:40 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/12 20:25:59 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/14 16:11:59 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	errors(char *cmd, int mode)
 	if (!cmd)
 		exit(0);
 	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);\
+	ft_putstr_fd(cmd, 2);
 	if (mode == 13)
 		return (ft_putstr_fd(": Permission denied\n", 2), 126);
 	if (mode == 2)

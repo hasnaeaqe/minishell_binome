@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/15 13:58:21 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:50:20 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,11 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_exec
+{
+    int     fd_in;
+    int     fd_out;
+}   t_exec;
 char			*ft_strdup(char *s1);
 char			*ft_strndup(char *s1, size_t n);
 void			*ft_malloc(size_t i);
