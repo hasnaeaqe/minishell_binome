@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 14:41:06 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/15 20:51:05 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	write_in_herdoc(t_redir_node *redir, t_env *env, int fd)
 			break ;
 		}
 		if (redir->flag == 0)
-			line = expand_heredoc(line, env, 1);
+			line = trasform_garbeg(expand_heredoc(line, env, 1));
 		ft_putstr_fd(line, fd);
 		write(fd, "\n", 1);
 		free (line);
@@ -80,6 +80,27 @@ char *generate_filename(void)
 	}
 	free(num);
 	return (filename);
+}
+
+#include <termios.h>
+
+void	hd_sig_handler(int sig)
+{
+	struct termios	t;
+
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		exit(1);
+	}
+	else if (sig == SIGQUIT)
+	{
+		tcgetattr(0, &t);
+		t.c_lflag &= ~ECHOCTL;
+		tcsetattr(0, TCSANOW, &t);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	/// rename and change
 }
 
 void handle_heredoc(t_tree *tree, t_env *env)
@@ -130,7 +151,7 @@ void handle_heredoc(t_tree *tree, t_env *env)
 			
 			if (pid == 0)
 			{
-				signal(SIGINT, handle_heredoc_sigint);
+				signal(SIGINT,hd_sig_handler);
 				signal(SIGQUIT, SIG_IGN);
 				close(fdread);
 				write_in_herdoc(redir, env, fd);
@@ -143,24 +164,13 @@ void handle_heredoc(t_tree *tree, t_env *env)
 				old_handler = signal(SIGINT, SIG_IGN);
 				waitpid(pid, &status, 0);
 				signal(SIGINT, old_handler);
-				if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-				{
-					write(1, "\n", 1);
-					exit_status(130, 0);
-					free(filename);
-					return;
-				}
-				exit_status(0, 0);
+				exit_status(WEXITSTATUS(status), 0);
+				if (WEXITSTATUS(status) == 1)
+					break;
 				redir->fd = fdread;
 				redir->kind = REDIR_INPUT;
 			}
 		}
-	// {
-	// 	perror("pipe");
-	// 	exit(1);// exit if in child
-	// }
-	// handle_heredoc(tree->left, env);
-	// handle_heredoc(tree->r
 		redir = redir->next;
 	}
 	return ; 
