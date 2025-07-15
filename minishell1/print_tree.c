@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 20:11:41 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/12 11:37:35 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:36:08 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	print_tokens(t_token *token)
 	tmp = token;
 	while (tmp)
 	{
-		printf("type : %s | value : %s | ambig : %d\n", type_token(tmp->type), tmp->value, tmp->ambig);
+		printf("type :%s| value :%s| ambig:%d\n", type_token(tmp->type), tmp->value, tmp->ambig);
 		tmp = tmp->next;
 	}
 }

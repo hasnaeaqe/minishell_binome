@@ -415,3 +415,58 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
   Shadow gap:              cc
 ==4605==ABORTING
 zsh: abort      env -i ./minishell
+
+
+
+
+
+
+
+ echo -nnn -n "ayoub  ali"
+-n ayoub        aliminishell$
+
+---------------------------------
+
+ctrl +c 
+cltr + d 
+exit status must be 1 ;
+-------------------------
+
+mkdir -p 0/1
+cd 0/1/
+ chnage permision of 0 
+ and cd  ../../.
+
+
+ ----------------------------------------------
+exit
+bash: exit: 0      1: numeric argument required
+bash-3.2$ echo -nnn -n "ayoub  ali"
+bash-3.2$ exit "      12"
+exit
+cbayousf@e3r10p11 minishell1 % $?
+zsh: command not found: 12
+cbayousf@e3r10p11 minishell1 % 
+
+ ------------------------------------------------
+
+
+ << k<< k<< k 
+ and ctrl + c
+  minshell go crazy ;;
+
+--------------------------------------------------
+cat | ls .......etc 
+not run anything and must be return ;
+
+--------------------------------------------------
+
+
+minishell$ export HOME=
+minishell$ cd
+minishell: cd: : No such file or directory
+minishell: cd: : No such file or directory
+minishell$ $?
+minishell: 126: command not found
+
+---------------------------------------------------

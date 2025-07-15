@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 16:52:03 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/14 16:25:56 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_env	*ft_env(char **env)
 	t_env	*head;
 	int		i;
 
-	if (env && !*env)
+	if (!env || !*env)
 		return (env_vide());
 	head = NULL;
 	i = 0;

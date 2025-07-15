@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 20:43:26 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:47:23 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,19 @@ static int	handle_line(char **line)
 	if (!*line)
 	{
 		write(1, "exit\n", 5);
-		exit(exit_status(1, 1));
+		exit(exit_status(0, 1));
 	}
 	if (**line)
+	{
 		add_history(*line);
+		g_signal = 0;
+	}
 	else
 	{
 		free(*line);
 		return (0);
 	}
 	return (1);
-}
-
-static void	handle_signal(char *line)
-{
-	(void)line;
-	if (g_signal)
-	{
-		exit_status(1, 0);
-		g_signal = 0;
-	}
 }
 
 static void	process_line(char *line, t_env **env)
@@ -63,7 +56,6 @@ static void	process_line(char *line, t_env **env)
 	splite_expand(&token);
 	flag = flag_herdoc(&token);
 	tree = parse_tree(&token, flag);
-	// print_tree(tree, 0);
 	handle_heredoc(tree, *env);
 	status = exec_tree(tree, env, 0);
 	setup_signals();
@@ -81,11 +73,20 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = ft_env(envp);
 	setup_signals();
+	if (argc != 1)
+	{
+		ft_putstr_fd("invalide args !", 2);
+		return (1);
+	}
 	while (1)
 	{
 		if (!handle_line(&line))
 			continue ;
-		handle_signal(line);
+		if (g_signal)
+		{
+			exit_status(1, 0);
+			g_signal = 0;
+		}
 		process_line(line, &env);
 	}
 	return (0);

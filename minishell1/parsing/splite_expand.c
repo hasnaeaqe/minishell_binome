@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:31:49 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/13 20:03:09 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:05:30 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,55 @@ static void	loop_split(t_token **neext, t_token **tmp, t_token **prev)
 		(*prev)->next = *neext;
 }
 
+// int	quote_h(char *src)
+// {
+// 	int		i = 0;
+// 	char	curr;
+// 	int		switch_count = 0;
+
+// 	if (!src[i])
+// 		return (0);
+// 	if (src[i]==' ')
+// 	{
+// 		while (src[i]==' ')
+// 			i++;
+// 		if (src[i]=='\0')
+// 			return (1);
+// 	}
+// 	if (src[i] != '\'' && src[i] != '"')
+// 		return (0);
+
+// 	curr = src[i];
+
+// 	while (src[i])
+// 	{
+// 		if (src[i] != '\'' && src[i] != '"')
+// 			return (0);
+
+// 		if (src[i] != curr)
+// 		{
+// 			switch_count++;
+// 			curr = src[i];
+// 			if (switch_count > 1)
+// 				return (0);
+// 		}
+// 		i++;
+// 	}
+// 	return (1);
+// }
+// int space_h(char *src)
+// {
+// 	int i =0;
+// 	if (src[i]==' ')
+// 	{
+// 		while (src[i]==' ')
+// 			i++;
+// 		if (src[i]=='\0')
+// 			return (1);
+// 	}
+// 	return (0);
+// }
+
 void	splite_expand(t_token **token)
 {
 	t_token	*tmp;
@@ -124,4 +173,5 @@ void	splite_expand(t_token **token)
 			prev = tmp;
 		tmp = tmp->next;
 	}
+	handel_chihaja(token);
 }

@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/13 19:53:10 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/15 13:58:21 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
-#include <sys/wait.h> // only in linux 
+# include <sys/wait.h> // only in linux 
 # include <signal.h>
 
 extern int	g_signal;
@@ -160,6 +160,7 @@ char			*expand_heredoc(char *line, t_env *env, int flag);
 int				exit_status(int status, int flag);
 int				is_redi_operator(t_tok_type type);
 int				word_error(t_token *tmp);
+void			handel_chihaja(t_token **token);
 
 char			*find_cmd_path(char *cmd, t_env *env, int *status);
 t_env			*create_node(char *cle, char *val);

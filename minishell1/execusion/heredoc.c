@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/13 14:41:06 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:46:17 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	write_in_herdoc(t_redir_node *redir, t_env *env, int fd)
 			break ;
 		}
 		if (redir->flag == 0)
-			line = expand_heredoc(line, env, 1);
+			line = trasform_garbeg(expand_heredoc(line, env, 1));
 		ft_putstr_fd(line, fd);
 		write(fd, "\n", 1);
 		free (line);
