@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/15 18:49:03 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/16 15:25:10 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ static void	process_line(char *line, t_env **env)
 	t_tree	*tree;
 	int		flag;
 	int		status;
+	int		stop;
 
+	stop = 0;
 	token = NULL;
 	tokenisation(line, &token);
 	if (check_syntax_errors(token))
@@ -47,17 +49,15 @@ static void	process_line(char *line, t_env **env)
 		free(line);
 		return ;
 	}
-	max_herdoc(token);
-	expand_tokens(&token, *env);
+	(max_herdoc(token),expand_tokens(&token, *env));
 	handel_ambiguous(&token);
 	splite_expand(&token);
 	flag = flag_herdoc(&token);
 	tree = parse_tree(&token, flag);
-	handle_heredoc(tree, *env);
+	handle_heredoc(tree, *env, &stop);
 	status = exec_tree(tree, env, 0);
 	setup_signals();
-	exit_status(status, 0);
-	free_tokens(token);
+	(exit_status(status, 0),free_tokens(token));
 	free(line);
 }
 

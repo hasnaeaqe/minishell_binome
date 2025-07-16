@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 10:19:44 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/15 19:51:05 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:36:37 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,17 @@ void	setup_signals(void)
 	// rl_catch_signals = 0;
 }
 
-void	handle_heredoc_sigint(int sig)
+static void heredoc_sig_handler(int sig)
 {
-	(void) sig;
-	write(1, "\n", 1);
-	exit(130);
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		exit(1);
+	}
+}
+
+void handle_heredoc_signals(void)
+{
+	signal(SIGINT, heredoc_sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 }

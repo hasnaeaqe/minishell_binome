@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/15 19:58:57 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/16 18:27:28 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,13 +208,17 @@ int				check_builts(t_tree *tree, t_env **env, int is_child);
 char			*check_in_paths(char **dirs, char *cmd);
 void			ft_free_tab(char **tab);
 int				handle_redirs(t_tree *tree);
-void			handle_heredoc(t_tree *tree, t_env *env);
+void			handle_heredoc(t_tree *tree, t_env *env, int *stop_herdoc);
 int				errors(char *cmd, int mode);
 int				is_directory(char *path);
 int				exec_tree(t_tree *tree, t_env **env, int is_child);
 char			**to_array(t_env *env, int size);
-void			handle_heredoc_sigint(int sig);
+void			handle_heredoc_signals(void);
 void			add_pid(t_pid_list **list, pid_t pid);
 void			free_all_pid(t_pid_list *list);
 void			kill_all_pid(t_pid_list *list);
+char			*generate_filename(void);
+void			write_in_herdoc(t_redir_node *redir, t_env *env, int fd);
+char			*handel_dolar(char *delimiter, int flag);
+int				count_dolar(char *delimiter);
 #endif
