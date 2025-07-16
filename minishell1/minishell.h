@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/15 14:50:20 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/15 19:58:57 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@
 # include <signal.h>
 
 extern int	g_signal;
+
+enum 
+{
+	CTR_C	
+};
 typedef enum e_tok_type
 {
 	TOK_WORD,
@@ -99,6 +104,13 @@ typedef struct s_exec
     int     fd_in;
     int     fd_out;
 }   t_exec;
+
+typedef struct s_pid_list
+{
+	pid_t pid;
+	struct s_pid_list *next;
+}	t_pid_list;
+
 char			*ft_strdup(char *s1);
 char			*ft_strndup(char *s1, size_t n);
 void			*ft_malloc(size_t i);
@@ -202,4 +214,7 @@ int				is_directory(char *path);
 int				exec_tree(t_tree *tree, t_env **env, int is_child);
 char			**to_array(t_env *env, int size);
 void			handle_heredoc_sigint(int sig);
+void			add_pid(t_pid_list **list, pid_t pid);
+void			free_all_pid(t_pid_list *list);
+void			kill_all_pid(t_pid_list *list);
 #endif

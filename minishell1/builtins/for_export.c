@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 12:26:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/07 16:04:40 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:26:32 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	ft_printexport(t_env **head)
 	tmp = *head;
 	while (tmp)
 	{
-		if (tmp->value)
+		if (tmp->value && ft_strcmp(tmp->key,"_") != 0)
 			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
-		else if (tmp->key)
+		else if (tmp->key && ft_strcmp(tmp->key,"_") != 0)
 			printf("declare -x %s\n", tmp->key);
 		tmp = tmp->next;
 	}

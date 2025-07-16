@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:21:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/14 15:29:48 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:27:40 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,22 @@ int	ft_isdigit(int c)
 // 	}
 // }
 
-long	ft_atoi( char *str, int *overflow)
+static int	check_overflow(long long prev, long long current, int *overflow)
+{
+	if (current / 10 != prev)
+	{
+		*overflow = 1;
+		return (1);
+	}
+	return (0);
+}
+
+long	ft_atoi(char *str, int *overflow)
 {
 	int			i;
 	long long	c;
-	int			signe;
 	long long	prev;
+	int			signe;
 
 	i = 0;
 	c = 0;
@@ -50,14 +60,11 @@ long	ft_atoi( char *str, int *overflow)
 	{
 		prev = c;
 		c = c * 10 + (str[i] - '0');
-		if (c/10 != prev)  //(signe == 1 && c < prev) || (signe == -1 && c > prev))
-		{
-			*overflow = 1;
+		if (check_overflow(prev, c, overflow))
 			return (0);
-		}
 		i++;
 	}
-	return ((signe * c));
+	return (signe * c);
 }
 
 int	ft_isalpha(int c)
@@ -83,17 +90,4 @@ char	*ft_strchr(const char *s, int c)
 	if ((char)c == '\0')
 		return ((char *)&s[i]);
 	return (NULL);
-}
-
-void	ft_strncpy(char *dest, char *src, int n)
-{
-	int	i;
-
-	i = 0;
-	while (i < n && src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
 }

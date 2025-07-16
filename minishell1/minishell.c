@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/16 11:35:14 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/16 11:40:53 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ static int	handle_line(char **line)
 		exit(exit_status(0, 1));
 	}
 	if (**line)
-	{
 		add_history(*line);
-		g_signal = 0;
-	}
 	else
 	{
 		free(*line);
