@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:31:49 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/15 14:05:30 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/16 15:38:07 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	add_nodes1(t_token **tmp, t_token **prev,
 	}
 }
 
-static void	add_nodes2(t_token **tmp, t_token **prev, char *str,
+static void	add_nodes2(t_token **tmp, t_token **prev,
 	t_replace_ctx **ctx, t_token **neext)
 {
 	char	*dest;
@@ -44,7 +44,7 @@ static void	add_nodes2(t_token **tmp, t_token **prev, char *str,
 
 	if ((*ctx)->i - (*ctx)->start <= 0)
 		return ;
-	dest = ft_substr(str, (*ctx)->start, (*ctx)->i - (*ctx)->start);
+	dest = ft_substr((*ctx)->str, (*ctx)->start, (*ctx)->i - (*ctx)->start);
 	add = new_token(TOK_WORD, dest);
 	if (!*prev)
 	{
@@ -80,6 +80,7 @@ static void	loop_split(t_token **neext, t_token **tmp, t_token **prev)
 	ctx = ft_malloc(sizeof(t_replace_ctx));
 	*neext = (*tmp)->next;
 	str = ft_strdup((*tmp)->value);
+	ctx->str = str;
 	ctx->i = 0;
 	ctx->start = ctx->i;
 	while (str[ctx->i])
@@ -95,59 +96,10 @@ static void	loop_split(t_token **neext, t_token **tmp, t_token **prev)
 		else
 			ctx->i++;
 	}
-	add_nodes2(tmp, prev, str, &ctx, neext);
+	add_nodes2(tmp, prev, &ctx, neext);
 	if (*neext)
 		(*prev)->next = *neext;
 }
-
-// int	quote_h(char *src)
-// {
-// 	int		i = 0;
-// 	char	curr;
-// 	int		switch_count = 0;
-
-// 	if (!src[i])
-// 		return (0);
-// 	if (src[i]==' ')
-// 	{
-// 		while (src[i]==' ')
-// 			i++;
-// 		if (src[i]=='\0')
-// 			return (1);
-// 	}
-// 	if (src[i] != '\'' && src[i] != '"')
-// 		return (0);
-
-// 	curr = src[i];
-
-// 	while (src[i])
-// 	{
-// 		if (src[i] != '\'' && src[i] != '"')
-// 			return (0);
-
-// 		if (src[i] != curr)
-// 		{
-// 			switch_count++;
-// 			curr = src[i];
-// 			if (switch_count > 1)
-// 				return (0);
-// 		}
-// 		i++;
-// 	}
-// 	return (1);
-// }
-// int space_h(char *src)
-// {
-// 	int i =0;
-// 	if (src[i]==' ')
-// 	{
-// 		while (src[i]==' ')
-// 			i++;
-// 		if (src[i]=='\0')
-// 			return (1);
-// 	}
-// 	return (0);
-// }
 
 void	splite_expand(t_token **token)
 {

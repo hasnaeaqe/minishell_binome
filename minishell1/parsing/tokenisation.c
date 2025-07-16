@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:32:06 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/12 12:13:50 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/16 15:15:36 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	tokenisation(char *str, t_token **token)
 	size_t	i;
 
 	i = 0;
-	if (!str)
+	if (!str || !str[0])
 		return ;
 	while (str[i])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 16:07:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/14 16:11:32 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/16 15:57:55 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	*ft_strjoin_3(char *s1, char *s2, char *s3)
 	tmp = ft_strjoin(s1, s2);
 	res = ft_strjoin(tmp, s3);
 	free(tmp);
+	// printf("%s\n", res);
 	return (res);
 }
 
@@ -86,7 +87,7 @@ char	**to_array(t_env *env, int size)
 		return (NULL);
 	tmp = env;
 	i = 0;
-	while (i < size && tmp)
+	while (tmp && i < size)
 	{
 		array[i] = ft_strjoin_3(tmp->key, "=", tmp->value);
 		tmp = tmp->next;

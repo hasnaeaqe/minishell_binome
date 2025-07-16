@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:48:18 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/14 16:44:09 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:05:19 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	ft_built(t_tree *tree, t_env **env, t_exec *exec, int is_child)
 	return (status);
 }
 
-int	check_builts(t_tree *tree, t_env **env, int is_child)
+int	check_builts(t_tree *tree, t_env *env, int is_child)
 {
 	t_exec	exec;
 	int		status;
@@ -72,7 +72,7 @@ int	check_builts(t_tree *tree, t_env **env, int is_child)
 		return (1);
 	if (handle_redirs(tree) != 0)
 		return (1);
-	status = ft_built(tree, env, &exec, is_child);
+	status = ft_built(tree, &env, &exec, is_child);
 	reset_redir(exec.fd_in, exec.fd_out);
 	return (status);
 }

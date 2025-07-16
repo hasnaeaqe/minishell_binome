@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/16 11:40:53 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:21:50 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,16 @@ static int	handle_line(char **line)
 	return (1);
 }
 
-static void	handel_signal(char *line)
+static void	handel_signal(void)
 {
 	if (g_signal)
 	{
 		exit_status(1, 0);
 		g_signal = 0;
-		free(line);
 	}
 }
 
-static int 	process_line(char *line, t_env **env)
+static int	process_line(char *line, t_env **env)
 {
 	t_token	*token;
 	t_tree	*tree;
@@ -76,15 +75,14 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	t_env	*env;
 
-	(void)argc;
 	(void)argv;
 	env = ft_env(envp);
 	setup_signals();
-	// if (argc != 1)
-	// {
-	// 	ft_putstr_fd("invalide args !", 2);
-	// 	return (1);
-	// }
+	if (argc != 1)
+	{
+		ft_putstr_fd("invalide args !", 2);
+		return (1);
+	}
 	if (!isatty(STDIN_FILENO))
 	{
 		ft_putstr_fd("minishell: not interactive input\n", 2);
@@ -94,7 +92,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (!handle_line(&line))
 			continue ;
-		handel_signal(line);
+		handel_signal();
 		if (process_line(line, &env))
 			continue ;
 	}

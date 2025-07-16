@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/15 19:58:57 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:20:15 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 
 extern int	g_signal;
 
-enum 
+enum
 {
-	CTR_C	
+	CTR_C
 };
 typedef enum e_tok_type
 {
@@ -101,14 +101,14 @@ typedef struct s_env
 
 typedef struct s_exec
 {
-    int     fd_in;
-    int     fd_out;
-}   t_exec;
+	int	fd_in;
+	int	fd_out;
+}	t_exec;
 
 typedef struct s_pid_list
 {
-	pid_t pid;
-	struct s_pid_list *next;
+	pid_t				pid;
+	struct s_pid_list	*next;
 }	t_pid_list;
 
 char			*ft_strdup(char *s1);
@@ -124,7 +124,6 @@ int				ft_isdigit(int c);
 char			*ft_strjoin(char *s1, char *s2);
 char			**ft_split(char const *s, char c);
 char			*ft_strchr(const char *s, int c);
-void			ft_strncpy(char *dest, char *src, int n);
 long			ft_atoi( char *str, int *overflow);
 int				ft_strnstr(const char *haystack,
 					const char *needle, size_t len);
@@ -204,7 +203,7 @@ void			update_value(t_env *env, char *key, char *value);
 char			*remove_last_slash(char *path);
 int				erreur(char *dir);
 int				is_builtins(char *cmd);
-int				check_builts(t_tree *tree, t_env **env, int is_child);
+int				check_builts(t_tree *tree, t_env *env, int is_child); /// herere
 char			*check_in_paths(char **dirs, char *cmd);
 void			ft_free_tab(char **tab);
 int				handle_redirs(t_tree *tree);

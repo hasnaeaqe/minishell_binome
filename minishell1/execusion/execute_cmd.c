@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/15 20:03:47 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:05:53 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	execute_cmd(t_tree *tree, t_env **env, int is_child)
 	status = 0;
 	array = to_array(*env, ft_lstsize(*env));
 	if (tree && is_builtins(*tree->argv))
-		return (check_builts(tree, env, is_child));
+		return (check_builts(tree, *env, is_child));
 	pid = fork();
 	if (pid == 0)
 		exec_path(tree, env, array);
