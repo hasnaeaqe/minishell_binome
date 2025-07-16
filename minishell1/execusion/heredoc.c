@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/16 18:26:59 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/16 20:33:11 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,5 @@ void	handle_heredoc(t_tree *tree, t_env *env, int *stop_herdoc)
 				break ;
 		redir = redir->next;
 	}
+	setup_signals();
 }

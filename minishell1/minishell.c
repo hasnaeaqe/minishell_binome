@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/16 18:29:02 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/16 20:43:05 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ static int	process_line(char *line, t_env **env)
 	status = exec_tree(tree, env, 0);
 	setup_signals();
 	(exit_status(status, 0),free_tokens(token));
-	free(line);
-	return (0);
+	return (free(line),0);
 }
 
 int	main(int argc, char **argv, char **envp)
