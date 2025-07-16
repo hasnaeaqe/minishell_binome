@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/15 14:47:23 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/16 11:35:14 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,17 @@ static int	handle_line(char **line)
 	return (1);
 }
 
-static void	process_line(char *line, t_env **env)
+static void	handel_signal(char *line)
+{
+	if (g_signal)
+	{
+		exit_status(1, 0);
+		g_signal = 0;
+		free(line);
+	}
+}
+
+static int 	process_line(char *line, t_env **env)
 {
 	t_token	*token;
 	t_tree	*tree;
@@ -48,9 +58,8 @@ static void	process_line(char *line, t_env **env)
 	{
 		free_tokens(token);
 		free(line);
-		return ;
+		return (1);
 	}
-	max_herdoc(token);
 	expand_tokens(&token, *env);
 	handel_ambiguous(&token);
 	splite_expand(&token);
@@ -62,6 +71,7 @@ static void	process_line(char *line, t_env **env)
 	exit_status(status, 0);
 	free_tokens(token);
 	free(line);
+	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -73,21 +83,23 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = ft_env(envp);
 	setup_signals();
-	if (argc != 1)
+	// if (argc != 1)
+	// {
+	// 	ft_putstr_fd("invalide args !", 2);
+	// 	return (1);
+	// }
+	if (!isatty(STDIN_FILENO))
 	{
-		ft_putstr_fd("invalide args !", 2);
-		return (1);
+		ft_putstr_fd("minishell: not interactive input\n", 2);
+		exit(1);
 	}
 	while (1)
 	{
 		if (!handle_line(&line))
 			continue ;
-		if (g_signal)
-		{
-			exit_status(1, 0);
-			g_signal = 0;
-		}
-		process_line(line, &env);
+		handel_signal(line);
+		if (process_line(line, &env))
+			continue ;
 	}
 	return (0);
 }

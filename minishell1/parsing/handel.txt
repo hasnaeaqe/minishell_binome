@@ -470,3 +470,10 @@ minishell$ $?
 minishell: 126: command not found
 
 ---------------------------------------------------
+
+ls > saad <<< ls   ASK ILYASSSSSSSSSS
+
+________________________________
+
+Mini$hell$: grep ff ✅
+signals ✅

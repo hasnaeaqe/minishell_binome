@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_echo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:08:32 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/14 18:36:05 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:39:15 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_echo(char **argv)
 	char	*buffer;
 	char	*tmp;
 
-	new_line = 0;
+	new_line = 1;
 	i = 1;
 	while (argv[i] && is_valid_option(argv[i]) == 0)
 	{
