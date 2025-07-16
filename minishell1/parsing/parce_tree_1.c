@@ -6,19 +6,19 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 10:07:26 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/12 20:38:35 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/16 15:25:22 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static void	redir_node(t_redir_node **redir, t_redir_type kind,
-	char *filename, int flag, int ambiguous)
+	char *filename, t_replace_ctx *ctx)
 {
 	t_redir_node	*new;
 	t_redir_node	*tmp;
 
-	new = new_redir(kind, filename, flag, ambiguous);
+	new = new_redir(kind, filename, ctx->i, ctx->start);
 	if (!new)
 		return ;
 	if (!(*redir))
@@ -35,14 +35,19 @@ static void	redir_node(t_redir_node **redir, t_redir_type kind,
 static void	handle_redirection_token(t_token *tmp, t_token **token,
 	t_redir_node **redir, int flag)
 {
+	t_replace_ctx	*ctx;
+
+	ctx = ft_malloc(sizeof(t_replace_ctx));
+	ctx->i = flag;
+	ctx->start = tmp->ambig;
 	if (tmp->next && tmp->type == TOK_REDIR_APPEND)
-		redir_node(redir, REDIR_APPEND, tmp->next->value, flag, tmp->ambig);
+		redir_node(redir, REDIR_APPEND, tmp->next->value, ctx);
 	else if (tmp->next && tmp->type == TOK_REDIR_HEREDOC)
-		redir_node(redir, REDIR_HEREDOC, tmp->next->value, flag, tmp->ambig);
+		redir_node(redir, REDIR_HEREDOC, tmp->next->value, ctx);
 	else if (tmp->next && tmp->type == TOK_REDIR_INPUT)
-		redir_node(redir, REDIR_INPUT, tmp->next->value, flag, tmp->ambig);
+		redir_node(redir, REDIR_INPUT, tmp->next->value, ctx);
 	else if (tmp->next && tmp->type == TOK_REDIR_OUTPUT)
-		redir_node(redir, REDIR_OUTPUT, tmp->next->value, flag, tmp->ambig);
+		redir_node(redir, REDIR_OUTPUT, tmp->next->value, ctx);
 	*token = tmp->next;
 }
 

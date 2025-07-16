@@ -12,3 +12,16 @@
 
 to fix prob use istty 
 
+///////
+at | cat | cat | ls
+Makefile        h               minishell.c     print_tree.c
+builtins        ls              minishell.h     todo
+execusion       minishell       parsing
+^M^M^M^M^M^M^M^M^M^M^M^M^M^M^M^M^M^M^M^M^M^M^M^C
+
+
+minishell$ minishell$ minishell$ minishell$ 
+////////
+
+
+cd ~

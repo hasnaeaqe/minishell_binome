@@ -470,3 +470,77 @@ minishell$ $?
 minishell: 126: command not found
 
 ---------------------------------------------------
+
+ls > saad <<< ls   ASK ILYASSSSSSSSSS
+
+________________________________
+
+Mini$hell$: grep ff ✅
+signals ✅
+
+
+
+
+
+
+ cat | cat | cat | lsminishell$ cat | cat | cat | lsminishell$ cat | cat | cat | lsminishell$ ^C
+minishell$ clear
+=================================================================
+==35134==ERROR: AddressSanitizer: heap-use-after-free on address 0x602000003390 at pc 0x00010c382969 bp 0x7ffee38943d0 sp 0x7ffee38943c8
+READ of size 1 at 0x602000003390 thread T0
+    #0 0x10c382968 in tokenisation+0x1f8 (minishell:x86_64+0x100017968)
+    #1 0x10c38e63a in process_line+0x11a (minishell:x86_64+0x10002363a)
+    #2 0x10c38e2b2 in main+0x1e2 (minishell:x86_64+0x1000232b2)
+    #3 0x7fff73635cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+0x602000003390 is located 0 bytes inside of 6-byte region [0x602000003390,0x602000003396)
+freed by thread T0 here:
+    #0 0x50c4842c6 in wrap_free+0xa6 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6)
+    #1 0x10c38e50a in handel_signal+0x3a (minishell:x86_64+0x10002350a)
+    #2 0x10c38e279 in main+0x1a9 (minishell:x86_64+0x100023279)
+    #3 0x7fff73635cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+previously allocated by thread T0 here:
+    #0 0x50c48417d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x4917d)
+    #1 0x50c416b02 in xmalloc+0x8 (libreadline.8.dylib:x86_64+0x29b02)
+    #2 0x50c3f179c in readline_internal_teardown+0x6f (libreadline.8.dylib:x86_64+0x479c)
+    #3 0x50c3f129c in readline+0x5b (libreadline.8.dylib:x86_64+0x429c)
+    #4 0x10c38e2e7 in handle_line+0x17 (minishell:x86_64+0x1000232e7)
+    #5 0x10c38e236 in main+0x166 (minishell:x86_64+0x100023236)
+    #6 0x7fff73635cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+SUMMARY: AddressSanitizer: heap-use-after-free (minishell:x86_64+0x100017968) in tokenisation+0x1f8
+Shadow bytes around the buggy address:
+  0x1c0400000620: fa fa 02 fa fa fa 03 fa fa fa fd fa fa fa 04 fa
+  0x1c0400000630: fa fa 04 fa fa fa 04 fa fa fa 03 fa fa fa 00 00
+  0x1c0400000640: fa fa 04 fa fa fa 00 00 fa fa 04 fa fa fa 00 00
+  0x1c0400000650: fa fa 04 fa fa fa 00 00 fa fa 03 fa fa fa 00 04
+  0x1c0400000660: fa fa 00 04 fa fa 00 fa fa fa 00 fa fa fa 00 04
+=>0x1c0400000670: fa fa[fd]fa fa fa 00 04 fa fa 06 fa fa fa fa fa
+  0x1c0400000680: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x1c0400000690: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x1c04000006a0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x1c04000006b0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x1c04000006c0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==35134==ABORTING
+zsh: abort      ./minishell

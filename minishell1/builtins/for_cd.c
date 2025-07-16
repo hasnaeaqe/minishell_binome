@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   for_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 12:15:23 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/08 12:55:52 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:19:00 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	update_value(t_env *env, char *key, char *value)
 	t_env	*tmp;
 
 	tmp = env;
+	if (!env)
+		return ;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->key, key) == 0)

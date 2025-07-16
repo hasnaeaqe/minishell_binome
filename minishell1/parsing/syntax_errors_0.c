@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 20:22:59 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/14 15:25:54 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/15 19:54:13 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ int	check_syntax_errors(t_token *token)
 	t_token	*prev;
 	t_token	*tmp;
 
-	prev = NULL;
-	tmp = token;
+	(1) && (prev = NULL, tmp = token);
 	if (!token)
 		return (1);
 	while (tmp)
@@ -113,5 +112,6 @@ int	check_syntax_errors(t_token *token)
 		prev = tmp;
 		tmp = tmp->next;
 	}
+	max_herdoc(token);
 	return (0);
 }
