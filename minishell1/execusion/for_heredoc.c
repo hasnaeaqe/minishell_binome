@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   for_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 16:47:42 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/17 10:34:37 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/17 14:56:46 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ void	write_in_herdoc(t_redir_node *redir, t_env *env, int fd)
 	while (1)
 	{
 		line = readline(">");
+		if (!line)
+		{
+			close(fd);
+			exit (1);
+		}
 		redir->filename = rm_quotes(handel_dolar(redir->filename));
 		if (!line || !ft_strcmp(line, redir->filename))
 		{

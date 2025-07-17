@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 10:19:44 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/17 11:10:11 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/17 14:57:31 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,13 @@ void	handle_heredoc_signals(void)
 {
 	signal(SIGINT, heredoc_sig_handler);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	reset_terminal_mode(void)
+{
+	struct termios	t;
+
+	tcgetattr(STDIN_FILENO, &t);
+	t.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &t);
 }
