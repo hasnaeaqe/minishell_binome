@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 16:05:05 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/12 20:34:31 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:04:42 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ t_redir_node	*new_redir(t_redir_type kind,
 
 	new = ft_malloc(sizeof(t_redir_node));
 	new->kind = kind;
-	new->filename = trasform_garbeg(rm_quotes(filename));
+	if (kind == REDIR_HEREDOC)
+		new->filename = trasform_garbeg(filename);
+	else
+		new->filename = trasform_garbeg(rm_quotes(filename));
 	new->flag = flag;
 	new->ambiguous = ambiguous;
 	new->next = NULL;

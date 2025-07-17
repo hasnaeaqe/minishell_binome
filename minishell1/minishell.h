@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/16 18:28:31 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:30:31 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,5 @@ void			free_all_pid(t_pid_list *list);
 void			kill_all_pid(t_pid_list *list);
 char			*generate_filename(void);
 void			write_in_herdoc(t_redir_node *redir, t_env *env, int fd);
-char			*handel_dolar(char *delimiter, int flag);
 int				count_dolar(char *delimiter);
 #endif
