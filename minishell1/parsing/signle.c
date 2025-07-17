@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 10:19:44 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/16 18:31:25 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:10:11 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	handle_sigint(int sig)
 {
-	(void)sig;
 	if (sig == SIGINT)
 	{
 		g_signal = 1;
@@ -35,16 +34,17 @@ void	setup_signals(void)
 	rl_catch_signals = 0;
 }
 
-static void heredoc_sig_handler(int sig)
+static void	heredoc_sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
+		g_signal = 1;
 		exit(1);
 	}
 }
 
-void handle_heredoc_signals(void)
+void	handle_heredoc_signals(void)
 {
 	signal(SIGINT, heredoc_sig_handler);
 	signal(SIGQUIT, SIG_IGN);

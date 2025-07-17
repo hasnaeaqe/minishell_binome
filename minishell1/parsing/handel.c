@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:32:53 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/15 14:48:13 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:21:51 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	split_nodes(t_token **prev, t_token **token,
 	*tmp = *next;
 }
 
-void	handel_chihaja(t_token **token)
+void	handel_case(t_token **token)
 {
 	t_token	*tmp;
 	t_token	*prev;

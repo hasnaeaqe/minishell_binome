@@ -6,13 +6,13 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 16:05:05 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/17 10:04:42 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:20:50 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	loop_rwina(t_replace_ctx *ctx,
+static void	loop_and_replace(t_replace_ctx *ctx,
 	char **total_str, size_t flag, size_t *j)
 {
 	size_t	i;
@@ -36,14 +36,14 @@ static void	loop_rwina(t_replace_ctx *ctx,
 	}
 }
 
-char	*rwina(t_replace_ctx *ctx, size_t len, int flag)
+char	*replace_expand_value(t_replace_ctx *ctx, size_t len, int flag)
 {
 	char		*total_str;
 	size_t		j;
 
 	total_str = ft_malloc((len + 1) * sizeof(char));
 	j = 0;
-	loop_rwina(ctx, &total_str, flag, &j);
+	loop_and_replace(ctx, &total_str, flag, &j);
 	if (!total_str)
 		return (NULL);
 	total_str[j] = '\0';

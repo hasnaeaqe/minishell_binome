@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/17 09:59:43 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:14:26 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	handle_line(char **line)
 	return (1);
 }
 
-static void	handel_signal(void)
+void	handel_signal(void)
 {
 	if (g_signal)
 	{
@@ -58,7 +58,7 @@ static int	process_line(char *line, t_env **env)
 		free(line);
 		return (1);
 	}
-	(max_herdoc(token),expand_tokens(&token, *env));
+	expand_tokens(&token, *env);
 	handel_ambiguous(&token);
 	splite_expand(&token);
 	flag = flag_herdoc(&token);
@@ -66,9 +66,8 @@ static int	process_line(char *line, t_env **env)
 	handle_heredoc(tree, *env, &stop);
 	status = exec_tree(tree, env, 0);
 	setup_signals();
-	(exit_status(status, 0),free_tokens(token));
-	free(line);
-	return (0);
+	(exit_status(status, 0), free_tokens(token));
+	return (free(line), 0);
 }
 
 int	main(int argc, char **argv, char **envp)

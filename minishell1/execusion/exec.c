@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 16:07:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/16 18:28:44 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/16 20:16:55 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,12 @@ char	*ft_strjoin_3(char *s1, char *s2, char *s3)
 {
 	char	*tmp;
 	char	*res;
-
+	
+	if (!s1 && !s2)
+		return (NULL);
 	tmp = ft_strjoin(s1, s2);
 	res = ft_strjoin(tmp, s3);
-	free(tmp);
-	// printf("%s\n", res);
+	// free(tmp);
 	return (res);
 }
 
@@ -90,6 +91,8 @@ char	**to_array(t_env *env, int size)
 	while (tmp && i < size)
 	{
 		array[i] = ft_strjoin_3(tmp->key, "=", tmp->value);
+		if (!array[i])
+			return (NULL);
 		tmp = tmp->next;
 		i++;
 	}
