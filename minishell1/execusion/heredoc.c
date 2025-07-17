@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/17 14:55:40 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/17 16:06:30 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ static int	process_heredoc_redir(t_redir_node *redir, t_env *env, int *stop)
 	waitpid(pid, &status, 0);
 	exit_status(WEXITSTATUS(status), 0);
 	signal(SIGINT, old_hand);
-	if (WEXITSTATUS(status) == 1)
-		return (reset_terminal_mode(), *stop = 1, close(fdread), exit_status(130, 0), 1);
+	if (WEXITSTATUS(status) == 1 && WTERMSIG(status) == SIGINT)
+		return (*stop = 1, close(fdread),setup_signals(), exit_status(1, 1), 1);
 	return (redir->fd = fdread, redir->kind = REDIR_INPUT, 0);
 }
 
@@ -97,5 +97,4 @@ void	handle_heredoc(t_tree *tree, t_env *env, int *stop_herdoc)
 				break ;
 		redir = redir->next;
 	}
-	setup_signals();
 }
