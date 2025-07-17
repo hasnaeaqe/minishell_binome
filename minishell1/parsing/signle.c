@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 10:19:44 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/17 15:34:13 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/17 16:12:00 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ static void	heredoc_sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(1, "\n", 1);
 		g_signal = 1;
+		exit_status(1, 0);
+		write(1, "\n", 1);
+		reset_terminal_mode();
 		exit(1);
 	}
 }
@@ -55,6 +57,6 @@ void	reset_terminal_mode(void)
 	struct termios	t;
 
 	tcgetattr(STDIN_FILENO, &t);
-	t.c_lflag |= ECHOCTL;
+	t.c_lflag |= (ECHOCTL | ECHO | ICANON);
 	tcsetattr(STDIN_FILENO, TCSANOW, &t);
 }
