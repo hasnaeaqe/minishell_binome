@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/16 20:40:50 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/17 18:28:29 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	execute_cmd(t_tree *tree, t_env **env, int is_child)
 	if (tree && is_builtins(*tree->argv))
 		return (check_builts(tree, *env, is_child));
 	pid = fork();
+	if (pid == -1)
+		return (perror("fork"), 1);
 	if (pid == 0)
 		exec_path(tree, env, array);
 	else
@@ -98,8 +100,8 @@ static pid_t	create_child(int pipefd[2], t_tree *child_tree,
 	}
 	if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		// signal(SIGINT, SIG_DFL);
+		// signal(SIGQUIT, SIG_DFL);
 		if (is_left)
 			dup2(pipefd[1], STDOUT_FILENO);
 		else
