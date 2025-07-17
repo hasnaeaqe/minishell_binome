@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/17 11:14:26 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/17 14:04:44 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int argc, char **argv, char **envp)
 	setup_signals();
 	if (argc != 1)
 	{
-		ft_putstr_fd("invalide args !", 2);
+		ft_putstr_fd("invalide args !\n", 2);
 		return (1);
 	}
 	if (!isatty(STDIN_FILENO))
