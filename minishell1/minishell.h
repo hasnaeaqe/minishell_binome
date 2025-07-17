@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/16 18:28:31 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/17 13:26:11 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h> // only in linux 
 # include <signal.h>
+#include <termios.h>
 
 extern int	g_signal;
 
@@ -213,11 +214,12 @@ int				is_directory(char *path);
 int				exec_tree(t_tree *tree, t_env **env, int is_child);
 char			**to_array(t_env *env, int size);
 void			handle_heredoc_signals(void);
-void			add_pid(t_pid_list **list, pid_t pid);
-void			free_all_pid(t_pid_list *list);
-void			kill_all_pid(t_pid_list *list);
+// void			add_pid(t_pid_list **list, pid_t pid);
+// void			free_all_pid(t_pid_list *list);
+// void			kill_all_pid(t_pid_list *list);
 char			*generate_filename(void);
 void			write_in_herdoc(t_redir_node *redir, t_env *env, int fd);
 char			*handel_dolar(char *delimiter, int flag);
 int				count_dolar(char *delimiter);
+void			reset_terminal_mode(void);
 #endif
