@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:31:49 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/16 15:38:07 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:22:51 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,5 @@ void	splite_expand(t_token **token)
 			prev = tmp;
 		tmp = tmp->next;
 	}
-	handel_chihaja(token);
+	handel_case(token);
 }

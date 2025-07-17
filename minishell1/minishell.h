@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/17 13:26:11 by haqajjef         ###   ########.fr       */
+=======
+/*   Updated: 2025/07/17 11:22:38 by cbayousf         ###   ########.fr       */
+>>>>>>> f32649eadb5aabbdd9f052232dd31e09d9afa0ca
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +157,7 @@ int				valide_key(char *str, int *i);
 char			*add_quotes(char *str);
 char			*expand(char *src, char *str, t_env *env, int flag);
 size_t			count_expand(char *src, char *dest, int flag);
-char			*rwina(t_replace_ctx *ctx, size_t len, int flag);
+char			*replace_expand_value(t_replace_ctx *ctx, size_t len, int flag);
 void			replace_single_quote(size_t *i, size_t *j,
 					char *value, char **total_str);
 void			replace_double_quote(size_t *i, size_t *j,
@@ -177,7 +181,8 @@ char			*expand_heredoc(char *line, t_env *env, int flag);
 int				exit_status(int status, int flag);
 int				is_redi_operator(t_tok_type type);
 int				word_error(t_token *tmp);
-void			handel_chihaja(t_token **token);
+void			handel_case(t_token **token);
+void			handel_signal(void);
 
 char			*find_cmd_path(char *cmd, t_env *env, int *status);
 t_env			*create_node(char *cle, char *val);
@@ -219,7 +224,6 @@ void			handle_heredoc_signals(void);
 // void			kill_all_pid(t_pid_list *list);
 char			*generate_filename(void);
 void			write_in_herdoc(t_redir_node *redir, t_env *env, int fd);
-char			*handel_dolar(char *delimiter, int flag);
 int				count_dolar(char *delimiter);
 void			reset_terminal_mode(void);
 #endif

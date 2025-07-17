@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 16:47:42 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/17 14:53:47 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/17 14:56:46 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	count_dolar(char *delimiter)
 
 	i = 0;
 	count = 0;
-	while (delimiter[i])
+	while (delimiter[i] && delimiter[i] != '"')
 	{
 		if (delimiter[i] == '$')
 			count++;
@@ -28,9 +28,9 @@ int	count_dolar(char *delimiter)
 	return (count);
 }
 
-char	*handel_dolar(char *delimiter, int flag)
+char	*handel_dolar(char *delimiter)
 {
-	if (flag == 1)
+	if (ft_strnstr(delimiter, "$\"", ft_strlen(delimiter)))
 	{
 		if (count_dolar(delimiter) % 2 != 0)
 			return (ft_strdup(&delimiter[1]));
@@ -50,7 +50,7 @@ void	write_in_herdoc(t_redir_node *redir, t_env *env, int fd)
 			close(fd);
 			exit (1);
 		}
-		redir->filename = handel_dolar(redir->filename, redir->flag);
+		redir->filename = rm_quotes(handel_dolar(redir->filename));
 		if (!line || !ft_strcmp(line, redir->filename))
 		{
 			if (line)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 14:40:34 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/15 17:16:57 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:18:34 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,5 @@ char	*expand(char *src, char *str, t_env *env, int flag)
 	count = count_expand(src, ctx->dest, flag);
 	len = ft_strlen(src) - ft_strlen(ctx->dest) * count
 		+ ft_strlen(ctx->expand_value) * count ;
-	return (rwina(ctx, len, flag));
+	return (replace_expand_value(ctx, len, flag));
 }
