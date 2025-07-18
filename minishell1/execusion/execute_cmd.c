@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/17 18:28:29 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/18 20:33:04 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,33 @@ int	execute_cmd(t_tree *tree, t_env **env, int is_child)
 		return (1);
 	if (tree && is_builtins(*tree->argv))
 		return (check_builts(tree, *env, is_child));
+		
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		exec_path(tree, env, array);
+	}
 	else
+	{
+		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, 0);
+		setup_signals();
+	}
 	// free (array);
 	return (WEXITSTATUS(status));
 }
-
+void hand_sig(int sig)
+{
+		if (sig == SIGINT)
+			write(STDOUT_FILENO, "^C\n", 3);
+		else if (sig == SIGQUIT)
+			write(STDOUT_FILENO, "\\Quit\n", 6);
+	
+}
 static pid_t	create_child(int pipefd[2], t_tree *child_tree,
 							t_env *env, int is_left)
 {
@@ -100,8 +116,8 @@ static pid_t	create_child(int pipefd[2], t_tree *child_tree,
 	}
 	if (pid == 0)
 	{
-		// signal(SIGINT, SIG_DFL);
-		// signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, hand_sig);
+		signal(SIGQUIT, hand_sig);
 		if (is_left)
 			dup2(pipefd[1], STDOUT_FILENO);
 		else
@@ -118,7 +134,6 @@ int execute_pipe(t_tree *tree, t_env *env)
 	int pipefd[2];
 	pid_t pid_right;
 	int status;
-
 	if (!tree)
 		return (1);
 	status = 0;
@@ -128,12 +143,14 @@ int execute_pipe(t_tree *tree, t_env *env)
 	create_child(pipefd, tree->left, env, 1);
 	pid_right = create_child(pipefd, tree->right, env, 0);
 	
+	signal(SIGINT, SIG_IGN);
 	close(pipefd[1]);
 	close(pipefd[0]);
 	
 	waitpid(pid_right, &status, 0);
 	while (wait(NULL) != -1)
 		;
+	setup_signals();
 	return (WEXITSTATUS(status));
 }
 

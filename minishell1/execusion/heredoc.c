@@ -6,20 +6,11 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/17 20:32:07 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/18 20:41:02 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-static void	safe_free(char **filename)
-{
-	while (filename && *filename)
-	{
-		free (*filename);
-		*filename = NULL;
-	}
-}
 
 static int	open_heredoc_files(char **filename, int *fd_write, int *fd_read)
 {
@@ -47,6 +38,19 @@ static void	handle_heredoc_child(t_redir_node *redir,
 	exit(0);
 }
 
+static int	check_heredoc_status(int status, int fdread, int *stop)
+{
+	if (WEXITSTATUS(status) == 1 || WTERMSIG(status) == SIGINT)
+	{
+		*stop = 1;
+		close(fdread);
+		setup_signals();
+		exit_status(1, 0);
+		return (1);
+	}
+	return (0);
+}
+
 static int	process_heredoc_redir(t_redir_node *redir, t_env *env, int *stop)
 {
 	char	*filename;
@@ -54,6 +58,7 @@ static int	process_heredoc_redir(t_redir_node *redir, t_env *env, int *stop)
 	int		fdread;
 	pid_t	pid;
 	int		status;
+	void	(*old_hand)(int);
 
 	redir->ishd = 1;
 	if (open_heredoc_files(&filename, &fd, &fdread))
@@ -64,37 +69,39 @@ static int	process_heredoc_redir(t_redir_node *redir, t_env *env, int *stop)
 	if (pid == 0)
 		handle_heredoc_child(redir, env, fd, fdread);
 	close(fd);
-	void (*old_hand)(int);
 	old_hand = signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
-	exit_status(WEXITSTATUS(status), 0);
 	signal(SIGINT, old_hand);
-	if (WEXITSTATUS(status) == 1 && WTERMSIG(status) == SIGINT)
-		return (*stop = 1, close(fdread),setup_signals(), exit_status(1, 1), 1);
-	return (redir->fd = fdread, redir->kind = REDIR_INPUT,0);
+	if (check_heredoc_status(status, fdread, stop))
+		return (1);
+	redir->fd = fdread;
+	redir->kind = REDIR_INPUT;
+	return (0);
 }
 
-void	handle_heredoc(t_tree *tree, t_env *env, int *stop_herdoc)
+int	handle_heredoc(t_tree *tree, t_env *env, int *stop_herdoc)
 {
 	t_redir_node	*redir;
 
 	if (!tree)
-		return ;
+		return (1);
 	if (tree->kind == NODE_PIPE)
 	{
 		handle_heredoc(tree->left, env, stop_herdoc);
-		handle_heredoc(tree->right, env, stop_herdoc);
-		return ;
+		if (!*stop_herdoc)
+			handle_heredoc(tree->right, env, stop_herdoc);
+		return (0);
 	}
 	redir = tree->redirs;
 	while (redir)
 	{
 		if (*stop_herdoc == 1)
-			return ;
+			return (2);
 		redir->ishd = 0;
 		if (redir->kind == REDIR_HEREDOC)
 			if (process_heredoc_redir(redir, env, stop_herdoc))
-				break ;
+				return (2);
 		redir = redir->next;
 	}
+	return (0);
 }

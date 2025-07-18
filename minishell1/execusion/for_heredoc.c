@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 16:47:42 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/17 15:25:49 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/18 20:36:59 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	write_in_herdoc(t_redir_node *redir, t_env *env, int fd)
 {
 	char	*line;
 
-	while (1)
+	while (!g_signal)
 	{
 		line = readline(">");
 		redir->filename = rm_quotes(handel_dolar(redir->filename));
@@ -80,4 +80,13 @@ char	*generate_filename(void)
 	}
 	free(num);
 	return (filename);
+}
+
+void	safe_free(char **filename)
+{
+	while (filename && *filename)
+	{
+		free (*filename);
+		*filename = NULL;
+	}
 }

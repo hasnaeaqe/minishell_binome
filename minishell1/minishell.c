@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/17 20:35:55 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/18 20:13:32 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ static int	process_line(char *line, t_env **env)
 	splite_expand(&token);
 	flag = flag_herdoc(&token);
 	tree = parse_tree(&token, flag);
-	handle_heredoc(tree, *env, &stop);
+	if (handle_heredoc(tree, *env, &stop) == 2)
+	{
+		return (free_tokens(token),free(line), 0);
+	}
 	status = exec_tree(tree, env, 0);
 	setup_signals();
 	(exit_status(status, 0), free_tokens(token));
