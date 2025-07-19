@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:39:33 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/10 16:31:01 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 16:38:31 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (ft_strdup(s2));
 	if (!s2)
 		return (ft_strdup(s1));
-	newstr = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) +1 * sizeof(char));
+	newstr = (char *)ft_malloc(ft_strlen(s1) + ft_strlen(s2) +1 * sizeof(char));
 	if (!newstr)
 		return (NULL);
 	head = newstr;
@@ -113,7 +113,7 @@ char	*ft_itoa(int n)
 	int		len;
 
 	len = ft_count_nbr(n);
-	str = (char *)malloc((len + 1) * sizeof(char));
+	str = (char *)ft_malloc((len + 1) * sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	trans(str, n, len);

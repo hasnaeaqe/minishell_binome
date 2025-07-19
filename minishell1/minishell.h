@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/19 15:12:08 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 16:31:58 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int				ft_count(char const *s, char c);
 char			*ft_itoa(int n);
 int				ft_isascii(int c);
 char			*ft_strjoin_3(char *s1, char *s2, char *s3);
+void			ft_free(void *p, int k);
 
 int				count_word(char *s, char c);
 int				count_quote(char *src);

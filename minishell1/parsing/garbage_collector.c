@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:53:14 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/19 11:48:27 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 16:31:41 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	ft_free(void *p, int k)
+void	ft_free(void *p, int k)
 {
 	static void		*lst[INT_MAX];
 	static size_t	i;

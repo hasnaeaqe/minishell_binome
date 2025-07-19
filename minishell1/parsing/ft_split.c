@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:05 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/12 16:24:24 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 16:37:58 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*ft_ndup(const char *s1, int n)
 	int		i;
 
 	i = 0;
-	str = malloc((n + 1) * sizeof(char));
+	str = ft_malloc((n + 1) * sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	while (i < n)
@@ -53,7 +53,7 @@ static char	*ft_ndup(const char *s1, int n)
 	return (str);
 }
 
-static void	ft_free(char **t, size_t j)
+static void	ft_free1(char **t, size_t j)
 {
 	size_t	i;
 
@@ -86,7 +86,7 @@ static char	**cr_word(char const *s, char c, char **result)
 		result[k] = ft_ndup(s + d, i - d);
 		if (result[k] == NULL)
 		{
-			ft_free(result, k);
+			ft_free1(result, k);
 			return (NULL);
 		}
 		k++;
@@ -101,7 +101,7 @@ char	**ft_split(char const *s, char c)
 
 	if (s == NULL)
 		return (NULL);
-	result = malloc((ft_count(s, c) + 1) * sizeof(char *));
+	result = ft_malloc((ft_count(s, c) + 1) * sizeof(char *));
 	if (result == NULL)
 		return (NULL);
 	result = cr_word(s, c, result);
