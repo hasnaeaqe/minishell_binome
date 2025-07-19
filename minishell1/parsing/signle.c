@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 10:19:44 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/19 15:11:40 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 20:18:34 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	setup_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 	rl_catch_signals = 0;
 }
+
 static void	heredoc_sig_handler(int sig)
 {
 	if (sig == SIGINT)

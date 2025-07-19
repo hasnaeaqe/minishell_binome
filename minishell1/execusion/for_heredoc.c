@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   for_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 16:47:42 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 15:48:08 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 20:13:38 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*rm_dolar(char *str)
 	dest[j] = '\0';
 	return (dest);
 }
+
 char	*handel_dolar(char *delimiter)
 {
 	if (ft_strnstr(delimiter, "$\"", ft_strlen(delimiter)))
@@ -99,13 +100,4 @@ char	*generate_filename(void)
 	}
 	free(num);
 	return (filename);
-}
-
-void	safe_free(char **filename)
-{
-	while (filename && *filename)
-	{
-		free (*filename);
-		*filename = NULL;
-	}
 }

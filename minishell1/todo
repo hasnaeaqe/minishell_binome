@@ -25,3 +25,33 @@ minishell$ minishell$ minishell$ minishell$
 
 
 cd ~
+
+
+
+
+minishell$ ls > /dev/stdout | cat 
+/dev/stdout: Permission denied
+minishell$ ls > /dev/stdout | cat -e
+/dev/stdout: Permission denied
+minishell$ echo $?
+0
+minishell$ 
+
+-----------------------------------
+
+diminishell< /dev/stdin cat > fole
+salut^Mhiiiii^Mssssss^M^C
+minishell$ cat fole 
+minishell$ 
+
+bash-3.2$ < /dev/stdin cat > fole
+hello
+hi
+salut
+bash-3.2$ cat fole 
+hello
+hi
+salut
+bash-3.2$ 
+
+

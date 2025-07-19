@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/19 15:54:34 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 20:17:13 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,11 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
-# include <sys/wait.h> // only in linux 
 # include <signal.h>
 # include <termios.h>
 
 extern int	g_signal;
 
-enum
-{
-	CTR_C
-};
 typedef enum e_tok_type
 {
 	TOK_WORD,
@@ -43,9 +38,9 @@ typedef enum e_tok_type
 
 typedef struct s_token
 {
-	t_tok_type		type;
-	char			*value;
 	int				ambig;
+	char			*value;
+	t_tok_type		type;
 	struct s_token	*next;
 }	t_token;
 
@@ -75,19 +70,19 @@ typedef struct s_replace_ctx
 
 typedef struct s_redir_node
 {
-	t_redir_type		kind;
 	int					fd;
 	int					ishd;
 	int					flag;
-	char				*filename;
 	int					ambiguous;
+	char				*filename;
+	t_redir_type		kind;
 	struct s_redir_node	*next;
 }	t_redir_node;
 
 typedef struct s_tree
 {
-	t_node_type		kind;
 	char			**argv;
+	t_node_type		kind;
 	t_redir_node	*redirs;
 	struct s_tree	*left;
 	struct s_tree	*right;
@@ -135,6 +130,7 @@ int				ft_count(char const *s, char c);
 char			*ft_itoa(int n);
 int				ft_isascii(int c);
 char			*ft_strjoin_3(char *s1, char *s2, char *s3);
+void			ft_free(void *p, int k);
 
 int				count_word(char *s, char c);
 int				count_quote(char *src);
@@ -179,7 +175,6 @@ int				is_redi_operator(t_tok_type type);
 int				word_error(t_token *tmp);
 void			handel_case(t_token **token);
 void			handel_signal(void);
-
 char			*find_cmd_path(char *cmd, t_env *env, int *status);
 t_env			*create_node(char *cle, char *val);
 char			*ext_key(char *str);
@@ -205,7 +200,7 @@ void			update_value(t_env *env, char *key, char *value);
 char			*remove_last_slash(char *path);
 int				erreur(char *dir);
 int				is_builtins(char *cmd);
-int				check_builts(t_tree *tree, t_env *env, int is_child); /// herere
+int				check_builts(t_tree *tree, t_env *env, int is_child);
 char			*check_in_paths(char **dirs, char *cmd);
 void			ft_free_tab(char **tab);
 int				handle_redirs(t_tree *tree);
@@ -215,9 +210,6 @@ int				is_directory(char *path);
 int				exec_tree(t_tree *tree, t_env **env, int is_child);
 char			**to_array(t_env *env, int size);
 void			handle_heredoc_signals(void);
-// void			add_pid(t_pid_list **list, pid_t pid);
-// void			free_all_pid(t_pid_list *list);
-// void			kill_all_pid(t_pid_list *list);
 char			*generate_filename(void);
 void			write_in_herdoc(t_redir_node *redir, t_env *env, int fd);
 int				count_dolar(char *delimiter);

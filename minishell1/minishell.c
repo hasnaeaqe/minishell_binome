@@ -6,28 +6,26 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 16:22:27 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 20:26:14 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_signal = 0; 
+int	g_signal = 0;
 
-static int	handle_line(char **line)
+static int	handle_line(char **line1)
 {
-	*line = readline("minishell$ ");
-	*line = ft_strdup(*line);
-	if (!*line)
+	if (!*line1)
 	{
 		write(1, "exit\n", 5);
 		exit(exit_status(0, 1));
 	}
-	if (**line)
-		add_history(*line);
+	if (**line1)
+		add_history(*line1);
 	else
 	{
-		free(*line);
+		ft_free(*line1, 1);
 		return (0);
 	}
 	return (1);
@@ -54,23 +52,38 @@ static int	process_line(char *line, t_env **env)
 	token = NULL;
 	tokenisation(line, &token);
 	if (check_syntax_errors(token))
-		return (free_tokens(token), free(line), 1);
+		return (free_tokens(token), ft_free(line, 1), 1);
 	expand_tokens(&token, *env);
 	handel_ambiguous(&token);
 	splite_expand(&token);
 	flag = flag_herdoc(&token);
 	tree = parse_tree(&token, flag);
 	if (handle_heredoc(tree, *env, &stop) == 2)
-		return (free_tokens(token),free(line), 	exit_status(1, 0), 1);
+		return (free_tokens(token), ft_free(line, 1), exit_status(1, 0), 1);
 	status = exec_tree(tree, env, 0);
 	setup_signals();
 	(exit_status(status, 0), free_tokens(token));
-	return (free(line), 0);
+	return (ft_free(line, 1), 0);
+}
+
+void	check_args(int argc)
+{
+	if (argc != 1)
+	{
+		ft_putstr_fd("invalide args !\n", 2);
+		exit(1);
+	}
+	if (!isatty(STDIN_FILENO))
+	{
+		ft_putstr_fd("minishell: not interactive input\n", 2);
+		exit(1);
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
+	char	*line1;
 	t_env	*env;
 
 	(void)argv;
@@ -78,20 +91,19 @@ int	main(int argc, char **argv, char **envp)
 	if (!env)
 		return (1);
 	setup_signals();
-	if (argc != 1)
-		return (ft_putstr_fd("invalide args !\n", 2), 1);
-	if (!isatty(STDIN_FILENO))
-	{
-		ft_putstr_fd("minishell: not interactive input\n", 2);
-		exit(1);
-	}
+	check_args(argc);
 	while (1)
 	{
-		if (!handle_line(&line))
+		line = readline("minishell$ ");
+		line1 = ft_strdup(line);
+		if (!handle_line(&line1))
 			continue ;
 		handel_signal();
-		if (process_line(line, &env))
+		if (process_line(line1, &env))
 			continue ;
+		free(line);
 	}
+	ft_free(line1, 1);
+	free(line);
 	return (0);
 }

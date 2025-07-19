@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 15:19:42 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 20:30:23 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ t_env	*ft_env(char **env)
 		return (env_vide());
 	head = NULL;
 	i = 0;
-	while (env[i])
+	while (env && env[i])
 	{
 		new_node = create_node(ext_key(env[i]), ext_val(env[i]));
 		if (!new_node)
-			return (head);
+			return (head);// free return null;
 		ft_lstadd_back(&head, new_node);
 		i++;
 	}
