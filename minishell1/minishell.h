@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/17 16:12:17 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/17 17:36:16 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h> // only in linux 
 # include <signal.h>
-#include <termios.h>
+# include <termios.h>
 
 extern int	g_signal;
 

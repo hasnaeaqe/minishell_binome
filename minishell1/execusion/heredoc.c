@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/16 18:26:59 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/17 16:19:34 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static int	process_heredoc_redir(t_redir_node *redir, t_env *env, int *stop)
 	pid_t	pid;
 	int		status;
 
+	void (*old_hand)(int);
 	redir->ishd = 1;
 	if (open_heredoc_files(&filename, &fd, &fdread))
 		return (1);
@@ -64,14 +65,14 @@ static int	process_heredoc_redir(t_redir_node *redir, t_env *env, int *stop)
 	if (pid == 0)
 		handle_heredoc_child(redir, env, fd, fdread);
 	close(fd);
-	signal(SIGINT, SIG_IGN);
+	old_hand = signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	exit_status(WEXITSTATUS(status), 0);
-	if (WEXITSTATUS(status) == 1)
-		return (*stop = 1, close(fdread), 1);
-	redir->fd = fdread;
-	redir->kind = REDIR_INPUT;
-	return (0);
+	signal(SIGINT, old_hand);
+	printf("%d\n", WEXITSTATUS(status));
+	if (WEXITSTATUS(status) == 1 && WTERMSIG(status) == SIGINT)
+		return (*stop = 1, close(fdread),setup_signals(), exit_status(1, 0), 1);
+	return (redir->fd = fdread, redir->kind = REDIR_INPUT, 0);
 }
 
 void	handle_heredoc(t_tree *tree, t_env *env, int *stop_herdoc)
