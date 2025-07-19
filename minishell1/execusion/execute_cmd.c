@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 11:07:51 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 20:24:14 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ int execute_pipe(t_tree *tree, t_env *env)
 	signal(SIGINT, SIG_IGN);
 	close(pipefd[1]);
 	close(pipefd[0]);
-	
 	waitpid(pid_right, &status, 0);
 	while (wait(NULL) != -1)
 		;

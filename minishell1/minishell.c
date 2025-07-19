@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 16:40:33 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 20:14:57 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static int	process_line(char *line, t_env **env)
 	(exit_status(status, 0), free_tokens(token));
 	return (ft_free(line, 1), 0);
 }
-void check_args(int argc)
+
+void	check_args(int argc)
 {
 	if (argc != 1)
 	{
@@ -78,6 +79,7 @@ void check_args(int argc)
 		exit(1);
 	}
 }
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -99,7 +101,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		free(line);
 	}
-	ft_free(line1,1);
+	ft_free(line1, 1);
 	free(line);
 	return (0);
 }
