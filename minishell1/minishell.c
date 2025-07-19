@@ -6,17 +6,18 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 11:59:18 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 16:22:27 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_signal = 0;
+int	g_signal = 0; 
 
 static int	handle_line(char **line)
 {
 	*line = readline("minishell$ ");
+	*line = ft_strdup(*line);
 	if (!*line)
 	{
 		write(1, "exit\n", 5);
@@ -74,12 +75,11 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	env = ft_env(envp);
+	if (!env)
+		return (1);
 	setup_signals();
 	if (argc != 1)
-	{
-		ft_putstr_fd("invalide args !", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("invalide args !\n", 2), 1);
 	if (!isatty(STDIN_FILENO))
 	{
 		ft_putstr_fd("minishell: not interactive input\n", 2);

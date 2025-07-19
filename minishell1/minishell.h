@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/19 15:51:18 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 15:54:34 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h> // only in linux 
 # include <signal.h>
-#include <termios.h>
+# include <termios.h>
 
 extern int	g_signal;
 
