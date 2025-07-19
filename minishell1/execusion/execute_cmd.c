@@ -6,11 +6,12 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/18 20:33:04 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 11:07:51 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 
 static void	handle_no_path_case(t_tree *tree, t_env **env, char **array, char *path)
 {
@@ -89,16 +90,7 @@ int	execute_cmd(t_tree *tree, t_env **env, int is_child)
 		waitpid(pid, &status, 0);
 		setup_signals();
 	}
-	// free (array);
-	return (WEXITSTATUS(status));
-}
-void hand_sig(int sig)
-{
-		if (sig == SIGINT)
-			write(STDOUT_FILENO, "^C\n", 3);
-		else if (sig == SIGQUIT)
-			write(STDOUT_FILENO, "\\Quit\n", 6);
-	
+	return (status_exit(status)); 
 }
 static pid_t	create_child(int pipefd[2], t_tree *child_tree,
 							t_env *env, int is_left)
@@ -116,8 +108,8 @@ static pid_t	create_child(int pipefd[2], t_tree *child_tree,
 	}
 	if (pid == 0)
 	{
-		signal(SIGINT, hand_sig);
-		signal(SIGQUIT, hand_sig);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (is_left)
 			dup2(pipefd[1], STDOUT_FILENO);
 		else
@@ -151,7 +143,7 @@ int execute_pipe(t_tree *tree, t_env *env)
 	while (wait(NULL) != -1)
 		;
 	setup_signals();
-	return (WEXITSTATUS(status));
+	return (status_exit(status)); 
 }
 
 int exec_tree(t_tree *tree, t_env **env, int is_child)

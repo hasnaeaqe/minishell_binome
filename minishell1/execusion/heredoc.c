@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/18 20:41:02 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 12:00:53 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static int	process_heredoc_redir(t_redir_node *redir, t_env *env, int *stop)
 	int		fdread;
 	pid_t	pid;
 	int		status;
-	void	(*old_hand)(int);
 
 	redir->ishd = 1;
 	if (open_heredoc_files(&filename, &fd, &fdread))
@@ -69,9 +68,8 @@ static int	process_heredoc_redir(t_redir_node *redir, t_env *env, int *stop)
 	if (pid == 0)
 		handle_heredoc_child(redir, env, fd, fdread);
 	close(fd);
-	old_hand = signal(SIGINT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
-	signal(SIGINT, old_hand);
 	if (check_heredoc_status(status, fdread, stop))
 		return (1);
 	redir->fd = fdread;
@@ -88,8 +86,9 @@ int	handle_heredoc(t_tree *tree, t_env *env, int *stop_herdoc)
 	if (tree->kind == NODE_PIPE)
 	{
 		handle_heredoc(tree->left, env, stop_herdoc);
-		if (!*stop_herdoc)
-			handle_heredoc(tree->right, env, stop_herdoc);
+		if (*stop_herdoc == 1)
+			return (2);
+		handle_heredoc(tree->right, env, stop_herdoc);
 		return (0);
 	}
 	redir = tree->redirs;

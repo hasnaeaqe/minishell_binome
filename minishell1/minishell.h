@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/18 20:37:13 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 11:08:06 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,4 +223,5 @@ void			write_in_herdoc(t_redir_node *redir, t_env *env, int fd);
 int				count_dolar(char *delimiter);
 void			reset_terminal_mode(void);
 void			safe_free(char **filename);
+int    status_exit(int status);
 #endif

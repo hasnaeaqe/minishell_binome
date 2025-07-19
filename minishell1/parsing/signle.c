@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 10:19:44 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/18 16:28:47 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 11:19:57 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	heredoc_sig_handler(int sig)
 	if (sig == SIGINT)
 	{
 		g_signal = 1;
-		exit_status(1, 0);
+		exit_status(1, 1);
 		write(1, "\n", 1);
 		reset_terminal_mode();
 		exit(1);
