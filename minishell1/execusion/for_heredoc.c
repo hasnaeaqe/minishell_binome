@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   for_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 16:47:42 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/17 15:25:49 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 15:48:08 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,31 @@ int	count_dolar(char *delimiter)
 	return (count);
 }
 
+char	*rm_dolar(char *str)
+{
+	char	*dest;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	dest = ft_malloc(sizeof(ft_strlen(str)));
+	while (str[i])
+	{
+		if (str[i + 1] && str[i] == '$' && str[i + 1] == '"')
+			i++;
+		else
+			dest[j++] = str[i++];
+	}
+	dest[j] = '\0';
+	return (dest);
+}
 char	*handel_dolar(char *delimiter)
 {
 	if (ft_strnstr(delimiter, "$\"", ft_strlen(delimiter)))
 	{
 		if (count_dolar(delimiter) % 2 != 0)
-			return (ft_strdup(&delimiter[1]));
+			return (rm_dolar(delimiter));
 	}
 	return (delimiter);
 }
@@ -42,7 +61,7 @@ void	write_in_herdoc(t_redir_node *redir, t_env *env, int fd)
 {
 	char	*line;
 
-	while (1)
+	while (!g_signal)
 	{
 		line = readline(">");
 		redir->filename = rm_quotes(handel_dolar(redir->filename));
@@ -80,4 +99,13 @@ char	*generate_filename(void)
 	}
 	free(num);
 	return (filename);
+}
+
+void	safe_free(char **filename)
+{
+	while (filename && *filename)
+	{
+		free (*filename);
+		*filename = NULL;
+	}
 }

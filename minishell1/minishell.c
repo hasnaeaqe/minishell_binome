@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/17 17:14:49 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 15:41:49 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	g_signal = 0;
 static int	handle_line(char **line)
 {
 	*line = readline("minishell$ ");
+	*line = ft_strdup(*line);
 	if (!*line)
 	{
 		write(1, "exit\n", 5);
@@ -53,17 +54,14 @@ static int	process_line(char *line, t_env **env)
 	token = NULL;
 	tokenisation(line, &token);
 	if (check_syntax_errors(token))
-	{
-		free_tokens(token);
-		free(line);
-		return (1);
-	}
+		return (free_tokens(token), free(line), 1);
 	expand_tokens(&token, *env);
 	handel_ambiguous(&token);
 	splite_expand(&token);
 	flag = flag_herdoc(&token);
 	tree = parse_tree(&token, flag);
-	handle_heredoc(tree, *env, &stop);
+	if (handle_heredoc(tree, *env, &stop) == 2)
+		return (free_tokens(token),free(line), 	exit_status(1, 0), 1);
 	status = exec_tree(tree, env, 0);
 	setup_signals();
 	(exit_status(status, 0), free_tokens(token));

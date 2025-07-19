@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 10:19:44 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/17 16:12:00 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 15:11:40 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	handle_sigint(int sig)
 	{
 		g_signal = 1;
 		exit_status(1, 0);
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
 		rl_on_new_line();
+		rl_replace_line("", 0);
+		write(1, "\n", 1);
 		rl_redisplay();
 	}
 	else
@@ -33,13 +33,12 @@ void	setup_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 	rl_catch_signals = 0;
 }
-
 static void	heredoc_sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
 		g_signal = 1;
-		exit_status(1, 0);
+		exit_status(1, 1);
 		write(1, "\n", 1);
 		reset_terminal_mode();
 		exit(1);

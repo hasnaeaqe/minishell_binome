@@ -6,11 +6,12 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/16 20:40:50 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 11:07:51 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 
 static void	handle_no_path_case(t_tree *tree, t_env **env, char **array, char *path)
 {
@@ -73,15 +74,24 @@ int	execute_cmd(t_tree *tree, t_env **env, int is_child)
 		return (1);
 	if (tree && is_builtins(*tree->argv))
 		return (check_builts(tree, *env, is_child));
+		
 	pid = fork();
+	if (pid == -1)
+		return (perror("fork"), 1);
 	if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		exec_path(tree, env, array);
+	}
 	else
+	{
+		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, 0);
-	// free (array);
-	return (WEXITSTATUS(status));
+		setup_signals();
+	}
+	return (status_exit(status)); 
 }
-
 static pid_t	create_child(int pipefd[2], t_tree *child_tree,
 							t_env *env, int is_left)
 {
@@ -116,7 +126,6 @@ int execute_pipe(t_tree *tree, t_env *env)
 	int pipefd[2];
 	pid_t pid_right;
 	int status;
-
 	if (!tree)
 		return (1);
 	status = 0;
@@ -126,13 +135,15 @@ int execute_pipe(t_tree *tree, t_env *env)
 	create_child(pipefd, tree->left, env, 1);
 	pid_right = create_child(pipefd, tree->right, env, 0);
 	
+	signal(SIGINT, SIG_IGN);
 	close(pipefd[1]);
 	close(pipefd[0]);
 	
 	waitpid(pid_right, &status, 0);
 	while (wait(NULL) != -1)
 		;
-	return (WEXITSTATUS(status));
+	setup_signals();
+	return (status_exit(status)); 
 }
 
 int exec_tree(t_tree *tree, t_env **env, int is_child)

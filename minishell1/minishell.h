@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/17 17:36:16 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 15:12:08 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ int				check_builts(t_tree *tree, t_env *env, int is_child); /// herere
 char			*check_in_paths(char **dirs, char *cmd);
 void			ft_free_tab(char **tab);
 int				handle_redirs(t_tree *tree);
-void			handle_heredoc(t_tree *tree, t_env *env, int *stop_herdoc);
+int				handle_heredoc(t_tree *tree, t_env *env, int *stop_herdoc);
 int				errors(char *cmd, int mode);
 int				is_directory(char *path);
 int				exec_tree(t_tree *tree, t_env **env, int is_child);
@@ -222,4 +222,6 @@ char			*generate_filename(void);
 void			write_in_herdoc(t_redir_node *redir, t_env *env, int fd);
 int				count_dolar(char *delimiter);
 void			reset_terminal_mode(void);
+void			safe_free(char **filename);
+int    status_exit(int status);
 #endif

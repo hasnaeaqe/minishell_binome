@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/15 14:49:24 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 15:19:42 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ t_env	*ft_env(char **env)
 		i++;
 	}
 	update_value(head, "OLDPWD", NULL);
+	update_value(head, "_", "/usr/bin/env");
 	return (head);
 }
 

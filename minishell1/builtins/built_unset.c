@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/16 16:13:53 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 12:08:02 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ int	ft_unset(t_env **head, char **key_to_unset)
 		return (0);
 	while (key_to_unset && key_to_unset[i])
 	{
-		// if (!ft_strcmp(key_to_unset[i], "_"))
-		// {
-		// 	i++;
-		// 	continue ;
-		// }
+		if (!ft_strcmp(key_to_unset[i], "_"))
+		{
+			i++;
+			continue ;
+		}
 		if (is_valid(key_to_unset[i]) == 0)
 			unset_one(head, key_to_unset[i]);
 		else
