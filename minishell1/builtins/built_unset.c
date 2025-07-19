@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 12:08:02 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 15:41:48 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static void	free_node(t_env *tmp)
 		return ;
 	if (tmp->value)
 		free(tmp->value);
-	// free(tmp->key);
 	tmp->key = NULL;
 	tmp->value = NULL;
 	free(tmp);

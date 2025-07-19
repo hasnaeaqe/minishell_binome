@@ -6,28 +6,28 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 11:07:56 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 15:44:44 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int    status_exit(int status)
+int	status_exit(int status)
 {
-    if (WIFSIGNALED(status))
-    {
-        if (WTERMSIG(status) == SIGINT)
-        {
-            write (1, "\n", 1);
-            return (130);
-        }
-        if (WTERMSIG(status) == SIGQUIT)
-        {
-            write(1, "Quit: 3\n", 8);
-            return (131);
-        }
-    }
-    return (WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGINT)
+		{
+			write (1, "\n", 1);
+			return (130);
+		}
+		if (WTERMSIG(status) == SIGQUIT)
+		{
+			write(1, "Quit: 3\n", 8);
+			return (131);
+		}
+	}
+	return (WEXITSTATUS(status));
 }
 
 int	exit_status(int status, int flag)
