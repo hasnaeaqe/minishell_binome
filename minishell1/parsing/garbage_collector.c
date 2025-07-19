@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:53:14 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/19 16:31:41 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 20:42:30 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	*ft_malloc(size_t i)
 	void	*k;
 
 	k = malloc(i);
+	i = 0;
 	if (!k)
 		ft_exit(1);
 	ft_free(k, 0);

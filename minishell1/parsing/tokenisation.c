@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:32:06 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/16 15:15:36 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/19 20:40:09 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ void	tokenisation(char *str, t_token **token)
 	size_t	i;
 
 	i = 0;
-	if (!str || !str[0])
+	if (!str)
 		return ;
 	while (str[i])
 	{
-		while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 			i++;
 		if (!str[i])
 			return ;

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 16:47:42 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 20:13:38 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/19 20:32:49 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,25 @@ char	*handel_dolar(char *delimiter)
 void	write_in_herdoc(t_redir_node *redir, t_env *env, int fd)
 {
 	char	*line;
+	char	*line1;
 
 	while (!g_signal)
 	{
 		line = readline(">");
+		line1 = ft_strdup(line);
 		redir->filename = rm_quotes(handel_dolar(redir->filename));
-		if (!line || !ft_strcmp(line, redir->filename))
+		if (!line1 || !ft_strcmp(line1, redir->filename))
 		{
-			if (line)
+			if (line1)
 				free(line);
 			break ;
 		}
 		if (redir->flag == 0)
-			line = trasform_garbeg(expand_heredoc(line, env, 1));
-		ft_putstr_fd(line, fd);
+			line1 = trasform_garbeg(expand_heredoc(line1, env, 1));
+		ft_putstr_fd(line1, fd);
 		write(fd, "\n", 1);
-		free (line);
+		free(line1);
+		free(line);
 	}
 	close(fd);
 }
