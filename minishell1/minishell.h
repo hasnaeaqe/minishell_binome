@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/19 20:43:50 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 10:16:09 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@
 
 
 extern int	g_signal;
+
+typedef enum e_fd
+{
+    OPEN,
+    CLOSE,
+    HER_DOC,
+}	t_fd;
 
 typedef enum e_tok_type
 {
@@ -102,11 +109,13 @@ typedef struct s_exec
 	int	fd_out;
 }	t_exec;
 
-typedef struct s_pid_list
+typedef struct s_close_fds
 {
-	pid_t				pid;
-	struct s_pid_list	*next;
-}	t_pid_list;
+    int					fd;
+    int					Kind;
+    char				*filename;
+    struct s_close_fds	*next;
+}	t_close_fds;
 
 char			*ft_strdup(char *s1);
 char			*ft_strndup(char *s1, size_t n);
@@ -218,4 +227,5 @@ void			reset_terminal_mode(void);
 void			safe_free(char **filename);
 int				status_exit(int status);
 int				execute_pipe(t_tree *tree, t_env *env);
+int				open_fds(char *filename, int flag, int option, int Kind);
 #endif

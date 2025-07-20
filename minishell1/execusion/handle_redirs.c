@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 20:24:29 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 15:54:02 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	safe_free(char **filename)
 		free (*filename);
 		*filename = NULL;
 	}
+	free (filename);
+	filename = NULL;
 }
 
 static int	handle_input(t_redir_node *redir)
@@ -34,9 +36,9 @@ static int	handle_input(t_redir_node *redir)
 	if (redir->ishd == 1)
 		fd = redir->fd;
 	else
-		fd = open(redir->filename, O_RDONLY);
+		fd = open_fds(redir->filename, O_RDONLY, 0, OPEN);
 	if (fd < 0)
-		return (1);
+		return (perror(redir->filename), 1);
 	if (dup2(fd, STDIN_FILENO) == -1)
 		return (close(fd), 1);
 	return (close(fd), 0);
@@ -52,9 +54,9 @@ static int	handle_output(t_redir_node *redir)
 		exit_status(1, 0);
 		return (1);
 	}
-	fd = open(redir->filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	fd = open_fds(redir->filename, O_CREAT | O_RDWR | O_TRUNC, 0644, OPEN);
 	if (fd < 0)
-		return (1);
+		return (perror(redir->filename), 1);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		return (close(fd), 1);
 	return (close(fd), 0);
@@ -70,9 +72,9 @@ static int	handle_append(t_redir_node *redir)
 		exit_status(1, 0);
 		return (1);
 	}
-	fd = open(redir->filename, O_CREAT | O_RDWR | O_APPEND, 0644);
+	fd = open_fds(redir->filename, O_CREAT | O_RDWR | O_APPEND, 0644, OPEN);
 	if (fd < 0)
-		return (1);
+		return (perror(redir->filename), 1);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		return (close(fd), 1);
 	return (close(fd), 0);

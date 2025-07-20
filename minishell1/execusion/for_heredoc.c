@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 16:47:42 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 20:32:49 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 10:40:31 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,14 @@ void	write_in_herdoc(t_redir_node *redir, t_env *env, int fd)
 
 char	*generate_filename(void)
 {
-	char	*filename;
-	long	i;
-	char	*num;
+	char		*filename;
+	static long	i;
+	char		*num;
 
-	i = 0;
 	num = ft_itoa(i);
 	filename = ft_strjoin("/tmp/heredoc_", num);
-	while (access(filename, F_OK) == 0)
-	{
-		free(filename);
-		free(num);
+	if (filename)
 		i++;
-		num = ft_itoa(i);
-		filename = ft_strjoin("/tmp/heredoc_", num);
-	}
 	free(num);
 	return (filename);
 }

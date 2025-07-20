@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:41 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/14 14:43:57 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 19:47:49 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,14 @@ int	ft_export(char **argv, t_env **env)
 	int		status;
 
 	status = 0;
+	if (!env || !*env)
+		return (1);
 	size = ft_lstsize(*env);
 	if (argv && *argv)
 		ft_add_export(argv, env, &status);
 	array = env_to_array(*env, size);
+	if (!array || !*array)
+		return (1);
 	sort_list(array);
 	if (argv && !argv[1])
 		ft_printexport(array);

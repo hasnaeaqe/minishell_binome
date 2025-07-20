@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:48:18 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/16 16:05:19 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/20 19:31:41 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	check_builts(t_tree *tree, t_env *env, int is_child)
 	exec.fd_in = dup(STDIN_FILENO);
 	exec.fd_out = dup(STDOUT_FILENO);
 	status = 0;
+	if (!env)
+		return (1);
 	if (!tree || !tree->argv || !tree->argv[0])
 		return (1);
 	if (handle_redirs(tree) != 0)

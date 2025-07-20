@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 12:26:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 15:42:16 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 19:53:56 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_env	*find_node(t_env *env, char *key)
 	tmp = env;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->key, key) == 0)
+		if (tmp->key && key &&  ft_strcmp(tmp->key, key) == 0)
 			return (tmp);
 		tmp = tmp->next;
 	}

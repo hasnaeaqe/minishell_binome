@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/16 20:55:49 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 19:51:33 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	get_home(char **argv, t_env *env)
 	if (argv && !argv[1])
 	{
 		home = get_value(env, "HOME");
-		if (!home || !*home)
-			return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), 0);
+		if (!home)
+			return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), 1);
 		if (chdir(home) != 0)
 			return (erreur(home));
 		return (0);
@@ -48,31 +48,32 @@ int	point(t_env *env, char **argv)
 int	check_pwd(t_env *env, char *old_pwd)
 {
 	char	*pwd;
+	char	*p;
 	t_env	*tmp;
 
-	if (!env)
-		return (1);
 	pwd = getcwd(NULL, 0);
-	if (!pwd)
+	p = ft_strdup(pwd);
+	free(pwd);
+	if (!p)
 	{
-		ft_putstr_fd("cd: error retrieving current directory: getcwd: \
-cannot access parent directories: No such file or directory\n", 2);
-		pwd = get_value(env, "PWD");
-		pwd = ft_strjoin(pwd, "/..");
-		if (!pwd)
+		ft_putstr_fd("cd: error retrieving current directory: getcwd:", 2);
+		ft_putstr_fd(" cannot access parent directories: No such file or directory\n", 2);
+		p = get_value(env, "PWD");
+		p = ft_strjoin(p, "/..");
+		if (!p)
 			return (1);
 		tmp = env;
 		while (tmp)
 		{
 			if (ft_strcmp(tmp->key, "PWD") == 0)
-				update_value(env, "PWD", pwd);
+				update_value(env, "PWD", p);
 			tmp = tmp->next;
 		}
-		update_value(env, "OLDPWD", old_pwd);
-		return (0);
+		return (update_value(env, "OLDPWD", old_pwd), 0);
 	}
-	return (update_value(env, "OLDPWD", old_pwd),
-		update_value(env, "PWD", pwd), 0);
+	update_value(env, "OLDPWD", old_pwd);
+	update_value(env, "PWD", p);
+	return (0);
 }
 
 int	check_double_point(char *path, char *pwd, t_env *env)
@@ -95,6 +96,8 @@ int	ft_cd(char **argv, t_env *env)
 	char	*path;
 	char	*pwd;
 
+	if (!env)
+		return (1);
 	pwd = get_value(env, "PWD");
 	if (!get_home(argv, env))
 		return (check_pwd(env, pwd));

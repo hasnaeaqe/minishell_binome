@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:38:28 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/13 11:02:22 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 12:30:31 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	ft_stchr(const char *s, int c)
 
 	i = 0;
 	count = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 	{
 		if (s[i] == (char)c)
@@ -34,6 +36,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	unsigned char	*s;
 	unsigned char	*l;
 
+	if (!s1 || !s2)
+		return (0);
 	s = (unsigned char *)s1;
 	l = (unsigned char *)s2;
 	i = 0;
