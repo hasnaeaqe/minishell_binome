@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 16:07:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 20:12:19 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 15:19:21 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,9 @@ char	**to_array(t_env *env, int size)
 	t_env	*tmp;
 	int		i;
 
-	array = ft_malloc(sizeof(char *) * (size + 1));
+	if (!env)
+		return (NULL);
+	array = ft_malloc(sizeof(char *) * (size +  1));
 	if (!array)
 		return (NULL);
 	tmp = env;
@@ -90,8 +92,6 @@ char	**to_array(t_env *env, int size)
 	while (tmp && i < size)
 	{
 		array[i] = ft_strjoin_3(tmp->key, "=", tmp->value);
-		if (!array[i])
-			return (NULL);
 		tmp = tmp->next;
 		i++;
 	}

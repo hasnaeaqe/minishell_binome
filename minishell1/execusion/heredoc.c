@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 15:17:11 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/20 20:13:11 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,16 @@
 static int	open_heredoc_files(char **filename, int *fd_write, int *fd_read)
 {
 	*filename = generate_filename();
-	*fd_write = open(*filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	*fd_write = open_fds(*filename, O_CREAT | O_WRONLY | O_TRUNC, 0644, HER_DOC);
 	if (*fd_write == -1)
 		return (perror("heredoc open write"), 1);
-	*fd_read = open(*filename, O_RDONLY, 0644);
+	*fd_read = open_fds(*filename, O_RDONLY, 0644, HER_DOC);
 	if (*fd_read == -1)
 	{
 		close(*fd_write);
 		return (perror("heredoc open read"), 1);
 	}
 	unlink(*filename);
-	safe_free(filename);
 	return (0);
 }
 

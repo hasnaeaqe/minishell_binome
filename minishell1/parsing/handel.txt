@@ -220,6 +220,20 @@ minishell$
 
 
 
+minishell$ cp /bin/ls .
+minishell$ unset PATH
+minishell$ ls
+Makefile        execusion       minishell       minishell.h     test
+builtins        ls              minishell.c     parsing         todo
+minishell$ 
+
+
+////bash-3.2$ ./ls
+bash-3.2$ $?
+bash: 0: command not found
+bash-3.2$ 
+ whitout remove PATH
+
 
 
 

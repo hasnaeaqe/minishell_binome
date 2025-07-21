@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 13:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/17 14:04:30 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:11:33 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ void	max_herdoc(t_token *token)
 	if (i > 16)
 	{
 		ft_putstr_fd("minishell: maximum here-document count exceeded\n", 2);
-		exit(exit_status(2, 0));
+		ft_exit(exit_status(2, 0));
 	}
 }

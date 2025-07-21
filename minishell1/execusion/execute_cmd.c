@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 20:33:42 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 19:48:00 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	execute_cmd(t_tree *tree, t_env **env, int is_child)
 	int		status;
 	char	**array;
 
-	if (!tree)
+	if (!tree || !env || !*env)
 		return (1);
 	status = 0;
 	array = to_array(*env, ft_lstsize(*env));
@@ -89,7 +89,7 @@ int	execute_cmd(t_tree *tree, t_env **env, int is_child)
 
 int	exec_tree(t_tree *tree, t_env **env, int is_child)
 {
-	if (!tree)
+	if (!tree || !env || !*env)
 		return (1);
 	if (tree->kind == NODE_COMMAND)
 		return (execute_cmd(tree, env, is_child));

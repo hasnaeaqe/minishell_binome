@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 11:56:34 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/07 16:03:40 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 19:50:04 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ t_env	*create_node(char *cle, char *val)
 int	ft_lstsize(t_env *lst)
 {
 	int		count;
-	t_env	*head;
 
 	count = 0;
-	head = lst;
-	while (head)
+	if (!lst)
+		return (count);
+	while (lst)
 	{
-		head = head->next;
 		count++;
+		lst = lst->next;
 	}
 	return (count);
 }
@@ -65,11 +65,14 @@ void	ft_printenv(t_env **head)
 	t_env	*tmp;
 
 	if (!head || !*head)
+	{
+		ft_putstr_fd("minishell: env: No such file or directory", 2);
 		return ;
+	}
 	tmp = *head;
 	while (tmp)
 	{
-		if (tmp->value)
+		if (tmp->value && tmp->key)
 			printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}

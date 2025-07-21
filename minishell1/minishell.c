@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/20 17:48:56 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:14:35 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	handle_line(char **line1)
 	if (!*line1)
 	{
 		write(1, "exit\n", 5);
-		exit(exit_status(0, 1));
+		open_fds(NULL,0, 0, CLOSE);
+		ft_exit(exit_status(0, 1));
 	}
 	if (**line1)
 		add_history(*line1);
@@ -52,17 +53,18 @@ static int	process_line(char *line, t_env **env)
 	token = NULL;
 	tokenisation(line, &token);
 	if (check_syntax_errors(token))
-		return (free_tokens(token), ft_free(line, 1), 1);
+		return (ft_free(line, 1), 1);
 	expand_tokens(&token, *env);
 	handel_ambiguous(&token);
 	splite_expand(&token);
 	flag = flag_herdoc(&token);
 	tree = parse_tree(&token, flag);
 	if (handle_heredoc(tree, *env, &stop) == 2)
-		return (free_tokens(token), ft_free(line, 1), exit_status(1, 0), 1);
+		return (ft_free(line, 1), exit_status(1, 0), 1);
 	status = exec_tree(tree, env, 0);
 	setup_signals();
-	(exit_status(status, 0), free_tokens(token));
+	(exit_status(status, 0));
+	open_fds(NULL, 0, 0, CLOSE);
 	return (ft_free(line, 1), 0);
 }
 
@@ -88,8 +90,6 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	env = ft_env(envp);
-	if (!env)
-		return (1);
 	setup_signals();
 	check_args(argc);
 	while (1)
@@ -97,13 +97,18 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("minishell$ ");
 		line1 = ft_strdup(line);
 		if (!handle_line(&line1))
+		{
+			free(line);
 			continue ;
+		}
 		handel_signal();
 		if (process_line(line1, &env))
+		{
+			free(line);
 			continue ;
-		// free(line);
+		}
+		free(line);
+		line = NULL;
 	}
-	ft_free(line1, 1);
-	free(line);
-	return (0);
+	return (ft_free(line1, 1), free(line), 0);
 }

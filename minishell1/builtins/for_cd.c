@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   for_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 12:15:23 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/16 16:19:00 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/20 12:19:47 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int	erreur(char *dir)
 	ft_putstr_fd(dir, 2);
 	ft_putstr_fd(": ", 2);
 	if (access(dir, F_OK) == 0 && access(dir, X_OK) != 0)
-		return (ft_putstr_fd("Permission denied\n", 2), 126);
+		return (ft_putstr_fd("Permission denied\n", 2), 1);
 	else if (access(dir, F_OK) != 0)
-		return (ft_putstr_fd("No such file or directory\n", 2), 126);
-	return (126);
+		return (ft_putstr_fd("No such file or directory\n", 2), 1);
+	return (0);
 }

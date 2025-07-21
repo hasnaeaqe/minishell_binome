@@ -55,3 +55,23 @@ salut
 bash-3.2$ 
 
 
+minishell: cd: HOME not set
+minishell$ $?
+minishell: 0: command not found
+
+bash: cd: HOME not set
+bash-3.2$ $?
+bash: 1: command not found
+
+
+minishell$ unset OLDPWD PWD SHLVL
+minishell$ unset OLDPWD PWD SHLVL _
+minishell$ env
+HOME=/mnt/homes/haqajjef/Desktop/minishell
+PATH=/mnt/homes/haqajjef/.docker/bin:/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.
+_=/usr/bin/env
+minishell$ unset OLDPWD PWD SHLVL _ HOME 
+minishell$ env
+[1]    56203 segmentation fault  env -i ./minishell
+
+

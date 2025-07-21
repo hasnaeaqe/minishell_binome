@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:21:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/15 14:27:40 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 12:31:58 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@ int	ft_isdigit(int c)
 		return (1);
 	return (0);
 }
-
-// static void	check_atoi(int signe, long long c, int *overflow)
-// {
-// 	if ((signe == 1 && c > INT_MAX) || (signe == -1 && (-c) < INT_MIN))
-// 	{
-// 		*overflow = 1;
-// 		return (0);
-// 	}
-// }
 
 static int	check_overflow(long long prev, long long current, int *overflow)
 {
@@ -48,9 +39,9 @@ long	ft_atoi(char *str, int *overflow)
 	i = 0;
 	c = 0;
 	signe = 1;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+	while (str && (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)))
 		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (str && (str[i] == '+' || str[i] == '-'))
 	{
 		if (str[i] == '-')
 			signe = -1;
@@ -70,9 +61,7 @@ long	ft_atoi(char *str, int *overflow)
 int	ft_isalpha(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-	{
 		return (1);
-	}
 	return (0);
 }
 
@@ -81,7 +70,9 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	if (!s)
+		return (NULL);
+	while (s[i])
 	{
 		if (s[i] == (char)c)
 			return ((char *)&s[i]);
