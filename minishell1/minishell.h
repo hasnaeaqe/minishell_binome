@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/21 15:11:15 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:36:02 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ extern int	g_signal;
 
 typedef enum e_fd
 {
-    OPEN,
-    CLOSE,
-    HER_DOC,
+	OPEN,
+	CLOSE,
+	HER_DOC,
 }	t_fd;
 
 typedef enum e_tok_type
@@ -110,10 +110,10 @@ typedef struct s_exec
 
 typedef struct s_close_fds
 {
-    int					fd;
-    int					Kind;
-    char				*filename;
-    struct s_close_fds	*next;
+	int					fd;
+	int					kind;
+	char				*filename;
+	struct s_close_fds	*next;
 }	t_close_fds;
 
 char			*ft_strdup(char *s1);
@@ -223,9 +223,9 @@ char			*generate_filename(void);
 void			write_in_herdoc(t_redir_node *redir, t_env *env, int fd);
 int				count_dolar(char *delimiter);
 void			reset_terminal_mode(void);
-void			safe_free(char **filename);
 int				status_exit(int status);
 int				execute_pipe(t_tree *tree, t_env *env);
 int				open_fds(char *filename, int flag, int option, int Kind);
 void			ft_exit(size_t n);
+int				get_home(char **argv, t_env *env);
 #endif

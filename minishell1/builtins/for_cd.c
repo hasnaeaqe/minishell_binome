@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 12:15:23 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/20 12:19:47 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:03:41 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,22 @@ int	erreur(char *dir)
 	else if (access(dir, F_OK) != 0)
 		return (ft_putstr_fd("No such file or directory\n", 2), 1);
 	return (0);
+}
+
+int	get_home(char **argv, t_env *env)
+{
+	char	*home;
+
+	if (!env)
+		return (1);
+	if (argv && !argv[1])
+	{
+		home = get_value(env, "HOME");
+		if (!home)
+			return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), 1);
+		if (chdir(home) != 0)
+			return (erreur(home));
+		return (0);
+	}
+	return (1);
 }

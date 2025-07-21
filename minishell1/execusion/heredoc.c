@@ -6,22 +6,22 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/20 20:13:11 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:10:08 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	open_heredoc_files(char **filename, int *fd_write, int *fd_read)
+static int	open_heredoc_files(char **filename, int *fd_w, int *fd_read)
 {
 	*filename = generate_filename();
-	*fd_write = open_fds(*filename, O_CREAT | O_WRONLY | O_TRUNC, 0644, HER_DOC);
-	if (*fd_write == -1)
+	*fd_w = open_fds(*filename, O_CREAT | O_WRONLY | O_TRUNC, 0644, HER_DOC);
+	if (*fd_w == -1)
 		return (perror("heredoc open write"), 1);
 	*fd_read = open_fds(*filename, O_RDONLY, 0644, HER_DOC);
 	if (*fd_read == -1)
 	{
-		close(*fd_write);
+		close(*fd_w);
 		return (perror("heredoc open read"), 1);
 	}
 	unlink(*filename);

@@ -6,29 +6,11 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:41:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/20 19:51:33 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:03:29 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	get_home(char **argv, t_env *env)
-{
-	char	*home;
-
-	if (!env)
-		return (1);
-	if (argv && !argv[1])
-	{
-		home = get_value(env, "HOME");
-		if (!home)
-			return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), 1);
-		if (chdir(home) != 0)
-			return (erreur(home));
-		return (0);
-	}
-	return (1);
-}
 
 int	point(t_env *env, char **argv)
 {
@@ -45,6 +27,13 @@ int	point(t_env *env, char **argv)
 	return (1);
 }
 
+static void	print_error(void)
+{
+	ft_putstr_fd("cd: error retrieving current directory: getcwd:", 2);
+	ft_putstr_fd(" cannot access parent directories: ", 2);
+	ft_putstr_fd("No such file or directory\n", 2);
+}
+
 int	check_pwd(t_env *env, char *old_pwd)
 {
 	char	*pwd;
@@ -56,8 +45,7 @@ int	check_pwd(t_env *env, char *old_pwd)
 	free(pwd);
 	if (!p)
 	{
-		ft_putstr_fd("cd: error retrieving current directory: getcwd:", 2);
-		ft_putstr_fd(" cannot access parent directories: No such file or directory\n", 2);
+		print_error();
 		p = get_value(env, "PWD");
 		p = ft_strjoin(p, "/..");
 		if (!p)
@@ -72,8 +60,7 @@ int	check_pwd(t_env *env, char *old_pwd)
 		return (update_value(env, "OLDPWD", old_pwd), 0);
 	}
 	update_value(env, "OLDPWD", old_pwd);
-	update_value(env, "PWD", p);
-	return (0);
+	return (update_value(env, "PWD", p), 0);
 }
 
 int	check_double_point(char *path, char *pwd, t_env *env)

@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/21 15:14:35 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:35:28 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,10 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	env = ft_env(envp);
-	setup_signals();
-	check_args(argc);
+	(setup_signals(), check_args(argc));
 	while (1)
 	{
-		line = readline("minishell$ ");
-		line1 = ft_strdup(line);
+		(1) && (line = readline("minishell$ "), line1 = ft_strdup(line));
 		if (!handle_line(&line1))
 		{
 			free(line);
