@@ -1,7 +1,7 @@
 CC = cc 
 READLINE_DIR = $(shell brew --prefix readline)
 
-CFLAGS = -Wall -Wextra -Werror -I$(READLINE_DIR)/include #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -I$(READLINE_DIR)/include -fsanitize=address -g3
 LDFLAGS = -L$(READLINE_DIR)/lib -lreadline
 RM = rm -f
 
@@ -23,7 +23,7 @@ all: $(NOM)
 
 
 $(NOM): $(OB)
-	$(CC) $(CFLAGS) $(OB) -o $(NOM) $(LDFLAGS) -lncurses
+	$(CC) $(CFLAGS) $(OB) -o $(NOM) $(LDFLAGS)
 
 $(OB): minishell.h
 

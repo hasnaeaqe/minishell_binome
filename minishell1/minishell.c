@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 20:32:34 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 17:48:56 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	main(int argc, char **argv, char **envp)
 		handel_signal();
 		if (process_line(line1, &env))
 			continue ;
-		free(line);
+		// free(line);
 	}
 	ft_free(line1, 1);
 	free(line);

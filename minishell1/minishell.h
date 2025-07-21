@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/19 20:43:50 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 09:54:15 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <sys/stat.h>
 # include <signal.h>
 # include <termios.h>
-
 
 extern int	g_signal;
 

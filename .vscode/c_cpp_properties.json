@@ -4,7 +4,7 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/goinfre/haqajjef/homebrew/opt/readline"
+                "/mnt/homes/cbayousf/homebrew/opt/readline"
             ],
             "defines": [],
             "cStandard": "c17",

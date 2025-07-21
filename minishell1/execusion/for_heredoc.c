@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   for_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 16:47:42 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 20:32:49 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/20 18:24:28 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,20 @@ char	*rm_dolar(char *str)
 {
 	char	*dest;
 	int		i;
+	char	n;
 	int		j;
 
 	i = 0;
 	j = 0;
+	n = 0;
 	dest = ft_malloc(sizeof(ft_strlen(str)));
 	while (str[i])
 	{
-		if (str[i + 1] && str[i] == '$' && str[i + 1] == '"')
+		if (str[i + 1] && str[i] == '$' && str[i + 1] == '"' && n == 0)
+		{
 			i++;
+			n = 1;
+		}
 		else
 			dest[j++] = str[i++];
 	}
