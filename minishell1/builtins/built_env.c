@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/20 20:09:44 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:55:00 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_env	*ft_env(char **env)
 	{
 		new_node = create_node(ext_key(env[i]), ext_val(env[i]));
 		if (!new_node)
-			return (head);// free return null;
+			return (NULL);
 		ft_lstadd_back(&head, new_node);
 		i++;
 	}

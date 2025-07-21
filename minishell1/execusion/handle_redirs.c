@@ -6,22 +6,11 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:47:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/20 15:54:02 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:22:47 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	safe_free(char **filename)
-{
-	while (filename && *filename)
-	{
-		free (*filename);
-		*filename = NULL;
-	}
-	free (filename);
-	filename = NULL;
-}
 
 static int	handle_input(t_redir_node *redir)
 {

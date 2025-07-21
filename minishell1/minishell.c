@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/20 20:09:27 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:29:53 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	handle_line(char **line1)
 	if (!*line1)
 	{
 		write(1, "exit\n", 5);
-		open_fds(NULL,0, 0, CLOSE);
+		open_fds(NULL, 0, 0, CLOSE);
 		ft_free(*line1, 1);
 		exit(exit_status(0, 1));
 	}
@@ -91,12 +91,10 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	env = ft_env(envp);
-	setup_signals();
-	check_args(argc);
+	(setup_signals(), check_args(argc));
 	while (1)
 	{
-		line = readline("minishell$ ");
-		line1 = ft_strdup(line);
+		(1) && (line = readline("minishell$ "), line1 = ft_strdup(line));
 		if (!handle_line(&line1))
 		{
 			free(line);

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 16:07:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/20 15:19:21 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:10:44 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	**to_array(t_env *env, int size)
 
 	if (!env)
 		return (NULL);
-	array = ft_malloc(sizeof(char *) * (size +  1));
+	array = ft_malloc(sizeof(char *) * (size + 1));
 	if (!array)
 		return (NULL);
 	tmp = env;
