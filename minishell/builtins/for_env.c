@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 11:56:34 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/20 19:50:04 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/23 20:23:55 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_env	*create_node(char *cle, char *val)
 	env = ft_malloc(sizeof(t_env));
 	if (!env)
 		return (NULL);
-	env->key = cle;
-	env->value = val;
+	env->key = ft_strdup(cle);
+	env->value = ft_strdup(val);
 	env->next = NULL;
 	return (env);
 }
