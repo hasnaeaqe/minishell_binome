@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:12:49 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/21 15:35:28 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:49:20 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	handle_line(char **line1)
 	if (!*line1)
 	{
 		write(1, "exit\n", 5);
-		open_fds(NULL,0, 0, CLOSE);
+		open_fds(NULL, 0, 0, CLOSE);
 		ft_exit(exit_status(0, 1));
 	}
 	if (**line1)

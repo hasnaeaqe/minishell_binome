@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:35 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/21 15:08:48 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:16:47 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,37 @@ static int	is_valid(char *str)
 {
 	int	i;
 
-	if (!str)
-		return (1);
+	if (!str || str[0] == '\0')
+		return (0);
 	if ((!ft_isalpha(str[0]) && str[0] != '_') || ft_isdigit(str[0]))
-		return (1);
+		return (0);
 	i = 1;
 	while (str[i])
 	{
 		if (!ft_isalpha(str[i]) && str[i] != '_' && !ft_isdigit(str[i]))
-			return (1);
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
-static void	free_node(t_env *tmp)
-{
-	if (tmp)
-	{
-		if (tmp->key)
-			free(tmp->key);
-		if (tmp->value)
-			free(tmp->value);
-		tmp->key = NULL;
-		tmp->value = NULL;
-	}
-}
+// static void	free_node(t_env **tmp)
+// {
+// 	if (!*tmp)
+// 		return ;
+// 	if ((*tmp)->key)
+// 	{
+// 		free((*tmp)->key);
+// 		(*tmp)->key = NULL;
+// 	}
+// 	if ((*tmp)->value)
+// 	{
+// 		free((*tmp)->value);
+// 		(*tmp)->value = NULL;
+// 	}
+// 	(*tmp)->next = NULL;
+// 	free((*tmp));
+// }
 
 void	unset_one(t_env **head, char *key_to_unset)
 {
@@ -52,15 +57,17 @@ void	unset_one(t_env **head, char *key_to_unset)
 		return ;
 	tmp = *head;
 	prev = NULL;
-	while (tmp && tmp->key)
+	while (tmp)
 	{
-		if (ft_strcmp(tmp->key, key_to_unset) == 0)
+		if (tmp->key && ft_strcmp(tmp->key, key_to_unset) == 0)
 		{
 			if (prev)
 				prev->next = tmp->next;
 			else
-				(*head) = tmp->next;
-			free_node(tmp);
+				*head = tmp->next;
+			free(tmp->key);
+			free(tmp->value);
+			free(tmp);
 			return ;
 		}
 		prev = tmp;
@@ -72,7 +79,7 @@ static int	not_valid(char *key_to_unset)
 {
 	ft_putstr_fd("minishell: unset: ", 2);
 	ft_putstr_fd(key_to_unset, 2);
-	ft_putstr_fd(" : not a valid identifier\n", 2);
+	ft_putstr_fd(": not a valid identifier\n", 2);
 	return (1);
 }
 
@@ -83,11 +90,11 @@ int	ft_unset(t_env **head, char **key_to_unset)
 
 	i = 0;
 	status = 0;
-	if (!head || !*head)
-		return (1);
-	while (key_to_unset && key_to_unset[i])
+	if (!key_to_unset)
+		return (0);
+	while (key_to_unset[i])
 	{
-		if (is_valid(key_to_unset[i]) == 0)
+		if (is_valid(key_to_unset[i]))
 			unset_one(head, key_to_unset[i]);
 		else
 		{

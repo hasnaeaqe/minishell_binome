@@ -6,7 +6,7 @@
 /*   By: cbayousf <cbayousf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/21 15:36:02 by cbayousf         ###   ########.fr       */
+/*   Updated: 2025/07/24 10:32:00 by cbayousf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,8 +176,6 @@ char			*trasform_garbeg(char *str);
 t_redir_node	*new_redir(t_redir_type kind, char *filename,
 					int flag, int ambiguous);
 t_tree			*new_tree(t_node_type kind, char **argv, t_redir_node *redirs);
-void			print_tree(t_tree *tree, int depth);
-void			print_tokens(t_token *token);
 char			*expand_heredoc(char *line, t_env *env, int flag);
 int				exit_status(int status, int flag);
 int				is_redi_operator(t_tok_type type);
