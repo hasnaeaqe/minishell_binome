@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/21 15:25:32 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/24 18:14:32 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,13 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_env_copy
+{
+	char				*key;
+	char				*value;			
+	struct s_env_copy	*next;
+}	t_env_copy;
+
 typedef struct s_exec
 {
 	int	fd_in;
@@ -176,8 +183,6 @@ char			*trasform_garbeg(char *str);
 t_redir_node	*new_redir(t_redir_type kind, char *filename,
 					int flag, int ambiguous);
 t_tree			*new_tree(t_node_type kind, char **argv, t_redir_node *redirs);
-void			print_tree(t_tree *tree, int depth);
-void			print_tokens(t_token *token);
 char			*expand_heredoc(char *line, t_env *env, int flag);
 int				exit_status(int status, int flag);
 int				is_redi_operator(t_tok_type type);
@@ -189,7 +194,6 @@ t_env			*create_node(char *cle, char *val);
 char			*ext_key(char *str);
 char			*ext_val(char *env);
 void			ft_printenv(t_env **head);
-t_env			**env_to_array(t_env *env, int size);
 int				parse_args(char *str);
 int				exit_status(int status, int flag);
 t_env			*ft_env(char **env);
@@ -198,18 +202,18 @@ int				ft_echo(char **argv);
 int				built_pwd(t_env *env, int write);
 int				built_exit(char **args, int is_child);
 int				ft_unset(t_env **head, char **key_to_unset);
-int				ft_export(char **argv, t_env **env);
-void			sort_list(t_env **env);
-void			ft_printexport(t_env **head);
+int				ft_export(char **argv, t_env *env);
+void			sort_list(t_env_copy **env);
+void			ft_printexport(t_env_copy **head);
 t_env			*find_node(t_env *env, char *key);
-t_env			**env_to_array(t_env *env, int size);
+t_env_copy		**env_to_array(t_env_copy *env, int size);
 int				ft_cd(char **argv, t_env *env);
 char			*get_value(t_env *env, char *key);
 void			update_value(t_env *env, char *key, char *value);
 char			*remove_last_slash(char *path);
 int				erreur(char *dir);
 int				is_builtins(char *cmd);
-int				check_builts(t_tree *tree, t_env *env, int is_child);
+int				check_builts(t_tree *tree, t_env **env, int is_child);
 char			*check_in_paths(char **dirs, char *cmd);
 void			ft_free_tab(char **tab);
 int				handle_redirs(t_tree *tree);
@@ -227,4 +231,5 @@ int				status_exit(int status);
 int				execute_pipe(t_tree *tree, t_env *env);
 int				open_fds(char *filename, int flag, int option, int Kind);
 int				get_home(char **argv, t_env *env);
+t_env_copy		*create_copy_env(t_env *env);
 #endif

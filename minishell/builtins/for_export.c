@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 12:26:29 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/21 15:04:01 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/24 18:12:53 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ t_env	*find_node(t_env *env, char *key)
 	return (NULL);
 }
 
-t_env	**env_to_array(t_env *env, int size)
+t_env_copy	**env_to_array(t_env_copy *env, int size)
 {
-	t_env	**array;
-	t_env	*tmp;
-	int		i;
+	t_env_copy	**array;
+	t_env_copy	*tmp;
+	int			i;
 
-	array = ft_malloc(sizeof(t_env *) * (size + 1));
+	array = ft_malloc(sizeof(t_env_copy *) * (size + 1));
 	if (!array)
 		return (NULL);
 	tmp = env;
@@ -47,9 +47,9 @@ t_env	**env_to_array(t_env *env, int size)
 	return (array);
 }
 
-void	ft_printexport(t_env **head)
+void	ft_printexport(t_env_copy **head)
 {
-	t_env	*tmp;
+	t_env_copy	*tmp;
 
 	if (!head || !*head)
 		return ;
@@ -64,7 +64,7 @@ void	ft_printexport(t_env **head)
 	}
 }
 
-void	swap_nodes(t_env *a, t_env *b)
+void	swap_nodes(t_env_copy *a, t_env_copy *b)
 {
 	char	*tmpa;
 	char	*tmpb;
@@ -77,10 +77,10 @@ void	swap_nodes(t_env *a, t_env *b)
 	b->value = tmpb;
 }
 
-void	sort_list(t_env **env)
+void	sort_list(t_env_copy **env)
 {
-	t_env	*tmp;
-	int		swapped;
+	t_env_copy	*tmp;
+	int			swapped;
 
 	swapped = 1;
 	if (!env || !(*env) || (*env)->next == NULL)

@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/21 17:04:07 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:05:23 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,22 @@ t_env	*env_vide(void)
 	char	*pwd;
 	char	*path;
 	t_env	*env;
+	char	*p;
 
 	env = NULL;
 	pwd = getcwd(NULL, 0);
+	p = ft_strdup(pwd);
 	if (!pwd)
 		return (NULL);
+	free(pwd);
 	path = "PATH=/mnt/homes/haqajjef/.docker/bin:/usr/gnu/bin:"
 		"/usr/local/bin:/bin:/usr/bin";
 	ft_lstadd_back(&env, create_node("OLDPWD", NULL));
 	ft_lstadd_back(&env, create_node(ext_key(path), ext_val(path)));
-	ft_lstadd_back(&env, create_node("PWD", pwd));
+	ft_lstadd_back(&env, create_node("PWD", p));
 	ft_lstadd_back(&env, create_node(ext_key("SHLVL=1"), ext_val("SHLVL=1")));
 	ft_lstadd_back(&env, \
 	create_node(ext_key("_=/usr/bin/env"), ext_val("_=/usr/bin/env")));
+	free(p);
 	return (env);
 }
