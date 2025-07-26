@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:58 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/24 13:05:23 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/26 11:11:19 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ t_env	*env_vide(void)
 
 	env = NULL;
 	pwd = getcwd(NULL, 0);
-	p = ft_strdup(pwd);
 	if (!pwd)
 		return (NULL);
+	p = ft_strdup(pwd);
 	free(pwd);
 	path = "PATH=/mnt/homes/haqajjef/.docker/bin:/usr/gnu/bin:"
 		"/usr/local/bin:/bin:/usr/bin";

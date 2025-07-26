@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/24 18:11:09 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/26 11:08:19 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,7 @@ int	exec_tree(t_tree *tree, t_env **env, int is_child)
 	if (!tree || !env || !*env)
 		return (1);
 	if (tree->kind == NODE_COMMAND)
-	{
 		return (execute_cmd(tree, env, is_child));
-	}
 	else if (tree->kind == NODE_PIPE)
 		return (execute_pipe(tree, *env));
 	return (0);

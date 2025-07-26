@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:48:18 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/24 18:11:52 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/26 11:05:11 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	ft_built(t_tree *tree, t_env **env, t_exec *exec, int is_child)
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		status = built_pwd(*env, 1);
 	else if (ft_strcmp(cmd[0], "export") == 0)
-		status = ft_export(tree->argv, *env);
+		status = ft_export(tree->argv, env);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		status = ft_unset(env, tree->argv + 1);
 	else if (ft_strcmp(cmd[0], "env") == 0)

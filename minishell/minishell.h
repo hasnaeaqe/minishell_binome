@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:33:22 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/24 18:14:32 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/26 11:04:53 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ int				ft_echo(char **argv);
 int				built_pwd(t_env *env, int write);
 int				built_exit(char **args, int is_child);
 int				ft_unset(t_env **head, char **key_to_unset);
-int				ft_export(char **argv, t_env *env);
+int				ft_export(char **argv, t_env **env);
 void			sort_list(t_env_copy **env);
 void			ft_printexport(t_env_copy **head);
 t_env			*find_node(t_env *env, char *key);

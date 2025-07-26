@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:19:41 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/24 18:16:06 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/26 11:04:39 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	ft_add_export(char **argv, t_env **env, int *status)
 	}
 }
 
-int	ft_export(char **argv, t_env *env)
+int	ft_export(char **argv, t_env **env)
 {
 	t_env_copy	**array;
 	int			size;
@@ -118,10 +118,10 @@ int	ft_export(char **argv, t_env *env)
 	status = 0;
 	if (!env)
 		return (1);
-	size = ft_lstsize(env);
+	size = ft_lstsize(*env);
 	if (argv && *argv)
-		ft_add_export(argv, &env, &status);
-	copy_env = create_copy_env(env);
+		ft_add_export(argv, env, &status);
+	copy_env = create_copy_env(*env);
 	array = env_to_array(copy_env, size);
 	if (!array || !*array)
 		return (1);

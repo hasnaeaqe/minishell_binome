@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 12:15:23 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/24 18:12:19 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/26 11:32:04 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_value(t_env *env, char *key)
 	return (NULL);
 }
 
-void	update_value(t_env *env, char *key, char *value) ///
+void	update_value(t_env *env, char *key, char *value)
 {
 	t_env	*new;
 	t_env	*tmp;
@@ -36,7 +36,7 @@ void	update_value(t_env *env, char *key, char *value) ///
 		return ;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->key, key) == 0)
+		if (key && ft_strcmp(tmp->key, key) == 0)
 		{
 			tmp->value = ft_strdup(value);
 			return ;
