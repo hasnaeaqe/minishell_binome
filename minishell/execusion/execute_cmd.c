@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:17:10 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/26 11:08:19 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/26 12:25:00 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	exec_path(t_tree *tree, t_env **env, char **array)
 	if (handle_redirs(tree))
 		exit(1);
 	path = find_cmd_path(tree->argv[0], *env, &status);
-	if (status != -1 && status != 0)
+	if (status != -1 && status != 1)
 		exit(status);
 	if (!path || (is_directory(path) && !ft_strchr(tree->argv[0], '/')))
 		handle_no_path_case(tree, env, array, path);

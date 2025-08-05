@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:15:22 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 15:44:44 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/26 12:39:48 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static int	is_numeric(char *str)
 		return (0);
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
+	if (!ft_isdigit(str[i]))
+		return (0);
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	if (!ft_isdigit(str[i]))
@@ -57,7 +59,7 @@ static int	is_numeric(char *str)
 		i++;
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
-	return (str[i] == '\0');
+	return (1);
 }
 
 static void	args_required(char *arg)

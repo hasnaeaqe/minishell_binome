@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 10:19:44 by cbayousf          #+#    #+#             */
-/*   Updated: 2025/07/24 18:09:01 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/08/01 14:44:24 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	handle_sigint(int sig)
 		g_signal = 1;
 		exit_status(1, 0);
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_redisplay();
 	}
@@ -31,7 +31,7 @@ void	setup_signals(void)
 {
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
-	rl_catch_signals = 0;
+	// rl_catch_signals = 0;
 }
 
 static void	heredoc_sig_handler(int sig)

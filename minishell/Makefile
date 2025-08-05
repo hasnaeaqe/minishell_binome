@@ -1,7 +1,7 @@
 CC = cc 
 READLINE_DIR = $(shell brew --prefix readline)
 
-CFLAGS = -Wall -Wextra -Werror -I$(READLINE_DIR)/include #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -I$(READLINE_DIR)/include
 LDFLAGS = -L$(READLINE_DIR)/lib -lreadline
 RM = rm -f
 

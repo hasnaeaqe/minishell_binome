@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:50:04 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/19 20:15:50 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/26 12:01:56 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,7 @@ static pid_t	create_child(int pipefd[2], t_tree *child_tree,
 
 	pid = fork();
 	if (pid == -1)
-	{
-		if (is_left)
-			perror("fork left");
-		else
-			perror("fork right");
-		exit(EXIT_FAILURE);
-	}
+		return (perror("fork"), exit(EXIT_FAILURE), 1);
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);

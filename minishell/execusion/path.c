@@ -6,7 +6,7 @@
 /*   By: haqajjef <haqajjef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 10:22:40 by haqajjef          #+#    #+#             */
-/*   Updated: 2025/07/24 17:12:13 by haqajjef         ###   ########.fr       */
+/*   Updated: 2025/07/26 12:29:32 by haqajjef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ int	check_cmd_path_errors(char *cmd)
 		return (errors(cmd, 21));
 	if (access(cmd, X_OK) != 0)
 		return (errors(cmd, 13));
-	return (0);
+	if (access(cmd, X_OK) == 0)
+		return (0);
+	return (1);
 }
 
 char	*find_cmd_path(char *cmd, t_env *env, int *status)
